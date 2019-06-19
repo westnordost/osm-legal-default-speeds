@@ -56,6 +56,7 @@ def get_page_html(api_url: str, page_name: str) -> str:
 def is_uninteresting(tag: element.Tag):
     return tag.name in {"sup", "img"}
 
+
 def split_speeds(str) -> list:
     braces = 0
     res = []
@@ -70,7 +71,7 @@ def split_speeds(str) -> list:
         else:
             if c == "(":
                 braces += 1
-            elif c == ")": 
+            elif c == ")":
                 braces -= 1
                 if braces < 0:
                     raise ValueError("Too many closing braces in \"{0}\"".format(str))
@@ -118,10 +119,12 @@ def parse_speed_table(table) -> dict:
 
                 if speeds:
                     vehicle_type = column_names[col_idx]
-                    try: 
+                    try:
                         speeds_list = split_speeds(speeds)
                     except ValueError as e:
-                        raise ValueError("Parsing \"{0}\" for \"{1}\" in {2}:\n{3}".format(vehicle_type, road_type, country_code, str(e)))
+                        raise ValueError("Parsing \"{0}\" for \"{1}\" in {2}:\n{3}".format(
+                            vehicle_type, road_type, country_code, str(e))
+                        )
                     # TODO: Use these groups in the next stage to build a set of proper restrictions
                     speeds_by_vehicle_type[vehicle_type] = speeds_list
 
