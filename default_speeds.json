@@ -41,24 +41,24 @@
     "AG": {
         "(default)": {
             "(default)": [
-                "40 "
+                "40 mph"
             ],
             "bus": [
-                "25 "
+                "25 mph"
             ],
             "goods": [
-                "25 "
+                "25 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "20 "
+                "20 mph"
             ],
             "bus": [
-                "15 "
+                "15 mph"
             ],
             "goods": [
-                "15 "
+                "15 mph"
             ]
         }
     },
@@ -294,12 +294,12 @@
     "AS": {
         "(default)": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         }
     },
@@ -325,7 +325,9 @@
             ]
         },
         "living street": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "motorroad": {
             "(default)": [
@@ -356,7 +358,9 @@
             ]
         },
         "pedestrian zone": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "urban": {
             "(default)": [
@@ -569,7 +573,9 @@
             ]
         },
         "living street": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "motorway": {
             "(default)": [
@@ -658,7 +664,9 @@
             ]
         },
         "pedestrian zone": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "single carriageway with 2 or more lanes in each direction": {
             "(default)": [
@@ -1281,7 +1289,9 @@
             ]
         },
         "pedestrian zone": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "urban": {
             "(default)": [
@@ -1548,7 +1558,7 @@
         },
         "dual carriageway": {
             "(default)": [
-                "130",
+                "advisory: 130",
                 "80 (trailer)",
                 "80 (3.5t)",
                 "60 (7.5t)"
@@ -1562,16 +1572,18 @@
                 "60 (7.5t)"
             ],
             "motorhome": [
-                "130",
+                "advisory: 130",
                 "60 (7.5t)"
             ]
         },
         "living street": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "motorroad with dual carriageway": {
             "(default)": [
-                "130",
+                "advisory: 130",
                 "80 (trailer)",
                 "80 (3.5t)"
             ],
@@ -1585,12 +1597,12 @@
                 "80"
             ],
             "motorhome": [
-                "130"
+                "advisory: 130"
             ]
         },
         "motorway": {
             "(default)": [
-                "130",
+                "advisory: 130",
                 "80 (trailer)",
                 "80 (3.5t)"
             ],
@@ -1604,12 +1616,12 @@
                 "80"
             ],
             "motorhome": [
-                "130"
+                "advisory: 130"
             ]
         },
         "single carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "130",
+                "advisory: 130",
                 "80 (trailer)",
                 "80 (3.5t)",
                 "60 (7.5t)"
@@ -1623,7 +1635,7 @@
                 "60 (7.5t)"
             ],
             "motorhome": [
-                "130",
+                "advisory: 130",
                 "60 (7.5t)"
             ]
         },
@@ -2039,108 +2051,93 @@
     "GB": {
         "(default)": {
             "(default)": [
-                "60 ",
-                "50 "
+                "60 mph",
+                "50 mph (trailer)"
             ],
             "bus": [
-                "50 "
+                "50 mph"
             ],
             "hgv": [
-                "50 "
+                "50 mph"
             ],
             "motorhome": [
-                "60 ",
-                "50 ",
-                "3",
-                "05"
+                "60 mph",
+                "50 mph (empty 3.05t)"
             ]
         },
         "UK built-up area": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "70 ",
-                "60 "
+                "70 mph",
+                "60 mph (trailer)"
             ],
             "bus": [
-                "60 "
+                "60 mph"
             ],
             "hgv": [
-                "60 "
+                "60 mph"
             ],
             "motorhome": [
-                "70 ",
-                "60 ",
-                "3",
-                "05"
+                "70 mph",
+                "60 mph (empty 3.05t)"
             ]
         },
         "motorway": {
             "(default)": [
-                "70 ",
-                "60 "
+                "70 mph",
+                "60 mph (trailer)"
             ],
             "bus": [
-                "70 ",
-                "60 ",
-                "12"
+                "70 mph",
+                "60 mph (12m)"
             ],
             "hgv": [
-                "70 ",
-                "60 ",
-                "7",
-                "5",
-                "60 "
+                "70 mph",
+                "60 mph (7.5t)",
+                "60 mph (articulated)"
             ],
             "motorhome": [
-                "70 "
+                "70 mph"
             ]
         }
     },
     "GB-SCT": {
         "(default)": {
             "(default)": [
-                "60 ",
-                "50 "
+                "60 mph",
+                "50 mph (trailer)"
             ],
             "bus": [
-                "50 "
+                "50 mph"
             ],
             "hgv": [
-                "50 ",
-                "40 ",
-                "7",
-                "5"
+                "50 mph",
+                "40 mph (7.5t)"
             ],
             "motorhome": [
-                "60 ",
-                "50 ",
-                "3",
-                "05"
+                "60 mph",
+                "50 mph (empty 3.05t)"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "70 ",
-                "60 "
+                "70 mph",
+                "60 mph (trailer)"
             ],
             "bus": [
-                "60 "
+                "60 mph"
             ],
             "hgv": [
-                "60 ",
-                "50 ",
-                "7",
-                "5"
+                "60 mph",
+                "50 mph (7.5t)"
             ],
             "motorhome": [
-                "70 ",
-                "60 ",
-                "3",
-                "05"
+                "70 mph",
+                "60 mph (empty 3.05t)"
             ]
         }
     },
@@ -2203,16 +2200,16 @@
     "GH": {
         "(default)": {
             "bus": [
-                "40 "
+                "40 mph"
             ],
             "goods": [
-                "40 ",
-                "30 "
+                "40 mph",
+                "30 mph (trailer)"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
@@ -2319,7 +2316,7 @@
     "GU": {
         "(default)": {
             "(default)": [
-                "45 "
+                "45 mph"
             ]
         }
     },
@@ -2954,14 +2951,14 @@
     "JE": {
         "(default)": {
             "(default)": [
-                "40 ",
-                "30 "
+                "40 mph",
+                "30 mph (trailer)"
             ],
             "bus": [
-                "30 "
+                "30 mph"
             ],
             "hgv": [
-                "30 "
+                "30 mph"
             ]
         }
     },
@@ -3020,25 +3017,25 @@
     "LR": {
         "(default)": {
             "(default)": [
-                "45 "
+                "45 mph"
             ],
             "motorcycle": [
-                "40 "
+                "40 mph"
             ]
         },
         "non-urban residential": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
@@ -3246,20 +3243,20 @@
     "MP": {
         "(default)": {
             "(default)": [
-                "45 "
+                "45 mph"
             ]
         }
     },
     "MS": {
         "(default)": {
             "(default)": [
-                "40 "
+                "40 mph"
             ],
             "bus": [
-                "25 "
+                "25 mph"
             ],
             "goods": [
-                "25 "
+                "25 mph"
             ]
         }
     },
@@ -3645,7 +3642,9 @@
             ]
         },
         "living street": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "motorway": {
             "(default)": [
@@ -3664,7 +3663,9 @@
             ]
         },
         "pedestrian zone": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "urban": {
             "(default)": [
@@ -3764,8 +3765,7 @@
         },
         "urban main road with 2 lanes in each direction": {
             "(default)": [
-                "80",
-                "50"
+                "80|50"
             ],
             "hazmat": [
                 "80"
@@ -3773,9 +3773,7 @@
         },
         "urban main road with 3 lanes in each direction": {
             "(default)": [
-                "80",
-                "60",
-                "50"
+                "80|60|50"
             ],
             "hazmat": [
                 "80"
@@ -3926,55 +3924,49 @@
     "PR": {
         "(default)": {
             "(default)": [
-                "45 "
+                "45 mph"
             ],
             "bus": [
-                "35 "
+                "35 mph"
             ],
             "hazmat": [
-                "30 "
+                "30 mph"
             ],
             "hgv": [
-                "35 ",
-                "4",
-                "536"
+                "35 mph (4.536t)"
             ]
         },
         "motorway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ],
             "bus": [
-                "55 "
+                "55 mph"
             ],
             "hazmat": [
-                "30 "
+                "30 mph"
             ],
             "hgv": [
-                "55 ",
-                "4",
-                "536"
+                "55 mph (4.536t)"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ],
             "bus": [
-                "15 "
+                "15 mph"
             ],
             "hazmat": [
-                "15 "
+                "15 mph"
             ],
             "hgv": [
-                "15 ",
-                "4",
-                "536"
+                "15 mph (4.536t)"
             ]
         }
     },
@@ -4163,7 +4155,9 @@
             ]
         },
         "living street": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "motorway": {
             "(default)": [
@@ -4181,7 +4175,9 @@
             ]
         },
         "pedestrian zone": {
-            "(default)": []
+            "(default)": [
+                "walk"
+            ]
         },
         "urban": {
             "(default)": [
@@ -4613,309 +4609,305 @@
     "US-AK": {
         "(default)": {
             "(default)": [
-                "55 ",
-                "45 "
+                "55 mph",
+                "45 mph (caravan)"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-AL": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "hazmat": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ],
             "hazmat": [
-                "55 "
+                "55 mph"
             ]
         },
         "road with 2 or more lanes in each direction": {
             "(default)": [
-                "65 "
+                "65 mph"
             ],
             "hazmat": [
-                "55 "
+                "55 mph"
             ]
         },
         "road with asphalt or concrete surface in an unincorporated area": {
             "(default)": [
-                "45 "
+                "45 mph"
             ]
         },
         "road without asphalt or concrete surface": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-AR": {
         "(default)": {
             "(default)": [
-                "65 ",
-                "55 "
+                "65 mph",
+                "55 mph (caravan)"
             ],
             "hgv": [
-                "50 ",
-                "1",
-                "361",
-                "30 ",
-                "29",
-                "03"
+                "50 mph (capacity 1.361t)",
+                "30 mph (29.03t)"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-AZ": {
         "(default)": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-CA": {
         "(default)": {
             "(default)": [
-                "55 ",
-                "55 "
+                "55 mph",
+                "55 mph (trailer)"
             ],
             "hazmat": [
-                "55 "
+                "55 mph"
             ],
             "hgv": [
-                "55 "
+                "55 mph (articulated)"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ],
             "truck_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "road with 2 or more lanes in each direction": {
             "(default)": [
-                "65 ",
-                "55 "
+                "65 mph",
+                "55 mph (trailer)"
             ],
             "hazmat": [
-                "55 "
+                "55 mph"
             ],
             "hgv": [
-                "55 "
+                "55 mph (articulated)"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ],
             "truck_bus": [
-                "55 "
+                "55 mph"
             ]
         }
     },
     "US-CO": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "open mountain road": {
             "(default)": [
-                "40 "
+                "40 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "trunk": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "winding mountain road": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-CT": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "school_bus": [
-                "40 "
+                "40 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ],
             "school_bus": [
-                "50 "
+                "50 mph"
             ]
         }
     },
     "US-DC": {
         "(default)": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         }
     },
     "US-DE": {
         "(default)": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "single carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         }
     },
     "US-FL": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "dual carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-GA": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "school_bus": [
-                "40 "
+                "40 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "unpaved road": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
@@ -4925,958 +4917,927 @@
     "US-IA": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "road without asphalt or concrete surface": {
             "(default)": [
-                "55 ",
-                "50 "
+                "55 mph",
+                "50 mph (sunset-sunrise)"
             ]
         },
         "state board institutional road": {
             "(default)": [
-                "45 "
+                "45 mph"
             ]
         },
         "state park and preserve drive": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "suburban district": {
             "(default)": [
-                "45 "
+                "45 mph"
             ]
         }
     },
     "US-ID": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "Idaho state highway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "75 "
+                "75 mph"
             ],
             "hgv": [
-                "65 ",
-                "5 ",
-                "11",
-                "793"
+                "65 mph (5 axles, 11.793t)"
             ]
         },
         "urban": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         }
     },
     "US-IL": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ],
             "bus": [
-                "70 "
+                "70 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "dual carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "65 "
+                "65 mph"
             ],
             "bus": [
-                "65 "
+                "65 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-IN": {
         "(default)": {
             "(default)": [
-                "55 ",
-                "55 ",
-                "26"
+                "55 mph",
+                "55 mph (26m)"
             ],
             "school_bus": [
-                "40 "
+                "40 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "70 ",
-                "65 ",
-                "11",
-                "793",
-                "55 ",
-                "26"
+                "70 mph",
+                "65 mph (11.793t)",
+                "55 mph (26m)"
             ],
             "bus": [
-                "70 "
+                "70 mph"
             ],
             "hgv": [
-                "65 ",
-                "11",
-                "793",
-                "55 ",
-                "26"
+                "65 mph (11.793t)",
+                "55 mph (26m)"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "numbered road": {
             "school_bus": [
-                "60 "
+                "60 mph"
             ]
         },
         "road with 2 or more lanes in each direction": {
             "(default)": [
-                "60 ",
-                "55 ",
-                "26"
+                "60 mph",
+                "55 mph (26m)"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-KS": {
         "(default)": {
             "(default)": [
-                "65 ",
-                "55 "
+                "65 mph",
+                "55 mph (caravan)"
             ]
         },
         "Kansas county or township highway": {
             "(default)": [
-                "55 ",
-                "55 "
+                "55 mph",
+                "55 mph (caravan)"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "75 ",
-                "55 "
+                "75 mph",
+                "55 mph (caravan)"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-KY": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         }
     },
     "US-LA": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "dual carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         }
     },
     "US-MA": {
         "(default)": {
             "(default)": [
-                "40 "
+                "40 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         }
     },
     "US-MD": {
         "(default)": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "dual carriageway in residence district": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "single carriageway in residence district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-ME": {
         "(default)": {
             "(default)": [
-                "45 "
+                "45 mph"
             ],
             "school_bus": [
-                "45 "
+                "45 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-MI": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ],
             "hgv": [
-                "65 ",
-                "4",
-                "536",
-                "65 ",
-                "65 "
+                "65 mph (4.536t)",
+                "65 mph (trailer)",
+                "65 mph (articulated)"
             ]
         },
         "public park": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "trailer park": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "unpaved road": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         }
     },
     "US-MN": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "10 "
+                "10 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "trunk": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "urban US interstate highway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         }
     },
     "US-MO": {
         "(default)": {
             "(default)": [
-                "60 "
+                "60 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "dual carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "motorway with 2 or more lanes in each direction": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "numbered road with 2 lanes": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "urban US interstate highway": {
             "(default)": [
-                "60 "
+                "60 mph"
             ]
         },
         "urban dual carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "60 "
+                "60 mph"
             ]
         },
         "urban motorway with 2 or more lanes in each direction": {
             "(default)": [
-                "60 "
+                "60 mph"
             ]
         }
     },
     "US-MS": {
         "(default)": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         }
     },
     "US-MT": {
         "(default)": {
             "(default)": [
-                "70 ",
-                "65 ",
-                "01",
-                "30",
-                "01",
-                "30"
+                "70 mph",
+                "65 mph ((sunset+01:30)-(sunrise-01:30))"
             ],
             "hgv": [
-                "60 ",
-                "55 ",
-                "01",
-                "30",
-                "01",
-                "30"
+                "60 mph",
+                "55 mph ((sunset+01:30)-(sunrise-01:30))"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "80 "
+                "80 mph"
             ],
             "hgv": [
-                "65 "
+                "65 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-NC": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         }
     },
     "US-ND": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "75 "
+                "75 mph"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-NE": {
         "(default)": {
             "(default)": [
-                "55 ",
-                "50 "
+                "55 mph",
+                "50 mph (caravan)"
             ]
         },
         "Nebraska state expressway": {
             "(default)": [
-                "65 ",
-                "50 "
+                "65 mph",
+                "50 mph (caravan)"
             ]
         },
         "Nebraska state highway": {
             "(default)": [
-                "60 ",
-                "50 "
+                "60 mph",
+                "50 mph (caravan)"
             ]
         },
         "US defense highway": {
             "(default)": [
-                "75 ",
-                "50 "
+                "75 mph",
+                "50 mph (caravan)"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "75 ",
-                "50 "
+                "75 mph",
+                "50 mph (caravan)"
             ]
         },
         "business district": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "65 ",
-                "50 "
+                "65 mph",
+                "50 mph (caravan)"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "unpaved road": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         }
     },
     "US-NH": {
         "(default)": {
             "(default)": [
-                "55 ",
-                "45 "
+                "55 mph",
+                "45 mph (caravan)"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "65 ",
-                "45 "
+                "65 mph",
+                "45 mph (caravan)"
             ]
         },
         "business district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "dual carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "65 ",
-                "45 "
+                "65 mph",
+                "45 mph (caravan)"
             ]
         },
         "rural residence district": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "10 "
+                "10 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "urban residence district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-NJ": {
         "(default)": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         },
         "suburban business district": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "suburban residence district": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         }
     },
     "US-NM": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         }
     },
     "US-NV": {
         "(default)": {
             "(default)": [
-                "80 "
+                "80 mph"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-NY": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "hgv": [
-                "55 ",
-                "4",
-                "536"
+                "55 mph (4.536t)"
             ]
         }
     },
     "US-OH": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "Ohio state route": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "dual carriageway": {
             "(default)": [
-                "60 "
+                "60 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "national park road": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "trunk without traffic lights": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "urban Ohio state route": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "urban motorway": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         },
         "urban motorway with paved shoulders": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         }
     },
     "US-OK": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "Oklahoma state park road": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-OR": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "65 "
+                "65 mph"
             ],
             "hgv": [
-                "55 ",
-                "3",
-                "629",
-                "55 ",
-                "4",
-                "536"
+                "55 mph (3.629t, articulated)",
+                "55 mph (4.536t)"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         },
         "public park": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         }
     },
     "US-PA": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "urban road which is not numbered": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-RI": {
         "(default)": {
             "(default)": [
-                "50 ",
-                "45 ",
-                "0",
-                "30",
-                "0",
-                "30"
+                "50 mph",
+                "45 mph ((sunset+0:30)-(sunrise-0:30))"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         }
     },
     "US-SC": {
         "(default)": {
             "(default)": [
-                "55 ",
-                "45 "
+                "55 mph",
+                "45 mph (caravan)"
             ]
         },
         "unpaved road": {
             "(default)": [
-                "40 "
+                "40 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
     "US-SD": {
         "(default)": {
             "(default)": [
-                "65 ",
-                "45 "
+                "65 mph",
+                "45 mph (caravan)"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "80 ",
-                "55 "
+                "80 mph",
+                "55 mph (caravan)"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-TN": {
         "(default)": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "US interstate highway with 2 or more lanes in each direction": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         }
     },
     "US-TX": {
         "(default)": {
             "(default)": [
-                "60 ",
-                "55 "
+                "60 mph",
+                "55 mph (caravan)"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "numbered road": {
             "(default)": [
-                "70 ",
-                "55 "
+                "70 mph",
+                "55 mph (caravan)"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
@@ -5884,225 +5845,221 @@
         "(default)": {},
         "school zone": {
             "(default)": [
-                "20 "
+                "20 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-VA": {
         "(default)": {
             "(default)": [
-                "55 ",
-                "45 "
+                "55 mph",
+                "45 mph (caravan)"
             ],
             "goods": [
-                "45 ",
-                "3",
-                "402",
-                "45 ",
-                "45 "
+                "45 mph (3.402t)",
+                "45 mph (trailer)",
+                "45 mph (articulated)"
             ],
             "school_bus": [
-                "45 "
+                "45 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "goods": [
-                "55 "
+                "55 mph"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "Virginia rural rustic road": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "Virginia state primary highway": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "goods": [
-                "55 "
+                "55 mph"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "goods": [
-                "55 "
+                "55 mph"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "road with 4 or more lanes": {
             "(default)": [
-                "55 "
+                "55 mph"
             ],
             "goods": [
-                "55 "
+                "55 mph"
             ],
             "school_bus": [
-                "55 "
+                "55 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "unpaved road": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         }
     },
     "US-VT": {
         "(default)": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         }
     },
     "US-WA": {
         "(default)": {
             "(default)": [
-                "50 "
+                "50 mph"
             ]
         },
         "Washington state highway": {
             "(default)": [
-                "60 ",
-                "60 ",
-                "4",
-                "536",
-                "60 ",
-                "60 ",
-                "60 "
+                "60 mph",
+                "60 mph (4.536t)",
+                "60 mph (trailer)",
+                "60 mph (caravan)",
+                "60 mph (articulated)"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-WI": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "Wisconsin rustic road": {
             "(default)": [
-                "40 "
+                "40 mph"
             ]
         },
         "alley": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "dual carriageway with 2 or more lanes in each direction": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "motorway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         },
         "suburban": {
             "(default)": [
-                "35 "
+                "35 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         }
     },
     "US-WV": {
         "(default)": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "business district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "residence district": {
             "(default)": [
-                "25 "
+                "25 mph"
             ]
         },
         "school zone": {
             "(default)": [
-                "15 "
+                "15 mph"
             ]
         }
     },
     "US-WY": {
         "(default)": {
             "(default)": [
-                "65 "
+                "65 mph"
             ]
         },
         "US interstate highway": {
             "(default)": [
-                "75 "
+                "75 mph"
             ]
         },
         "Wyoming state highway": {
             "(default)": [
-                "70 "
+                "70 mph"
             ]
         },
         "road without asphalt or concrete surface": {
             "(default)": [
-                "55 "
+                "55 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "30 "
+                "30 mph"
             ]
         }
     },
@@ -6115,8 +6072,7 @@
         },
         "motorway": {
             "(default)": [
-                "90",
-                "70"
+                "90|70"
             ]
         },
         "urban": {
@@ -6128,24 +6084,24 @@
     "VI": {
         "(default)": {
             "(default)": [
-                "35 "
+                "35 mph"
             ],
             "bus": [
-                "30 "
+                "30 mph"
             ],
             "hgv": [
-                "30 "
+                "30 mph"
             ]
         },
         "urban": {
             "(default)": [
-                "20 "
+                "20 mph"
             ],
             "bus": [
-                "10 "
+                "10 mph"
             ],
             "hgv": [
-                "10 "
+                "10 mph"
             ]
         }
     },
