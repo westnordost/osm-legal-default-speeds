@@ -109,4 +109,4 @@ if __name__ == "__main__":
     speed_table = soup.find_all("table")[0]  # Grab the first table
     result = parse_speed_table(speed_table)
 
-    print(json.dumps(result))
+    print(json.dumps(result, sort_keys=True, indent=4))
