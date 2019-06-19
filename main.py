@@ -82,23 +82,22 @@ def parse_speed_table(table) -> dict:
         tds = row.find_all("td")
         table_row_helper.set_tds(tds)
         if tds:
-            key = table_row_helper.get_td(0).get_text(strip=True)
+            country_code = table_row_helper.get_td(0).get_text(strip=True)
             road_type = table_row_helper.get_td(1).get_text(strip=True) or "(default)"
 
-            value = {}
+            speeds_by_vehicle_type = {}
             for col_idx in range(2, len(column_names)):
                 td = table_row_helper.get_td(col_idx)
-                string = td.get_text(strip=True)
+                speeds = td.get_text(strip=True)
 
-                if not string:
-                    value[column_names[col_idx]] = None
-                else:
-                    value[column_names[col_idx]] = string.split(",")
+                if speeds:
+                    vehicle_type = column_names[col_idx]
+                    speeds_by_vehicle_type[vehicle_type] = speeds.split(",")
 
-            if key in result:
-                result[key][road_type] = value
+            if country_code in result:
+                result[country_code][road_type] = speeds_by_vehicle_type
             else:
-                result[key] = {road_type: value}
+                result[country_code] = {road_type: speeds_by_vehicle_type}
 
     return result
 
