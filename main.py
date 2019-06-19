@@ -1,4 +1,5 @@
 import json
+import re
 
 from bs4 import BeautifulSoup, element
 
@@ -6,6 +7,8 @@ import requests
 
 WIKI_API_URL = "https://wiki.openstreetmap.org/w/api.php"
 WIKI_PAGE = "Default_speed_limits"
+
+SPEED_REGEX = re.compile(r"([0-9]+)(?:\s*)(\([^)]+\))?")
 
 
 class TableRowHelper:
@@ -92,7 +95,8 @@ def parse_speed_table(table) -> dict:
 
                 if speeds:
                     vehicle_type = column_names[col_idx]
-                    speeds_by_vehicle_type[vehicle_type] = speeds.split(",")
+                    # TODO: Use these groups in the next stage to build a set of proper restrictions
+                    speeds_by_vehicle_type[vehicle_type] = [match.group() for match in SPEED_REGEX.finditer(speeds)]
 
             if country_code in result:
                 result[country_code][road_type] = speeds_by_vehicle_type
