@@ -47,6 +47,9 @@ class TableRowHelper:
         return self.td_cache[idx][1]
 
 
+class ParseError(Exception):
+    pass
+
 def get_page_html(api_url: str, page_name: str) -> str:
     res = requests.get(api_url, {"action": "parse", "page": page_name, "format": "json"})
 
@@ -56,29 +59,28 @@ def get_page_html(api_url: str, page_name: str) -> str:
 def is_uninteresting(tag: element.Tag):
     return tag.name in {"sup", "img"}
 
-
-def split_speeds(str) -> list:
-    braces = 0
-    res = []
-    current = []
-    for c in (str + ","):
-        if c == "," and braces == 0:
-            entry = "".join(current).strip()
+def split_speeds(s) -> [str]:
+    bracket_level = 0
+    result = []
+    current = ""
+    for c in (s + ","):
+        if c == "," and bracket_level == 0:
+            entry = current.strip()
             if not SPEED_REGEX.fullmatch(entry):
-                raise ValueError("Invalid syntax for \"{0}\" in \"{1}\"".format(entry, str))
-            res.append(entry)
-            current = []
+                raise ParseError(f'Invalid syntax for "{entry}" in "{s}"')
+            result.append(entry)
+            current = ""
         else:
             if c == "(":
-                braces += 1
+                bracket_level += 1
             elif c == ")":
-                braces -= 1
-                if braces < 0:
-                    raise ValueError("Too many closing braces in \"{0}\"".format(str))
-            current.append(c)
-    if braces > 0:
-        raise ValueError("Too many opening braces in \"{0}\"".format(str))
-    return res
+                bracket_level -= 1
+                if bracket_level < 0:
+                    raise ParseError(f'Too many closing brackets in "{s}"')
+            current += c
+    if bracket_level > 0:
+        raise ParseError(f'Too many opening brackets in "{s}"')
+    return result
 
 def parse_speed_table(table) -> dict:
     column_names = []
@@ -121,10 +123,8 @@ def parse_speed_table(table) -> dict:
                     vehicle_type = column_names[col_idx]
                     try:
                         speeds_list = split_speeds(speeds)
-                    except ValueError as e:
-                        raise ValueError("Parsing \"{0}\" for \"{1}\" in {2}:\n{3}".format(
-                            vehicle_type, road_type, country_code, str(e))
-                        )
+                    except ParseError as e:
+                        raise ParseError(f'Parsing "{vehicle_type}" for "{road_type}" in {country_code}:\n{str(e)}')
                     # TODO: Use these groups in the next stage to build a set of proper restrictions
                     speeds_by_vehicle_type[vehicle_type] = speeds_list
 
