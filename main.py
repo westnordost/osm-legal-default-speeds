@@ -50,6 +50,7 @@ class TableRowHelper:
 class ParseError(Exception):
     pass
 
+
 def get_page_html(api_url: str, page_name: str) -> str:
     res = requests.get(api_url, {"action": "parse", "page": page_name, "format": "json"})
 
