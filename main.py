@@ -8,7 +8,8 @@ import requests
 WIKI_API_URL = "https://wiki.openstreetmap.org/w/api.php"
 WIKI_PAGE = "Default_speed_limits"
 
-SPEED_REGEX = re.compile(r"([0-9]+)(?:\s*)(\([^)]+\))?")
+# https://regexper.com/#(advisory:)?\s*((?:[0-9]+(?:\s?mph)?)(?:\s?\|\s?(?:[0-9]+(?:\s?mph)?))*|walk)\s*(\(.+\))?
+SPEED_REGEX = re.compile(r"(advisory:)?\s*((?:[0-9]+(?:\s?mph)?)(?:\s?\|\s?(?:[0-9]+(?:\s?mph)?))*|walk)\s*(\(.+\))?")
 
 
 class TableRowHelper:
@@ -46,6 +47,9 @@ class TableRowHelper:
         return self.td_cache[idx][1]
 
 
+class ParseError(Exception):
+    pass
+
 def get_page_html(api_url: str, page_name: str) -> str:
     res = requests.get(api_url, {"action": "parse", "page": page_name, "format": "json"})
 
@@ -55,6 +59,28 @@ def get_page_html(api_url: str, page_name: str) -> str:
 def is_uninteresting(tag: element.Tag):
     return tag.name in {"sup", "img"}
 
+def split_speeds(s) -> [str]:
+    bracket_level = 0
+    result = []
+    current = ""
+    for c in (s + ","):
+        if c == "," and bracket_level == 0:
+            entry = current.strip()
+            if not SPEED_REGEX.fullmatch(entry):
+                raise ParseError(f'Invalid syntax for "{entry}" in "{s}"')
+            result.append(entry)
+            current = ""
+        else:
+            if c == "(":
+                bracket_level += 1
+            elif c == ")":
+                bracket_level -= 1
+                if bracket_level < 0:
+                    raise ParseError(f'Too many closing brackets in "{s}"')
+            current += c
+    if bracket_level > 0:
+        raise ParseError(f'Too many opening brackets in "{s}"')
+    return result
 
 def parse_speed_table(table) -> dict:
     column_names = []
@@ -95,8 +121,12 @@ def parse_speed_table(table) -> dict:
 
                 if speeds:
                     vehicle_type = column_names[col_idx]
+                    try:
+                        speeds_list = split_speeds(speeds)
+                    except ParseError as e:
+                        raise ParseError(f'Parsing "{vehicle_type}" for "{road_type}" in {country_code}:\n{str(e)}')
                     # TODO: Use these groups in the next stage to build a set of proper restrictions
-                    speeds_by_vehicle_type[vehicle_type] = [match.group() for match in SPEED_REGEX.finditer(speeds)]
+                    speeds_by_vehicle_type[vehicle_type] = speeds_list
 
             if country_code in result:
                 result[country_code][road_type] = speeds_by_vehicle_type
