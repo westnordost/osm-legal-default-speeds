@@ -60,11 +60,12 @@ def get_page_html(api_url: str, page_name: str) -> str:
 def is_uninteresting(tag: element.Tag):
     return tag.name in {"sup", "img"}
 
+
 def split_speeds(s) -> [str]:
     bracket_level = 0
     result = []
     current = ""
-    for c in (s + ","):
+    for c in s + ",":
         if c == "," and bracket_level == 0:
             entry = current.strip()
             if not SPEED_REGEX.fullmatch(entry):
@@ -82,6 +83,7 @@ def split_speeds(s) -> [str]:
     if bracket_level > 0:
         raise ParseError(f'Too many opening brackets in "{s}"')
     return result
+
 
 def parse_speed_table(table) -> dict:
     column_names = []
