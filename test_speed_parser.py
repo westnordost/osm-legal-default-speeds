@@ -21,6 +21,9 @@ from parsers.osm_restrictions import parse_speeds
         ("40 mph (empty 2t)", {'maxspeed:conditional': '40 mph @ (emptyweight>2)'}),
         ("40 mph (capacity 2t)", {'maxspeed:conditional': '40 mph @ (weightcapacity>2)'}),
         ("40 mph (10m)", {'maxspeed:conditional': '40 mph @ (length>10)'}),
+        ("40 mph (sunset-sunrise)", {'maxspeed:conditional': '40 mph @ (sunset-sunrise)'}),  # Time intervals
+        ("40 mph (sunset+01:00)", {'maxspeed:conditional': '40 mph @ (sunset+01:00)'}),
+        ("40 mph ((sunset+01:30)-(sunrise-01:30))", {'maxspeed:conditional': '40 mph @ ((sunset+01:30)-(sunrise-01:30))'}),
         ("advisory: 130", {'maxspeed:advisory': '130'}),  # Advisory speed
         ("junk", None),  # Obviously invalid
         ("40 mph ((2t)", None),  # Mismatched braces

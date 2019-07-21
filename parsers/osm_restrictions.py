@@ -48,7 +48,18 @@ def osm_speed_visitor(t):
     elif t.data == 'axle_restriction':
         return f'axles>={t.children[0]}'
     elif t.data == 'conditional_restriction':
-        return t.children[0].data
+        if t.children[0].data == 'time':
+            return osm_speed_visitor(t.children[0].children[0])
+        else:
+            return t.children[0].data
+    elif t.data == 'interval':
+        return osm_speed_visitor(t.children[0])
+    if t.data == 'neg_interval':
+        return f'{t.children[0]}-{t.children[1]}'
+    elif t.data == 'pos_interval':
+        return f'{t.children[0]}+{t.children[1]}'
+    elif t.data == 'complex_time_span':
+        return f'({osm_speed_visitor(t.children[0])})-({osm_speed_visitor(t.children[1])})'
     else:
         raise ParseError(f'Unexpected token "{t}"')
 

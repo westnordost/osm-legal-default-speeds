@@ -2939,7 +2939,7 @@
         "motorroad": {
             "(default)": {
                 "maxspeed": "120",
-                "maxspeed:conditional": "110 @ (time); 90 @ (trailer); 80 @ (weightrating>3.5)"
+                "maxspeed:conditional": "110 @ (Nov-Mar); 90 @ (trailer); 80 @ (weightrating>3.5)"
             },
             "bus": {
                 "maxspeed": "90",
@@ -2952,7 +2952,7 @@
         "motorway": {
             "(default)": {
                 "maxspeed": "130",
-                "maxspeed:conditional": "110 @ (time); 90 @ (weightrating>3.5); 90 @ (trailer)"
+                "maxspeed:conditional": "110 @ (Nov-Mar); 90 @ (weightrating>3.5); 90 @ (trailer)"
             },
             "bus": {
                 "maxspeed": "100",
@@ -3041,15 +3041,15 @@
         "motorroad": {
             "(default)": {
                 "maxspeed": "110",
-                "maxspeed:conditional": "90 @ (time); 90 @ (trailer)"
+                "maxspeed:conditional": "90 @ (Dec-Feb); 90 @ (trailer)"
             },
             "bus": {
                 "maxspeed": "100",
-                "maxspeed:conditional": "90 @ (time)"
+                "maxspeed:conditional": "90 @ (Dec-Feb)"
             },
             "hgv": {
                 "maxspeed": "100",
-                "maxspeed:conditional": "90 @ (time); 80 @ (weightrating>7.5)"
+                "maxspeed:conditional": "90 @ (Dec-Feb); 80 @ (weightrating>7.5)"
             },
             "truck_bus": {
                 "maxspeed": "60"
@@ -3247,15 +3247,15 @@
         "(default)": {
             "(default)": {
                 "maxspeed": "100",
-                "maxspeed:conditional": "90 @ (time); 70 @ (trailer)"
+                "maxspeed:conditional": "90 @ (sunset-sunrise); 70 @ (trailer)"
             },
             "bus": {
                 "maxspeed": "90",
-                "maxspeed:conditional": "80 @ (time); 70 @ (trailer)"
+                "maxspeed:conditional": "80 @ (sunset-sunrise); 70 @ (trailer)"
             },
             "hgv": {
                 "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (time); 70 @ (trailer)"
+                "maxspeed:conditional": "70 @ (sunset-sunrise); 70 @ (trailer)"
             }
         },
         "urban": {
@@ -3741,7 +3741,7 @@
         "urban": {
             "(default)": {
                 "maxspeed": "50",
-                "maxspeed:conditional": "60 @ (time)"
+                "maxspeed:conditional": "60 @ (23:00-05:00)"
             }
         }
     },
@@ -4733,7 +4733,7 @@
         "road without asphalt or concrete surface": {
             "(default)": {
                 "maxspeed": "55 mph",
-                "maxspeed:conditional": "50 mph @ (time)"
+                "maxspeed:conditional": "50 mph @ (sunset-sunrise)"
             }
         },
         "state board institutional road": {
@@ -5140,11 +5140,11 @@
         "(default)": {
             "(default)": {
                 "maxspeed": "70 mph",
-                "maxspeed:conditional": "65 mph @ (time)"
+                "maxspeed:conditional": "65 mph @ ((sunset+01:30)-(sunrise-01:30))"
             },
             "hgv": {
                 "maxspeed": "60 mph",
-                "maxspeed:conditional": "55 mph @ (time)"
+                "maxspeed:conditional": "55 mph @ ((sunset+01:30)-(sunrise-01:30))"
             }
         },
         "US interstate highway": {
@@ -5518,7 +5518,7 @@
         "(default)": {
             "(default)": {
                 "maxspeed": "50 mph",
-                "maxspeed:conditional": "45 mph @ (time)"
+                "maxspeed:conditional": "45 mph @ ((sunset+0:30)-(sunrise-0:30))"
             }
         },
         "business district": {
@@ -5847,7 +5847,7 @@
         "(default)": {
             "(default)": {
                 "maxspeed": "70",
-                "maxspeed:conditional": "50 @ (time)"
+                "maxspeed:conditional": "50 @ (sunset-sunrise)"
             }
         },
         "motorway": {

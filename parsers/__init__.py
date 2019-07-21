@@ -38,11 +38,11 @@ weight_qualifier: "empty"     -> empty
                 | "capacity"  -> capacity
                 | "trailer"   -> trailer
 
-_time_span: TIME "-" TIME
-          | TIME "+" TIME
+interval: TIME "-" TIME  -> neg_interval
+        | TIME "+" TIME  -> pos_interval
           
-time_span: _time_span
-         | "(" _time_span ")" "-" "(" _time_span ")"
+time_span: interval                               -> interval
+         | "(" interval ")" "-" "(" interval ")"  -> complex_time_span
 
 speed_value: NUMBER+ "mph" -> mph_speed
            | NUMBER+       -> kph_speed
