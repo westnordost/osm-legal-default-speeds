@@ -40,7 +40,7 @@ weight_qualifier: "empty"     -> empty
 
 interval: TIME "-" TIME  -> neg_interval
         | TIME "+" TIME  -> pos_interval
-          
+
 time_span: interval                               -> interval
          | "(" interval ")" "-" "(" interval ")"  -> complex_time_span
 
