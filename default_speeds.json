@@ -3594,7 +3594,8 @@
         },
         "urban main road with 2 lanes in each direction": {
             "(default)": {
-                "maxspeed": "80; 50"
+                "maxspeed": "80",
+                "maxspeed:lanes": "80|50"
             },
             "hazmat": {
                 "maxspeed": "80"
@@ -3602,7 +3603,8 @@
         },
         "urban main road with 3 lanes in each direction": {
             "(default)": {
-                "maxspeed": "80; 60; 50"
+                "maxspeed": "80",
+                "maxspeed:lanes": "80|60|50"
             },
             "hazmat": {
                 "maxspeed": "80"
@@ -5852,7 +5854,8 @@
         },
         "motorway": {
             "(default)": {
-                "maxspeed": "90; 70"
+                "maxspeed": "90",
+                "maxspeed:lanes": "90|70"
             }
         },
         "urban": {
