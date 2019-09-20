@@ -4,10 +4,12 @@ _speed_defs: _speed_def
            | _speed_def "," _speed_defs
 
 _speed_def: single_speed_def
-          | single_speed_def "|" _speed_def
+          | multilane_speed
 
 single_speed_def: _speed             -> normal_speed
                 | "advisory:" _speed -> advisory_speed
+
+multilane_speed: single_speed_def ("|" single_speed_def)+
 
 _speed: speed_value _restriction_def
       | speed_value

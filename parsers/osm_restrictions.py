@@ -58,6 +58,11 @@ def osm_speed_visitor(t):
         return f"{t.children[0]}+{t.children[1]}"
     elif t.data == "complex_time_span":
         return f"({osm_speed_visitor(t.children[0])})-({osm_speed_visitor(t.children[1])})"
+    elif t.data == "multilane_speed":
+        return {
+            "maxspeed:lanes": "|".join(list(osm_speed_visitor(child).values())[0] for child in t.children),
+            **osm_speed_visitor(t.children[0]),
+        }
     else:
         raise ParseError(f'Unexpected token "{t}"')
 

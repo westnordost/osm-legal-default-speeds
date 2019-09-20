@@ -8,6 +8,8 @@ from parsers.osm_restrictions import parse_speeds
     [
         ("40", {"maxspeed": "40"}),  # Boring
         ("40 mph", {"maxspeed": "40 mph"}),  # Add units
+        ("80|60", {"maxspeed:lanes": "80|60", "maxspeed": "80"}),  # Multiple lanes
+        ("80|60|40", {"maxspeed:lanes": "80|60|40", "maxspeed": "80"}),  # Multiple lanes
         (
             "60mph, 40 mph (2t)",
             {"maxspeed": "60 mph", "maxspeed:conditional": "40 mph @ (weightrating>2)"},
