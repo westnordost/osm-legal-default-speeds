@@ -11,7 +11,12 @@
                 "maxspeed": "80"
             }
         },
-        "motorway": {
+        "highway=service": {
+            "(default)": {
+                "maxspeed": "25"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -20,11 +25,6 @@
             },
             "hgv": {
                 "maxspeed": "80"
-            }
-        },
-        "service road": {
-            "(default)": {
-                "maxspeed": "25"
             }
         },
         "urban dual carriageway": {
@@ -81,25 +81,7 @@
                 "maxspeed:conditional": "70 @ (weightrating>5)"
             }
         },
-        "motorroad": {
-            "(default)": {
-                "maxspeed": "90"
-            },
-            "bus": {
-                "maxspeed:conditional": "70 @ (weightrating>8)"
-            },
-            "hazmat": {
-                "maxspeed": "50"
-            },
-            "hgv": {
-                "maxspeed": "70",
-                "maxspeed:conditional": "70 @ (trailer); 70 @ (articulated); 60 @ (weightrating>12)"
-            },
-            "truck_bus": {
-                "maxspeed:conditional": "70 @ (weightrating>5)"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110"
             },
@@ -115,6 +97,24 @@
             },
             "truck_bus": {
                 "maxspeed:conditional": "80 @ (weightrating>5)"
+            }
+        },
+        "motorroad=yes": {
+            "(default)": {
+                "maxspeed": "90"
+            },
+            "bus": {
+                "maxspeed:conditional": "70 @ (weightrating>8)"
+            },
+            "hazmat": {
+                "maxspeed": "50"
+            },
+            "hgv": {
+                "maxspeed": "70",
+                "maxspeed:conditional": "70 @ (trailer); 70 @ (articulated); 60 @ (weightrating>12)"
+            },
+            "truck_bus": {
+                "maxspeed:conditional": "70 @ (weightrating>5)"
             }
         },
         "urban": {
@@ -154,28 +154,7 @@
                 "maxspeed": "70"
             }
         },
-        "motorroad": {
-            "(default)": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "bus": {
-                "maxspeed": "90",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "goods": {
-                "maxspeed": "90",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "hgv": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (trailer)"
-            },
-            "tricycle": {
-                "maxspeed": "80"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "100 @ (trailer)"
@@ -194,6 +173,27 @@
             },
             "tricycle": {
                 "maxspeed": "100"
+            }
+        },
+        "motorroad=yes": {
+            "(default)": {
+                "maxspeed": "100",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "bus": {
+                "maxspeed": "90",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "goods": {
+                "maxspeed": "90",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "hgv": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "70 @ (trailer)"
+            },
+            "tricycle": {
+                "maxspeed": "80"
             }
         },
         "urban": {
@@ -237,25 +237,7 @@
                 "maxspeed": "90"
             }
         },
-        "dual carriageway": {
-            "(default)": {
-                "maxspeed": "120",
-                "maxspeed:conditional": "80 @ (caravan)"
-            },
-            "bus": {
-                "maxspeed": "90"
-            },
-            "hazmat": {
-                "maxspeed": "80"
-            },
-            "hgv": {
-                "maxspeed": "80"
-            },
-            "motorhome": {
-                "maxspeed": "90"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "80 @ (caravan)"
@@ -271,6 +253,24 @@
             },
             "motorhome": {
                 "maxspeed": "100"
+            }
+        },
+        "oneway~^yes|-1$anddual_carriageway!=no": {
+            "(default)": {
+                "maxspeed": "120",
+                "maxspeed:conditional": "80 @ (caravan)"
+            },
+            "bus": {
+                "maxspeed": "90"
+            },
+            "hazmat": {
+                "maxspeed": "80"
+            },
+            "hgv": {
+                "maxspeed": "80"
+            },
+            "motorhome": {
+                "maxspeed": "90"
             }
         },
         "urban main road": {
@@ -310,30 +310,22 @@
                 "maxspeed": "70"
             }
         },
-        "bicycle road": {
+        "bicycle_road=yes": {
             "(default)": {
                 "maxspeed": "30"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "walk"
             }
         },
-        "motorroad": {
+        "highway=pedestrian": {
             "(default)": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "100 @ (trailer); 80 @ (weightrating>3.5)"
-            },
-            "bus": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (articulated)"
-            },
-            "hgv": {
-                "maxspeed": "80"
+                "maxspeed": "walk"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "100 @ (trailer); 80 @ (weightrating>3.5)"
@@ -346,9 +338,17 @@
                 "maxspeed": "80"
             }
         },
-        "pedestrian zone": {
+        "motorroad=yes": {
             "(default)": {
-                "maxspeed": "walk"
+                "maxspeed": "100",
+                "maxspeed:conditional": "100 @ (trailer); 80 @ (weightrating>3.5)"
+            },
+            "bus": {
+                "maxspeed": "100",
+                "maxspeed:conditional": "80 @ (articulated)"
+            },
+            "hgv": {
+                "maxspeed": "80"
             }
         },
         "urban": {
@@ -358,7 +358,7 @@
         }
     },
     "AU": {
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "10"
             }
@@ -435,7 +435,7 @@
                 "maxspeed": "80"
             }
         },
-        "road with asphalt or concrete surface": {
+        "surface~asphalt|concrete": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "100 @ (weightrating>12)"
@@ -496,12 +496,17 @@
                 "maxspeed": "50"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway=service": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110"
             },
@@ -525,11 +530,6 @@
             },
             "truck_bus": {
                 "maxspeed": "50"
-            }
-        },
-        "service road": {
-            "(default)": {
-                "maxspeed": "20"
             }
         },
         "urban": {
@@ -559,12 +559,12 @@
                 "maxspeed": "70"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "walk"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -581,7 +581,7 @@
                 "maxspeed": "70"
             }
         },
-        "trunk": {
+        "highway~^trunk|trunk_link$": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -614,29 +614,22 @@
                 "maxspeed": "75"
             }
         },
-        "bicycle road": {
+        "bicycle_road=yes": {
             "(default)": {
                 "maxspeed": "30"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
-            "(default)": {
-                "maxspeed": "120",
-                "maxspeed:conditional": "90 @ (weightrating>3.5)"
-            },
-            "bus": {
-                "maxspeed": "90"
-            },
-            "coach": {
-                "maxspeed": "100"
-            }
-        },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway=pedestrian": {
+            "(default)": {
+                "maxspeed": "walk"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "90 @ (weightrating>3.5)"
@@ -648,14 +641,21 @@
                 "maxspeed": "100"
             }
         },
-        "pedestrian zone": {
-            "(default)": {
-                "maxspeed": "walk"
-            }
-        },
-        "single carriageway with 2 or more lanes in each direction": {
+        "oneway!~^yes|-1$andlanes>=4": {
             "(default)": {
                 "maxspeed": "90"
+            }
+        },
+        "oneway~^yes|-1$andlanes>=2": {
+            "(default)": {
+                "maxspeed": "120",
+                "maxspeed:conditional": "90 @ (weightrating>3.5)"
+            },
+            "bus": {
+                "maxspeed": "90"
+            },
+            "coach": {
+                "maxspeed": "100"
             }
         },
         "urban": {
@@ -671,7 +671,7 @@
                 "maxspeed:conditional": "60 @ (weightrating>7.5)"
             }
         },
-        "single carriageway with 2 or more lanes in each direction": {
+        "oneway!~^yes|-1$andlanes>=4": {
             "(default)": {
                 "maxspeed": "70",
                 "maxspeed:conditional": "60 @ (weightrating>7.5)"
@@ -697,12 +697,12 @@
                 "maxspeed": "80"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "140",
                 "maxspeed:conditional": "100 @ (trailer)"
@@ -720,7 +720,7 @@
                 "maxspeed": "100"
             }
         },
-        "trunk": {
+        "highway~^trunk|trunk_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "90 @ (trailer)"
@@ -783,7 +783,7 @@
                 "maxspeed": "80"
             }
         },
-        "pedestrian zone": {
+        "highway=pedestrian": {
             "(default)": {
                 "maxspeed": "20"
             }
@@ -810,7 +810,7 @@
                 "maxspeed": "60"
             }
         },
-        "dual carriageway": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "110"
             },
@@ -824,7 +824,7 @@
                 "maxspeed": "90"
             }
         },
-        "road with asphalt or concrete surface": {
+        "surface~asphalt|concrete": {
             "(default)": {
                 "maxspeed": "100"
             },
@@ -909,12 +909,17 @@
                 "maxspeed": "60"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway=pedestrian": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "90 @ (trailer)"
@@ -932,11 +937,6 @@
                 "maxspeed": "60"
             }
         },
-        "pedestrian zone": {
-            "(default)": {
-                "maxspeed": "20"
-            }
-        },
         "urban": {
             "(default)": {
                 "maxspeed": "60"
@@ -949,7 +949,7 @@
                 "maxspeed": "80"
             }
         },
-        "Alberta provincial highway": {
+        "ref": {
             "(default)": {
                 "maxspeed": "100"
             }
@@ -1007,7 +1007,7 @@
                 "maxspeed": "80"
             }
         },
-        "Trans-Canada highway in Newfoundland and Labrador": {
+        "ref=1": {
             "(default)": {
                 "maxspeed": "100"
             }
@@ -1148,7 +1148,7 @@
                 "maxspeed": "75"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "90 @ (weightrating>7.5)"
@@ -1157,7 +1157,7 @@
                 "maxspeed": "90"
             }
         },
-        "motorway": {
+        "oneway~^yes|-1$andlanes>=2": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "90 @ (weightrating>7.5)"
@@ -1219,29 +1219,17 @@
                 "maxspeed:conditional": "80 @ (trailer); 80 @ (articulated)"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorroad": {
+        "highway=pedestrian": {
             "(default)": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "bus": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "hgv": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "80 @ (trailer); 80 @ (articulated)"
-            },
-            "motorhome": {
-                "maxspeed": "100"
+                "maxspeed": "walk"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -1258,9 +1246,21 @@
                 "maxspeed": "100"
             }
         },
-        "pedestrian zone": {
+        "motorroad=yes": {
             "(default)": {
-                "maxspeed": "walk"
+                "maxspeed": "100",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "bus": {
+                "maxspeed": "100",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "hgv": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "80 @ (trailer); 80 @ (articulated)"
+            },
+            "motorhome": {
+                "maxspeed": "100"
             }
         },
         "urban": {
@@ -1287,7 +1287,7 @@
                 "maxspeed": "90"
             }
         },
-        "road with 2 or more lanes in each direction": {
+        "(oneway~^yes|-1$andlanes>=2) orlanes>=4": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -1334,7 +1334,7 @@
                 "maxspeed": "70"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -1351,7 +1351,7 @@
                 "maxspeed": "100"
             }
         },
-        "road without center line": {
+        "lanes=1": {
             "(default)": {
                 "maxspeed": "40"
             }
@@ -1390,7 +1390,7 @@
                 "maxspeed": "60"
             }
         },
-        "roundabout": {
+        "junction=roundabout": {
             "(default)": {
                 "maxspeed": "30"
             }
@@ -1412,7 +1412,12 @@
                 "maxspeed:conditional": "70 @ (trailer)"
             }
         },
-        "motorway": {
+        "highway=service": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -1425,11 +1430,6 @@
         "rural school zone": {
             "(default)": {
                 "maxspeed": "60"
-            }
-        },
-        "service road": {
-            "(default)": {
-                "maxspeed": "20"
             }
         },
         "unpaved road": {
@@ -1458,26 +1458,22 @@
                 "maxspeed": "90"
             }
         },
-        "bicycle road": {
+        "bicycle_road=yes": {
             "(default)": {
                 "maxspeed": "30"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorroad": {
+        "highway=pedestrian": {
             "(default)": {
-                "maxspeed": "110",
-                "maxspeed:conditional": "80 @ (weightrating>3.5)"
-            },
-            "bus": {
-                "maxspeed": "110"
+                "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "80 @ (weightrating>3.5)"
@@ -1486,9 +1482,13 @@
                 "maxspeed": "130"
             }
         },
-        "pedestrian zone": {
+        "motorroad=yes": {
             "(default)": {
-                "maxspeed": "20"
+                "maxspeed": "110",
+                "maxspeed:conditional": "80 @ (weightrating>3.5)"
+            },
+            "bus": {
+                "maxspeed": "110"
             }
         },
         "urban": {
@@ -1516,12 +1516,53 @@
                 "maxspeed:conditional": "60 @ (weightrating>7.5)"
             }
         },
-        "bicycle road": {
+        "bicycle_road=yes": {
             "(default)": {
                 "maxspeed": "30"
             }
         },
-        "dual carriageway": {
+        "highway=living_streetorliving_street=yes": {
+            "(default)": {
+                "maxspeed": "walk"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed:advisory": "130",
+                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
+            },
+            "bus": {
+                "maxspeed": "80"
+            },
+            "coach": {
+                "maxspeed": "100"
+            },
+            "hgv": {
+                "maxspeed": "80"
+            },
+            "motorhome": {
+                "maxspeed:advisory": "130"
+            }
+        },
+        "motorroad=yesandoneway~^yes|-1$anddual_carriageway!=no": {
+            "(default)": {
+                "maxspeed:advisory": "130",
+                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
+            },
+            "bus": {
+                "maxspeed": "80"
+            },
+            "coach": {
+                "maxspeed": "100"
+            },
+            "hgv": {
+                "maxspeed": "80"
+            },
+            "motorhome": {
+                "maxspeed:advisory": "130"
+            }
+        },
+        "oneway!~^yes|-1$andlanes>=4": {
             "(default)": {
                 "maxspeed:advisory": "130",
                 "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5); 60 @ (weightrating>7.5)"
@@ -1539,48 +1580,7 @@
                 "maxspeed:conditional": "60 @ (weightrating>7.5)"
             }
         },
-        "living street": {
-            "(default)": {
-                "maxspeed": "walk"
-            }
-        },
-        "motorroad with dual carriageway": {
-            "(default)": {
-                "maxspeed:advisory": "130",
-                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
-            },
-            "bus": {
-                "maxspeed": "80"
-            },
-            "coach": {
-                "maxspeed": "100"
-            },
-            "hgv": {
-                "maxspeed": "80"
-            },
-            "motorhome": {
-                "maxspeed:advisory": "130"
-            }
-        },
-        "motorway": {
-            "(default)": {
-                "maxspeed:advisory": "130",
-                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
-            },
-            "bus": {
-                "maxspeed": "80"
-            },
-            "coach": {
-                "maxspeed": "100"
-            },
-            "hgv": {
-                "maxspeed": "80"
-            },
-            "motorhome": {
-                "maxspeed:advisory": "130"
-            }
-        },
-        "single carriageway with 2 or more lanes in each direction": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed:advisory": "130",
                 "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5); 60 @ (weightrating>7.5)"
@@ -1617,12 +1617,12 @@
                 "maxspeed": "70"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "15"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "100 @ (trailer); 80 @ (trailerweight>0.75); 80 @ (weightrating>3.5)"
@@ -1709,7 +1709,7 @@
                 "maxspeed": "60"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
@@ -1751,12 +1751,7 @@
                 "maxspeed": "70"
             }
         },
-        "living street": {
-            "(default)": {
-                "maxspeed": "20"
-            }
-        },
-        "motorroad": {
+        "(oneway~^yes|-1$andlanes>=2) orlanes>=4": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -1786,7 +1781,12 @@
                 "maxspeed": "70"
             }
         },
-        "motorway": {
+        "highway=living_streetorliving_street=yes": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "90 @ (trailer); 80 @ (caravan); 80 @ (trailerweight>0.75)"
@@ -1818,7 +1818,7 @@
                 "maxspeed": "70"
             }
         },
-        "road with 2 or more lanes in each direction": {
+        "motorroad=yes": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -1879,12 +1879,12 @@
                 "maxspeed": "100"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "pedestrian zone": {
+        "highway=pedestrian": {
             "(default)": {
                 "maxspeed": "20"
             }
@@ -1912,7 +1912,31 @@
                 "maxspeed:conditional": "60 @ (trailer AND weightrating>12); 60 @ (articulated AND weightrating>12)"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
+        "highway=living_streetorliving_street=yes": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "130",
+                "maxspeed:conditional": "100 @ (wet)"
+            },
+            "bus": {
+                "maxspeed": "90"
+            },
+            "coach": {
+                "maxspeed": "110",
+                "maxspeed:conditional": "90 @ (weightrating>12)"
+            },
+            "hazmat": {
+                "maxspeed": "80"
+            },
+            "hgv": {
+                "maxspeed": "90"
+            }
+        },
+        "oneway~^yes|-1$andlanes>=2": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "100 @ (wet)"
@@ -1930,30 +1954,6 @@
             "hgv": {
                 "maxspeed": "90",
                 "maxspeed:conditional": "80 @ (weightrating>12)"
-            }
-        },
-        "living street": {
-            "(default)": {
-                "maxspeed": "20"
-            }
-        },
-        "motorway": {
-            "(default)": {
-                "maxspeed": "130",
-                "maxspeed:conditional": "100 @ (wet)"
-            },
-            "bus": {
-                "maxspeed": "90"
-            },
-            "coach": {
-                "maxspeed": "110",
-                "maxspeed:conditional": "90 @ (weightrating>12)"
-            },
-            "hazmat": {
-                "maxspeed": "80"
-            },
-            "hgv": {
-                "maxspeed": "90"
             }
         },
         "urban": {
@@ -2006,28 +2006,7 @@
                 "maxspeed:conditional": "50 mph @ (emptyweight>3.05)"
             }
         },
-        "UK built-up area": {
-            "(default)": {
-                "maxspeed": "30 mph"
-            }
-        },
-        "dual carriageway": {
-            "(default)": {
-                "maxspeed": "70 mph",
-                "maxspeed:conditional": "60 mph @ (trailer)"
-            },
-            "bus": {
-                "maxspeed": "60 mph"
-            },
-            "hgv": {
-                "maxspeed": "60 mph"
-            },
-            "motorhome": {
-                "maxspeed": "70 mph",
-                "maxspeed:conditional": "60 mph @ (emptyweight>3.05)"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph",
                 "maxspeed:conditional": "60 mph @ (trailer)"
@@ -2042,6 +2021,27 @@
             },
             "motorhome": {
                 "maxspeed": "70 mph"
+            }
+        },
+        "lit=yes": {
+            "(default)": {
+                "maxspeed": "30 mph"
+            }
+        },
+        "oneway~^yes|-1$anddual_carriageway!=no": {
+            "(default)": {
+                "maxspeed": "70 mph",
+                "maxspeed:conditional": "60 mph @ (trailer)"
+            },
+            "bus": {
+                "maxspeed": "60 mph"
+            },
+            "hgv": {
+                "maxspeed": "60 mph"
+            },
+            "motorhome": {
+                "maxspeed": "70 mph",
+                "maxspeed:conditional": "60 mph @ (emptyweight>3.05)"
             }
         }
     },
@@ -2063,7 +2063,7 @@
                 "maxspeed:conditional": "50 mph @ (emptyweight>3.05)"
             }
         },
-        "dual carriageway": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "70 mph",
                 "maxspeed:conditional": "60 mph @ (trailer)"
@@ -2103,12 +2103,12 @@
                 "maxspeed": "60"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "80 @ (trailer); 70 @ (trailerweight>0.75)"
@@ -2176,16 +2176,16 @@
                 "maxspeed:conditional": "70 @ (trailer); 70 @ (weightrating>3.5)"
             }
         },
+        "highway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "100",
+                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
+            }
+        },
         "main road": {
             "(default)": {
                 "maxspeed": "80",
                 "maxspeed:conditional": "60 @ (trailer); 60 @ (weightrating>3.5)"
-            }
-        },
-        "motorway": {
-            "(default)": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
             }
         },
         "residential road": {
@@ -2256,7 +2256,7 @@
                 "maxspeed": "70"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "100"
             },
@@ -2287,26 +2287,26 @@
                 "maxspeed": "80"
             }
         },
-        "motorroad": {
-            "(default)": {
-                "maxspeed": "110",
-                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
-            },
-            "bus": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (articulated)"
-            },
-            "school_bus": {
-                "maxspeed": "80"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "90 @ (trailer); 90 @ (weightrating>3.5)"
             },
             "bus": {
                 "maxspeed": "100",
+                "maxspeed:conditional": "70 @ (articulated)"
+            },
+            "school_bus": {
+                "maxspeed": "80"
+            }
+        },
+        "motorroad=yes": {
+            "(default)": {
+                "maxspeed": "110",
+                "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
+            },
+            "bus": {
+                "maxspeed": "80",
                 "maxspeed:conditional": "70 @ (articulated)"
             },
             "school_bus": {
@@ -2335,29 +2335,17 @@
                 "maxspeed": "40"
             }
         },
-        "bicycle road": {
+        "bicycle_road=yes": {
             "(default)": {
                 "maxspeed": "30"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorroad": {
-            "(default)": {
-                "maxspeed": "110",
-                "maxspeed:conditional": "70 @ (weightrating>3.5); 70 @ (trailer)"
-            },
-            "bus": {
-                "maxspeed": "70"
-            },
-            "hgv": {
-                "maxspeed": "70"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)"
@@ -2367,6 +2355,18 @@
             },
             "hgv": {
                 "maxspeed": "80"
+            }
+        },
+        "motorroad=yes": {
+            "(default)": {
+                "maxspeed": "110",
+                "maxspeed:conditional": "70 @ (weightrating>3.5); 70 @ (trailer)"
+            },
+            "bus": {
+                "maxspeed": "70"
+            },
+            "hgv": {
+                "maxspeed": "70"
             }
         },
         "urban": {
@@ -2391,19 +2391,7 @@
                 "maxspeed": "80"
             }
         },
-        "Irish national road": {
-            "(default)": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "bus": {
-                "maxspeed": "80"
-            },
-            "hgv": {
-                "maxspeed": "80"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -2413,6 +2401,18 @@
             },
             "hgv": {
                 "maxspeed": "90"
+            }
+        },
+        "ref~^Nor (highway~^trunk(_link)|primary(_link)?$and (!reforref~^N))": {
+            "(default)": {
+                "maxspeed": "100",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "bus": {
+                "maxspeed": "80"
+            },
+            "hgv": {
+                "maxspeed": "80"
             }
         },
         "urban": {
@@ -2430,28 +2430,28 @@
                 "maxspeed:conditional": "80 @ (weightrating>12)"
             }
         },
-        "dual carriageway": {
-            "(default)": {
-                "maxspeed": "90"
-            },
-            "bus": {
-                "maxspeed": "90"
-            },
-            "hgv": {
-                "maxspeed:conditional": "80 @ (weightrating>12)"
-            }
-        },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "30"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110"
             },
             "bus": {
                 "maxspeed": "100"
+            },
+            "hgv": {
+                "maxspeed:conditional": "80 @ (weightrating>12)"
+            }
+        },
+        "oneway~^yes|-1$anddual_carriageway!=no": {
+            "(default)": {
+                "maxspeed": "90"
+            },
+            "bus": {
+                "maxspeed": "90"
             },
             "hgv": {
                 "maxspeed:conditional": "80 @ (weightrating>12)"
@@ -2498,7 +2498,7 @@
                 "maxspeed": "50"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -2711,12 +2711,12 @@
                 "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "15"
             }
         },
-        "road with asphalt or concrete surface": {
+        "surface~asphalt|concrete": {
             "(default)": {
                 "maxspeed": "90",
                 "maxspeed:conditional": "80 @ (trailer); 80 @ (weightrating>3.5)"
@@ -2750,28 +2750,7 @@
                 "maxspeed:conditional": "70 @ (weightrating>5)"
             }
         },
-        "motorroad": {
-            "(default)": {
-                "maxspeed": "110",
-                "maxspeed:conditional": "90 @ (wet); 80 @ (weightrating>3.5); 70 @ (trailer); 70 @ (weightrating>12)"
-            },
-            "bus": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (weightrating>8)"
-            },
-            "hazmat": {
-                "maxspeed": "50"
-            },
-            "hgv": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (weightrating>12)"
-            },
-            "truck_bus": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (weightrating>5)"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "110 @ (wet); 100 @ (weightrating>3.5); 80 @ (trailer); 80 @ (weightrating>12)"
@@ -2790,6 +2769,27 @@
             "truck_bus": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (weightrating>5)"
+            }
+        },
+        "motorroad=yes": {
+            "(default)": {
+                "maxspeed": "110",
+                "maxspeed:conditional": "90 @ (wet); 80 @ (weightrating>3.5); 70 @ (trailer); 70 @ (weightrating>12)"
+            },
+            "bus": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "70 @ (weightrating>8)"
+            },
+            "hazmat": {
+                "maxspeed": "50"
+            },
+            "hgv": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "70 @ (weightrating>12)"
+            },
+            "truck_bus": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "70 @ (weightrating>5)"
             }
         },
         "urban": {
@@ -2834,7 +2834,7 @@
                 "maxspeed:conditional": "65 @ (trailer)"
             }
         },
-        "dual carriageway": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "80 @ (articulated); 65 @ (trailer)"
@@ -2902,7 +2902,7 @@
                 "maxspeed:conditional": "80 @ (weightrating>9)"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -2931,25 +2931,17 @@
                 "maxspeed": "70"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorroad": {
+        "highway=serviceandservice=parking_aisle": {
             "(default)": {
-                "maxspeed": "120",
-                "maxspeed:conditional": "110 @ (Nov-Mar); 90 @ (trailer); 80 @ (weightrating>3.5)"
-            },
-            "bus": {
-                "maxspeed": "90",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "hgv": {
-                "maxspeed": "80"
+                "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "110 @ (Nov-Mar); 90 @ (weightrating>3.5); 90 @ (trailer)"
@@ -2962,12 +2954,20 @@
                 "maxspeed": "90"
             }
         },
-        "parking lot": {
+        "motorroad=yes": {
             "(default)": {
-                "maxspeed": "20"
+                "maxspeed": "120",
+                "maxspeed:conditional": "110 @ (Nov-Mar); 90 @ (trailer); 80 @ (weightrating>3.5)"
+            },
+            "bus": {
+                "maxspeed": "90",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "hgv": {
+                "maxspeed": "80"
             }
         },
-        "road with asphalt or concrete surface": {
+        "surface~asphalt|concrete": {
             "(default)": {
                 "maxspeed": "90",
                 "maxspeed:conditional": "80 @ (weightrating>3.5)"
@@ -2995,23 +2995,23 @@
                 "maxspeed": "75"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway=pedestrian": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "110 @ (wet); 90 @ (weightrating>7.5); 90 @ (trailer)"
             },
             "bus": {
                 "maxspeed": "90"
-            }
-        },
-        "pedestrian zone": {
-            "(default)": {
-                "maxspeed": "20"
             }
         },
         "urban": {
@@ -3033,12 +3033,17 @@
                 "maxspeed": "60"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorroad": {
+        "highway=serviceandservice=parking_aisle": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "motorroad=yes": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "90 @ (Dec-Feb); 90 @ (trailer)"
@@ -3053,11 +3058,6 @@
             },
             "truck_bus": {
                 "maxspeed": "60"
-            }
-        },
-        "parking lot": {
-            "(default)": {
-                "maxspeed": "20"
             }
         },
         "road without asphalt or concrete surface": {
@@ -3145,7 +3145,7 @@
                 "maxspeed": "60"
             }
         },
-        "Mauritius A road": {
+        "ref~^A": {
             "(default)": {
                 "maxspeed": "90",
                 "maxspeed:conditional": "60 @ (weightrating>3.5); 60 @ (trailer)"
@@ -3164,7 +3164,7 @@
                 "maxspeed": "60"
             }
         },
-        "Mauritius B road": {
+        "ref~^B": {
             "(default)": {
                 "maxspeed": "90",
                 "maxspeed:conditional": "60 @ (weightrating>3.5); 60 @ (trailer)"
@@ -3183,7 +3183,7 @@
                 "maxspeed": "60"
             }
         },
-        "Mauritius M road": {
+        "ref~^M": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "80 @ (weightrating>3.5); 60 @ (trailer)"
@@ -3221,7 +3221,7 @@
                 "maxspeed": "90"
             }
         },
-        "Malawi highway": {
+        "surface~asphalt|concreteandwidth > 5.5": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "90 @ (trailer)"
@@ -3305,7 +3305,7 @@
                 "maxspeed:conditional": "80 @ (weightrating>9)"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -3316,7 +3316,7 @@
                 "maxspeed:conditional": "80 @ (weightrating>9)"
             }
         },
-        "road with asphalt or concrete surface": {
+        "surface~asphalt|concrete": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -3334,7 +3334,7 @@
         }
     },
     "NE": {
-        "road with asphalt or concrete surface": {
+        "surface~asphalt|concrete": {
             "(default)": {
                 "maxspeed": "90"
             },
@@ -3364,7 +3364,7 @@
                 "maxspeed": "50"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "45 @ (trailer)"
@@ -3419,14 +3419,14 @@
                 "maxspeed:conditional": "80 @ (weightrating>3.5)"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "15"
             }
         },
-        "motorroad": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
-                "maxspeed": "100",
+                "maxspeed": "130",
                 "maxspeed:conditional": "90 @ (trailer); 80 @ (weightrating>3.5 AND trailer)"
             },
             "bus": {
@@ -3442,9 +3442,9 @@
                 "maxspeed:conditional": "80 @ (weightrating>3.5)"
             }
         },
-        "motorway": {
+        "motorroad=yes": {
             "(default)": {
-                "maxspeed": "130",
+                "maxspeed": "100",
                 "maxspeed:conditional": "90 @ (trailer); 80 @ (weightrating>3.5 AND trailer)"
             },
             "bus": {
@@ -3472,12 +3472,17 @@
                 "maxspeed": "80"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "walk"
             }
         },
-        "motorway": {
+        "highway=pedestrian": {
+            "(default)": {
+                "maxspeed": "walk"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "80 @ (weightrating>7.5); 80 @ (trailer)"
@@ -3490,11 +3495,6 @@
             },
             "hgv": {
                 "maxspeed": "80"
-            }
-        },
-        "pedestrian zone": {
-            "(default)": {
-                "maxspeed": "walk"
             }
         },
         "urban": {
@@ -3548,7 +3548,7 @@
                 "maxspeed:conditional": "80 @ (weightrating>2)"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "10"
             }
@@ -3568,7 +3568,7 @@
                 "maxspeed": "80"
             }
         },
-        "motorroad": {
+        "motorroad=yes": {
             "(default)": {
                 "maxspeed": "120"
             },
@@ -3617,7 +3617,7 @@
                 "maxspeed": "60"
             }
         },
-        "Peruvian highway": {
+        "ref~^PE": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (caravan)"
@@ -3675,7 +3675,27 @@
                 "maxspeed": "70"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
+        "highway=living_streetorliving_street=yes": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "140",
+                "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)"
+            },
+            "bus": {
+                "maxspeed": "80"
+            },
+            "coach": {
+                "maxspeed": "100"
+            },
+            "hgv": {
+                "maxspeed": "80"
+            }
+        },
+        "motorroad=yesand  (oneway!~^yes|-1$ordual_carriageway=no)": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)"
@@ -3690,12 +3710,7 @@
                 "maxspeed": "80"
             }
         },
-        "living street": {
-            "(default)": {
-                "maxspeed": "20"
-            }
-        },
-        "motorroad with dual carriageway": {
+        "motorroad=yesandoneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)"
@@ -3710,24 +3725,9 @@
                 "maxspeed": "80"
             }
         },
-        "motorroad with single carriageway": {
+        "oneway~^yes|-1$andlanes>=2": {
             "(default)": {
                 "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)"
-            },
-            "bus": {
-                "maxspeed": "80"
-            },
-            "coach": {
-                "maxspeed": "100"
-            },
-            "hgv": {
-                "maxspeed": "80"
-            }
-        },
-        "motorway": {
-            "(default)": {
-                "maxspeed": "140",
                 "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)"
             },
             "bus": {
@@ -3762,7 +3762,7 @@
                 "maxspeed:conditional": "35 mph @ (weightrating>4.536)"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "65 mph"
             },
@@ -3818,33 +3818,12 @@
                 "maxspeed": "80"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorroad": {
-            "(default)": {
-                "maxspeed": "100",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "bus": {
-                "maxspeed": "90",
-                "maxspeed:conditional": "90 @ (trailer)"
-            },
-            "goods": {
-                "maxspeed": "90",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "hgv": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (trailer)"
-            },
-            "tricycle": {
-                "maxspeed": "90"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120",
                 "maxspeed:conditional": "100 @ (trailer)"
@@ -3863,6 +3842,27 @@
             },
             "tricycle": {
                 "maxspeed": "100"
+            }
+        },
+        "motorroad=yes": {
+            "(default)": {
+                "maxspeed": "100",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "bus": {
+                "maxspeed": "90",
+                "maxspeed:conditional": "90 @ (trailer)"
+            },
+            "goods": {
+                "maxspeed": "90",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "hgv": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "70 @ (trailer)"
+            },
+            "tricycle": {
+                "maxspeed": "90"
             }
         },
         "urban": {
@@ -3939,12 +3939,12 @@
                 "maxspeed": "20"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "90 @ (trailer)"
@@ -3980,12 +3980,17 @@
                 "maxspeed": "70"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "walk"
             }
         },
-        "motorway": {
+        "highway=pedestrian": {
+            "(default)": {
+                "maxspeed": "walk"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -3998,11 +4003,6 @@
             },
             "hgv": {
                 "maxspeed": "90"
-            }
-        },
-        "pedestrian zone": {
-            "(default)": {
-                "maxspeed": "walk"
             }
         },
         "urban": {
@@ -4029,14 +4029,31 @@
                 "maxspeed": "50"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "10"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
+                "maxspeed:conditional": "100 @ (trailer); 80 @ (weightrating>3.5); 70 @ (weightrating>3.5 AND trailerweight>0.75)"
+            },
+            "bus": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "70 @ (weightrating>3.5 AND trailerweight>0.75); 70 @ (articulated)"
+            },
+            "hgv": {
+                "maxspeed": "80",
+                "maxspeed:conditional": "70 @ (trailerweight>0.75)"
+            },
+            "truck_bus": {
+                "maxspeed": "50"
+            }
+        },
+        "highway~^trunk|trunk_link$": {
+            "(default)": {
+                "maxspeed": "110",
                 "maxspeed:conditional": "100 @ (trailer); 80 @ (weightrating>3.5); 70 @ (weightrating>3.5 AND trailerweight>0.75)"
             },
             "bus": {
@@ -4054,23 +4071,6 @@
         "pedestrian": {
             "(default)": {
                 "maxspeed": "10"
-            }
-        },
-        "trunk": {
-            "(default)": {
-                "maxspeed": "110",
-                "maxspeed:conditional": "100 @ (trailer); 80 @ (weightrating>3.5); 70 @ (weightrating>3.5 AND trailerweight>0.75)"
-            },
-            "bus": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (weightrating>3.5 AND trailerweight>0.75); 70 @ (articulated)"
-            },
-            "hgv": {
-                "maxspeed": "80",
-                "maxspeed:conditional": "70 @ (trailerweight>0.75)"
-            },
-            "truck_bus": {
-                "maxspeed": "50"
             }
         },
         "urban": {
@@ -4092,12 +4092,17 @@
                 "maxspeed": "90"
             }
         },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorroad": {
+        "highway=pedestrian": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "100 @ (weightrating>3.5); 90 @ (trailerweight>0.75)"
@@ -4109,7 +4114,7 @@
                 "maxspeed": "100"
             }
         },
-        "motorway": {
+        "motorroad=yes": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "100 @ (weightrating>3.5); 90 @ (trailerweight>0.75)"
@@ -4119,11 +4124,6 @@
             },
             "hgv": {
                 "maxspeed": "100"
-            }
-        },
-        "pedestrian zone": {
-            "(default)": {
-                "maxspeed": "20"
             }
         },
         "urban": {
@@ -4147,7 +4147,7 @@
                 "maxspeed:conditional": "75 @ (weightrating>10); 65 @ (weightrating>16); 50 @ (weightrating>22)"
             }
         },
-        "Senegal national road": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "85 @ (trailerweight>0.75)"
@@ -4164,7 +4164,7 @@
                 "maxspeed": "100"
             }
         },
-        "motorway": {
+        "ref~^N": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "85 @ (trailerweight>0.75)"
@@ -4194,7 +4194,7 @@
                 "maxspeed": "70"
             }
         },
-        "roundabout": {
+        "junction=roundabout": {
             "(default)": {
                 "maxspeed": "30"
             }
@@ -4246,7 +4246,7 @@
                 "maxspeed": "70"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "100 @ (weightrating>3.5); 90 @ (weightrating>12); 80 @ (weightrating>19)"
@@ -4307,30 +4307,17 @@
                 "maxspeed": "60"
             }
         },
-        "dual carriageway": {
-            "(default)": {
-                "maxspeed": "110",
-                "maxspeed:conditional": "80 @ (trailer)"
-            },
-            "bus": {
-                "maxspeed:conditional": "90 @ (seats>=18); 80 @ (trailer)"
-            },
-            "motorcycle": {
-                "maxspeed": "80"
-            },
-            "school_bus": {
-                "maxspeed": "80"
-            },
-            "truck_bus": {
-                "maxspeed": "60"
-            }
-        },
-        "living street": {
+        "highway=living_streetorliving_street=yes": {
             "(default)": {
                 "maxspeed": "20"
             }
         },
-        "motorway": {
+        "highway=pedestrian": {
+            "(default)": {
+                "maxspeed": "20"
+            }
+        },
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "130",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -4348,9 +4335,22 @@
                 "maxspeed": "60"
             }
         },
-        "pedestrian zone": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
-                "maxspeed": "20"
+                "maxspeed": "110",
+                "maxspeed:conditional": "80 @ (trailer)"
+            },
+            "bus": {
+                "maxspeed:conditional": "90 @ (seats>=18); 80 @ (trailer)"
+            },
+            "motorcycle": {
+                "maxspeed": "80"
+            },
+            "school_bus": {
+                "maxspeed": "80"
+            },
+            "truck_bus": {
+                "maxspeed": "60"
             }
         },
         "urban": {
@@ -4375,7 +4375,7 @@
                 "maxspeed": "60"
             }
         },
-        "road with asphalt or concrete surface": {
+        "surface~asphalt|concrete": {
             "(default)": {
                 "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (trailer)"
@@ -4431,17 +4431,17 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
+        "(oneway~^yes|-1$andlanes>=2) orlanes>=4": {
             "(default)": {
-                "maxspeed": "70 mph"
+                "maxspeed": "65 mph"
             },
             "hazmat": {
                 "maxspeed": "55 mph"
             }
         },
-        "road with 2 or more lanes in each direction": {
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
-                "maxspeed": "65 mph"
+                "maxspeed": "70 mph"
             },
             "hazmat": {
                 "maxspeed": "55 mph"
@@ -4515,22 +4515,7 @@
                 "maxspeed": "55 mph"
             }
         },
-        "alley": {
-            "(default)": {
-                "maxspeed": "15 mph"
-            }
-        },
-        "business district": {
-            "(default)": {
-                "maxspeed": "25 mph"
-            }
-        },
-        "residence district": {
-            "(default)": {
-                "maxspeed": "25 mph"
-            }
-        },
-        "road with 2 or more lanes in each direction": {
+        "(oneway~^yes|-1$andlanes>=2) orlanes>=4": {
             "(default)": {
                 "maxspeed": "65 mph",
                 "maxspeed:conditional": "55 mph @ (trailer)"
@@ -4547,6 +4532,21 @@
             "truck_bus": {
                 "maxspeed": "55 mph"
             }
+        },
+        "alley": {
+            "(default)": {
+                "maxspeed": "15 mph"
+            }
+        },
+        "business district": {
+            "(default)": {
+                "maxspeed": "25 mph"
+            }
+        },
+        "residence district": {
+            "(default)": {
+                "maxspeed": "25 mph"
+            }
         }
     },
     "US-CO": {
@@ -4555,17 +4555,17 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "65 mph"
-            }
-        },
         "business district": {
             "(default)": {
                 "maxspeed": "25 mph"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "65 mph"
+            }
+        },
+        "highway~^trunk|trunk_link$": {
             "(default)": {
                 "maxspeed": "65 mph"
             }
@@ -4575,14 +4575,14 @@
                 "maxspeed": "40 mph"
             }
         },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "65 mph"
+            }
+        },
         "residence district": {
             "(default)": {
                 "maxspeed": "30 mph"
-            }
-        },
-        "trunk": {
-            "(default)": {
-                "maxspeed": "65 mph"
             }
         },
         "winding mountain road": {
@@ -4600,7 +4600,7 @@
                 "maxspeed": "40 mph"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "65 mph"
             },
@@ -4632,7 +4632,12 @@
                 "maxspeed": "25 mph"
             }
         },
-        "dual carriageway": {
+        "oneway!~^yes|-1$andlanes>=4": {
+            "(default)": {
+                "maxspeed": "55 mph"
+            }
+        },
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "55 mph"
             }
@@ -4640,11 +4645,6 @@
         "residence district": {
             "(default)": {
                 "maxspeed": "25 mph"
-            }
-        },
-        "single carriageway with 2 or more lanes in each direction": {
-            "(default)": {
-                "maxspeed": "55 mph"
             }
         }
     },
@@ -4659,14 +4659,14 @@
                 "maxspeed": "30 mph"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
-            "(default)": {
-                "maxspeed": "65 mph"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph"
+            }
+        },
+        "oneway~^yes|-1$andlanes>=2": {
+            "(default)": {
+                "maxspeed": "65 mph"
             }
         },
         "residence district": {
@@ -4684,7 +4684,7 @@
                 "maxspeed": "40 mph"
             }
         },
-        "US interstate highway": {
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "65 mph"
             },
@@ -4712,19 +4712,19 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "70 mph"
-            }
-        },
         "business district": {
             "(default)": {
                 "maxspeed": "20 mph"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "65 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "70 mph"
             }
         },
         "residence district": {
@@ -4760,12 +4760,12 @@
                 "maxspeed": "55 mph"
             }
         },
-        "Idaho state highway": {
+        "ref~^ID": {
             "(default)": {
                 "maxspeed": "65 mph"
             }
         },
-        "US interstate highway": {
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "75 mph"
             },
@@ -4788,25 +4788,25 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "70 mph"
-            },
-            "bus": {
-                "maxspeed": "70 mph"
-            }
-        },
         "alley": {
             "(default)": {
                 "maxspeed": "15 mph"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
+        "oneway~^yes|-1$andlanes>=2": {
             "(default)": {
                 "maxspeed": "65 mph"
             },
             "bus": {
                 "maxspeed": "65 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "70 mph"
+            },
+            "bus": {
+                "maxspeed": "70 mph"
             }
         },
         "urban": {
@@ -4825,7 +4825,23 @@
                 "maxspeed": "40 mph"
             }
         },
-        "US interstate highway": {
+        "(oneway~^yes|-1$andlanes>=2) orlanes>=4": {
+            "(default)": {
+                "maxspeed": "60 mph",
+                "maxspeed:conditional": "55 mph @ (length>26)"
+            }
+        },
+        "alley": {
+            "(default)": {
+                "maxspeed": "15 mph"
+            }
+        },
+        "ref": {
+            "school_bus": {
+                "maxspeed": "60 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph",
                 "maxspeed:conditional": "65 mph @ (weightrating>11.793); 55 mph @ (length>26)"
@@ -4835,22 +4851,6 @@
             },
             "hgv": {
                 "maxspeed:conditional": "65 mph @ (weightrating>11.793); 55 mph @ (length>26)"
-            }
-        },
-        "alley": {
-            "(default)": {
-                "maxspeed": "15 mph"
-            }
-        },
-        "numbered road": {
-            "school_bus": {
-                "maxspeed": "60 mph"
-            }
-        },
-        "road with 2 or more lanes in each direction": {
-            "(default)": {
-                "maxspeed": "60 mph",
-                "maxspeed:conditional": "55 mph @ (length>26)"
             }
         },
         "urban": {
@@ -4872,7 +4872,7 @@
                 "maxspeed:conditional": "55 mph @ (caravan)"
             }
         },
-        "dual carriageway": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "75 mph",
                 "maxspeed:conditional": "55 mph @ (caravan)"
@@ -4890,14 +4890,14 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "65 mph"
-            }
-        },
         "business district": {
             "(default)": {
                 "maxspeed": "35 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "65 mph"
             }
         },
         "residence district": {
@@ -4912,17 +4912,17 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
+        "oneway~^yes|-1$andlanes>=2": {
             "(default)": {
                 "maxspeed": "65 mph"
             }
         },
-        "motorway": {
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph"
             }
@@ -4939,7 +4939,7 @@
                 "maxspeed": "30 mph"
             }
         },
-        "dual carriageway": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "50 mph"
             }
@@ -4966,14 +4966,14 @@
                 "maxspeed": "30 mph"
             }
         },
-        "dual carriageway": {
-            "(default)": {
-                "maxspeed": "55 mph"
-            }
-        },
         "dual carriageway in residence district": {
             "(default)": {
                 "maxspeed": "35 mph"
+            }
+        },
+        "oneway~^yes|-1$anddual_carriageway!=no": {
+            "(default)": {
+                "maxspeed": "55 mph"
             }
         },
         "school zone": {
@@ -5018,7 +5018,7 @@
                 "maxspeed": "25 mph"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph"
             },
@@ -5053,29 +5053,29 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "70 mph"
-            }
-        },
         "alley": {
             "(default)": {
                 "maxspeed": "10 mph"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "65 mph"
+            }
+        },
+        "highway~^trunk|trunk_link$": {
+            "(default)": {
+                "maxspeed": "65 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "70 mph"
             }
         },
         "school zone": {
             "(default)": {
                 "maxspeed": "15 mph"
-            }
-        },
-        "trunk": {
-            "(default)": {
-                "maxspeed": "65 mph"
             }
         },
         "urban": {
@@ -5095,16 +5095,6 @@
                 "maxspeed": "60 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "70 mph"
-            }
-        },
-        "dual carriageway with 2 or more lanes in each direction": {
-            "(default)": {
-                "maxspeed": "65 mph"
-            }
-        },
         "motorway with 2 or more lanes in each direction": {
             "(default)": {
                 "maxspeed": "70 mph"
@@ -5113,6 +5103,16 @@
         "numbered road with 2 lanes": {
             "(default)": {
                 "maxspeed": "55 mph"
+            }
+        },
+        "oneway~^yes|-1$andlanes>=2": {
+            "(default)": {
+                "maxspeed": "65 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "70 mph"
             }
         },
         "urban US interstate highway": {
@@ -5149,7 +5149,7 @@
                 "maxspeed:conditional": "55 mph @ ((sunset+01:30)-(sunrise-01:30))"
             }
         },
-        "US interstate highway": {
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "80 mph"
             },
@@ -5181,14 +5181,14 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "75 mph"
-            }
-        },
-        "dual carriageway": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
                 "maxspeed": "70 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "75 mph"
             }
         },
         "urban": {
@@ -5222,20 +5222,20 @@
                 "maxspeed:conditional": "50 mph @ (caravan)"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "75 mph",
-                "maxspeed:conditional": "50 mph @ (caravan)"
-            }
-        },
         "business district": {
             "(default)": {
                 "maxspeed": "20 mph"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "65 mph",
+                "maxspeed:conditional": "50 mph @ (caravan)"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "75 mph",
                 "maxspeed:conditional": "50 mph @ (caravan)"
             }
         },
@@ -5257,18 +5257,18 @@
                 "maxspeed:conditional": "45 mph @ (caravan)"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "65 mph",
-                "maxspeed:conditional": "45 mph @ (caravan)"
-            }
-        },
         "business district": {
             "(default)": {
                 "maxspeed": "30 mph"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
+        "oneway~^yes|-1$andlanes>=2": {
+            "(default)": {
+                "maxspeed": "65 mph",
+                "maxspeed:conditional": "45 mph @ (caravan)"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "65 mph",
                 "maxspeed:conditional": "45 mph @ (caravan)"
@@ -5380,22 +5380,12 @@
                 "maxspeed": "55 mph"
             }
         },
-        "Ohio state route": {
-            "(default)": {
-                "maxspeed": "50 mph"
-            }
-        },
         "alley": {
             "(default)": {
                 "maxspeed": "15 mph"
             }
         },
-        "dual carriageway": {
-            "(default)": {
-                "maxspeed": "60 mph"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph"
             }
@@ -5403,6 +5393,16 @@
         "national park road": {
             "(default)": {
                 "maxspeed": "35 mph"
+            }
+        },
+        "oneway~^yes|-1$anddual_carriageway!=no": {
+            "(default)": {
+                "maxspeed": "60 mph"
+            }
+        },
+        "ref~^SR": {
+            "(default)": {
+                "maxspeed": "50 mph"
             }
         },
         "trunk without traffic lights": {
@@ -5457,17 +5457,6 @@
                 "maxspeed": "55 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "65 mph"
-            },
-            "hgv": {
-                "maxspeed:conditional": "55 mph @ (weightrating>3.629 AND articulated); 55 mph @ (weightrating>4.536)"
-            },
-            "school_bus": {
-                "maxspeed": "55 mph"
-            }
-        },
         "alley": {
             "(default)": {
                 "maxspeed": "15 mph"
@@ -5481,6 +5470,17 @@
         "public park": {
             "(default)": {
                 "maxspeed": "25 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "65 mph"
+            },
+            "hgv": {
+                "maxspeed:conditional": "55 mph @ (weightrating>3.629 AND articulated); 55 mph @ (weightrating>4.536)"
+            },
+            "school_bus": {
+                "maxspeed": "55 mph"
             }
         },
         "residence district": {
@@ -5564,7 +5564,7 @@
                 "maxspeed:conditional": "45 mph @ (caravan)"
             }
         },
-        "US interstate highway": {
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "80 mph",
                 "maxspeed:conditional": "55 mph @ (caravan)"
@@ -5613,7 +5613,7 @@
                 "maxspeed": "15 mph"
             }
         },
-        "numbered road": {
+        "ref": {
             "(default)": {
                 "maxspeed": "70 mph",
                 "maxspeed:conditional": "55 mph @ (caravan)"
@@ -5654,17 +5654,6 @@
                 "maxspeed": "45 mph"
             }
         },
-        "US interstate highway": {
-            "(default)": {
-                "maxspeed": "55 mph"
-            },
-            "goods": {
-                "maxspeed": "55 mph"
-            },
-            "school_bus": {
-                "maxspeed": "55 mph"
-            }
-        },
         "Virginia rural rustic road": {
             "(default)": {
                 "maxspeed": "35 mph"
@@ -5686,7 +5675,18 @@
                 "maxspeed": "25 mph"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
+            "(default)": {
+                "maxspeed": "55 mph"
+            },
+            "goods": {
+                "maxspeed": "55 mph"
+            },
+            "school_bus": {
+                "maxspeed": "55 mph"
+            }
+        },
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "55 mph"
             },
@@ -5742,7 +5742,7 @@
                 "maxspeed": "50 mph"
             }
         },
-        "Washington state highway": {
+        "ref~^WA": {
             "(default)": {
                 "maxspeed": "60 mph",
                 "maxspeed:conditional": "60 mph @ (weightrating>4.536); 60 mph @ (trailer); 60 mph @ (caravan); 60 mph @ (articulated)"
@@ -5770,14 +5770,14 @@
                 "maxspeed": "15 mph"
             }
         },
-        "dual carriageway with 2 or more lanes in each direction": {
-            "(default)": {
-                "maxspeed": "65 mph"
-            }
-        },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "70 mph"
+            }
+        },
+        "oneway~^yes|-1$andlanes>=2": {
+            "(default)": {
+                "maxspeed": "65 mph"
             }
         },
         "school zone": {
@@ -5824,12 +5824,12 @@
                 "maxspeed": "65 mph"
             }
         },
-        "US interstate highway": {
+        "ref~^Iandhighway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "75 mph"
             }
         },
-        "Wyoming state highway": {
+        "ref~^WYO?": {
             "(default)": {
                 "maxspeed": "70 mph"
             }
@@ -5852,7 +5852,7 @@
                 "maxspeed:conditional": "50 @ (sunset-sunrise)"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "90",
                 "maxspeed:lanes": "90|70"
@@ -5909,9 +5909,9 @@
                 "maxspeed": "70"
             }
         },
-        "dual carriageway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
-                "maxspeed": "100",
+                "maxspeed": "130",
                 "maxspeed:conditional": "80 @ (caravan)"
             },
             "bus": {
@@ -5931,7 +5931,7 @@
                 "maxspeed": "70"
             }
         },
-        "motorroad": {
+        "motorroad=yes": {
             "(default)": {
                 "maxspeed": "110",
                 "maxspeed:conditional": "80 @ (caravan)"
@@ -5953,9 +5953,9 @@
                 "maxspeed": "70"
             }
         },
-        "motorway": {
+        "oneway~^yes|-1$anddual_carriageway!=no": {
             "(default)": {
-                "maxspeed": "130",
+                "maxspeed": "100",
                 "maxspeed:conditional": "80 @ (caravan)"
             },
             "bus": {
@@ -5993,7 +5993,7 @@
                 "maxspeed:conditional": "80 @ (weightrating>9)"
             }
         },
-        "motorway": {
+        "highway~^motorway|motorway_link$": {
             "(default)": {
                 "maxspeed": "120"
             },
