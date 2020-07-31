@@ -5,90 +5,6 @@ from parsers import SPEED_GRAMMAR
 
 parser = Lark(SPEED_GRAMMAR)
 
-unmapped_road_types = {
-    "(default)",
-    "urban road",
-    "urban Alberta provincial highway",
-    "urban road without center line",
-    "urban dual carriageway",
-    "urban single carriageway",
-    "urban",
-    "residence district",
-    "business district",
-    "non-urban residential",
-    "urban main road",
-    "urban local road",
-    "urban secondary road",
-    "urban collector road",
-    "urban motorway",
-    "urban fast transit road",
-    "urban main road with 2 lanes in each direction",
-    "urban main road with 3 lanes in each direction",
-    "Brunei limit area",
-    "school zone",
-    "urban school zone",
-    "rural school zone",
-    "school zones",
-    "road without asphalt or concrete surface",
-    "living_street",
-    "urban public park",
-    "Quebec autoroute",
-    "unpaved road",
-    "perimetral",
-    "residential road",
-    "rural road",
-    "secondary road",
-    "main road",
-    "fast transit road",
-    "dual carriageway with 2 lanes or morein each direction",
-    "winding mountain road",
-    "Kerala state highway",
-    "Kerala national highway",
-    "road with 4 or more lanes",
-    "Punjab state highway",
-    "Punjab state highway with dual carriageway",
-    "Punjab national highway",
-    "Punjab national highway with dual carriageway",
-    "Nicaraguan carretera",
-    "hilly road",
-    "alley",
-    "pedestrian",
-    "road with asphalt or concrete surface in an unincorporated area",
-    "open mountain road",
-    "suburban district",
-    "state park and preserve drive",
-    "state board institutional road",
-    "Kansas county or township highway",
-    "single carriageway in residence district",
-    "dual carriageway in residence district",
-    "trailer park",
-    "public park",
-    "urban US interstate highway",
-    "urban dual carriageway with 2 or more lanes in each direction",
-    "urban motorway with 2 or more lanes in each direction",
-    "numbered road with 2 lanes",
-    "motorway with 2 or more lanes in each direction",
-    "Nebraska state highway",
-    "Nebraska state expressway",
-    "US defense highway",
-    "urban residence district",
-    "rural residence district",
-    "suburban business district",
-    "suburban residence district",
-    "urban Ohio state route",
-    "urban motorway with paved shoulders",
-    "national park road",
-    "trunk without traffic lights",
-    "Oklahoma state park road",
-    "urban road which is not numbered",
-    "US interstate highway with 2 or more lanes in each direction",
-    "Virginia rural rustic road",
-    "Virginia state primary highway",
-    "suburban",
-    "Wisconsin rustic road",
-}
-
-
 class ParseError(Exception):
     pass
 
@@ -156,6 +72,7 @@ def parse_road_types_table(table) -> dict:
 def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
     column_names = []
     result = {}
+    warnings = []
     table_row_helper = TableRowHelper()
 
     # Remove links (footnotes etc), images, etc. that don't serialize well.
@@ -183,9 +100,9 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
         table_row_helper.set_tds(tds)
         if tds:
             country_code = table_row_helper.get_td(0).get_text(strip=True)
-            road_type = table_row_helper.get_td(1).get_text(strip=True) or "(default)"
+            road_type = table_row_helper.get_td(1).get_text(strip=True)
 
-            speeds_by_vehicle_type = {}
+            road_tags = {}
             for col_idx in range(2, len(column_names)):
                 td = table_row_helper.get_td(col_idx)
                 speeds = td.get_text(strip=True)
@@ -194,20 +111,31 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
                     vehicle_type = column_names[col_idx]
                     try:
                         parsed_speeds = speed_parse_func(speeds)
-                    except ParseError as e:
-                        raise ParseError(f'Parsing "{vehicle_type}" for "{road_type}" in {country_code}:\n{str(e)}')
+                    except Exception as e:
+                        parsed_speeds = {}
+                        warnings.append(f'{country_code}: Unable to parse \'{vehicle_type}\' for \'{road_type}\'');
+                        #raise ParseError(f'Parsing "{vehicle_type}" for "{road_type}" in {country_code}:\n{str(e)}')
 
-                    speeds_by_vehicle_type[vehicle_type] = parsed_speeds
+                    for maxspeed_key, maxspeed_value in parsed_speeds.items():
+                        if vehicle_type != "(default)":
+                            maxspeed_key = maxspeed_key.replace("maxspeed:", "maxspeed:" + vehicle_type + ":", 1)
+                        road_tags[maxspeed_key] = maxspeed_value
 
-            if road_type not in unmapped_road_types:
-                try:
-                    road_type = road_types[road_type]
-                except KeyError:
-                    raise ParseError(f'Unrecognized road type "{road_type}"')
+            # count anything that contains "???" as invalid filter
+            road_filter = road_types[road_type] if road_type in road_types else None
+            if road_filter and "???" in road_filter:
+                road_filter = None
 
-            if country_code in result:
-                result[country_code][road_type] = speeds_by_vehicle_type
+            if not road_type or road_filter:
+                if not country_code in result:
+                    result[country_code] = []
+                    
+                result[country_code].append({
+                    'name': road_type,
+                    'filter': road_filter,
+                    'tags': road_tags
+                })
             else:
-                result[country_code] = {road_type: speeds_by_vehicle_type}
+                warnings.append(f'{country_code}: Unable to map \'{road_type}\'')
 
-    return result
+    return {'speed_limits': result, 'warnings': warnings }
