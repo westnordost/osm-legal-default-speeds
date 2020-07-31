@@ -148,7 +148,7 @@ def parse_road_types_table(table) -> dict:
             road_type = table_row_helper.get_td(0).get_text(strip=True)
 
             td = table_row_helper.get_td(1)
-            result[road_type] = td.get_text(strip=True)
+            result[road_type] = td.get_text(" ",strip=True)
 
     return result
 
