@@ -64,7 +64,7 @@ def parse_road_types_table(table) -> dict:
             road_type = table_row_helper.get_td(0).get_text(strip=True)
 
             td = table_row_helper.get_td(1)
-            result[road_type] = td.get_text(" ",strip=True)
+            result[road_type] = td.get_text(" ", strip=True)
 
     return result
 
@@ -111,10 +111,9 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
                     vehicle_type = column_names[col_idx]
                     try:
                         parsed_speeds = speed_parse_func(speeds)
-                    except Exception as e:
+                    except Exception:
                         parsed_speeds = {}
-                        warnings.append(f'{country_code}: Unable to parse \'{vehicle_type}\' for \'{road_type}\'');
-                        #raise ParseError(f'Parsing "{vehicle_type}" for "{road_type}" in {country_code}:\n{str(e)}')
+                        warnings.append(f'{country_code}: Unable to parse \'{vehicle_type}\' for \'{road_type}\'')
 
                     for maxspeed_key, maxspeed_value in parsed_speeds.items():
                         if vehicle_type != "(default)":
@@ -127,9 +126,9 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
                 road_filter = None
 
             if not road_type or road_filter:
-                if not country_code in result:
+                if country_code not in result:
                     result[country_code] = []
-                    
+
                 result[country_code].append({
                     'name': road_type,
                     'filter': road_filter,
@@ -138,4 +137,4 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
             else:
                 warnings.append(f'{country_code}: Unable to map \'{road_type}\'')
 
-    return {'speed_limits': result, 'warnings': warnings }
+    return {'speed_limits': result, 'warnings': warnings}
