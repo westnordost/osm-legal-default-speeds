@@ -31,13 +31,14 @@ restriction_conditional: "articulated"  -> articulated
                        | "wet"          -> wet
                        | time_span      -> time
 
-weight: WEIGHT "t"                   -> normal_weight
+weight: WEIGHT "t"                   -> weight_rating
       | weight_qualifier WEIGHT "t"  -> qualified_weight_pre
       | WEIGHT "t" weight_qualifier  -> qualified_weight_post
 
 weight_qualifier: "empty"     -> empty
                 | "capacity"  -> capacity
                 | "trailer"   -> trailer
+				| "current"   -> current
 
 interval: TIME "-" TIME  -> neg_interval
         | TIME "+" TIME  -> pos_interval

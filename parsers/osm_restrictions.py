@@ -23,7 +23,7 @@ def osm_speed_visitor(t):
         return osm_speed_visitor(t.children[0])
     elif t.data == "qualified_restriction":
         return t.children[0].data
-    elif t.data == "normal_weight":
+    elif t.data == "weight_rating":
         return f"weightrating>{t.children[0]}"
     elif t.data in {"qualified_weight_pre", "qualified_weight_post"}:
         qualifier_type = t.children[0 if t.data == "qualified_weight_pre" else 1].data
@@ -33,6 +33,8 @@ def osm_speed_visitor(t):
             weight_qualifier = "weightcapacity"
         elif qualifier_type == "trailer":
             weight_qualifier = "trailerweight"
+        elif qualifier_type == "current":
+            weight_qualifier = "weight"
         else:
             raise ParseError(f'Unexpected qualifier "{qualifier_type}"')
 

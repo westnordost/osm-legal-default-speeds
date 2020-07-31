@@ -29,6 +29,8 @@ from parsers.osm_restrictions import parse_speeds
         ("40 mph (wet)", {"maxspeed:conditional": "40 mph @ (wet)"}),
         ("40 mph (6 axles)", {"maxspeed:conditional": "40 mph @ (axles>=6)"}),
         ("40 mph (12 seats)", {"maxspeed:conditional": "40 mph @ (seats>=12)"}),
+        ("40 mph (2t)", {"maxspeed:conditional": "40 mph @ (weightrating>2)"}),
+        ("40 mph (current 2t)", {"maxspeed:conditional": "40 mph @ (weight>2)"}),
         ("40 mph (empty 2t)", {"maxspeed:conditional": "40 mph @ (emptyweight>2)"}),
         ("40 mph (capacity 2t)", {"maxspeed:conditional": "40 mph @ (weightcapacity>2)"}),
         ("40 mph (10m)", {"maxspeed:conditional": "40 mph @ (length>10)"}),
