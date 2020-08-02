@@ -63,8 +63,9 @@ def parse_road_types_table(table) -> dict:
         if tds:
             road_type = table_row_helper.get_td(0).get_text(strip=True)
 
-            td = table_row_helper.get_td(1)
-            result[road_type] = td.get_text(" ", strip=True)
+            tags_filter = table_row_helper.get_td(1).get_text(" ", strip=True)
+            fuzzy_tags_filter = table_row_helper.get_td(2).get_text(" ", strip=True)
+            result[road_type] = {'filter': tags_filter, 'fuzzy_filter': fuzzy_tags_filter}
 
     return result
 
@@ -120,20 +121,25 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
                             maxspeed_key = maxspeed_key.replace("maxspeed:", "maxspeed:" + vehicle_type + ":", 1)
                         road_tags[maxspeed_key] = maxspeed_value
 
-            # count anything that contains "???" as invalid filter
-            road_filter = road_types[road_type] if road_type in road_types else None
-            if road_filter and "???" in road_filter:
-                road_filter = None
+            road_filters = road_types[road_type] if road_type in road_types else None
 
-            if not road_type or road_filter:
+            if not road_type or road_filters:
                 if country_code not in result:
                     result[country_code] = []
+ 
+                road_class = { 'tags': road_tags }
 
-                result[country_code].append({
-                    'name': road_type,
-                    'filter': road_filter,
-                    'tags': road_tags
-                })
+                if road_type:
+                    road_class['name'] = road_type
+                    if road_filters['filter']:
+                        road_class['filter'] = road_filters['filter']
+                    else:
+                        warnings.append(f'{country_code}: There is only a fuzzy filter for \'{road_type}\'')
+                    
+                    if road_filters['fuzzy_filter']:
+                        road_class['fuzzy_filter'] = road_filters['fuzzy_filter']
+                
+                result[country_code].append(road_class)
             else:
                 warnings.append(f'{country_code}: Unable to map \'{road_type}\'')
 
