@@ -1,4 +1,6 @@
 import json
+import os
+import sys
 
 from bs4 import BeautifulSoup
 
@@ -19,6 +21,8 @@ def get_page_html(api_url: str, page_name: str) -> str:
 
 
 if __name__ == "__main__":
+    output_file_name = sys.argv[1]
+
     html_string = get_page_html(WIKI_API_URL, WIKI_PAGE)
     soup = BeautifulSoup(html_string, "html.parser")
     speed_table = soup.find_all("table")[0]
@@ -26,4 +30,8 @@ if __name__ == "__main__":
 
     result = parse_speed_table(speed_table, road_types, parse_speeds)
 
-    print(json.dumps(result, sort_keys=True, indent=4))
+    for warning in result['warnings']:
+        print(warning)
+    
+    with open(output_file_name, "w", encoding='utf8') as file:
+        file.write(json.dumps(result['speed_limits'], sort_keys=True, indent=2))
