@@ -126,8 +126,8 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
             if not road_type or road_filters:
                 if country_code not in result:
                     result[country_code] = []
- 
-                road_class = { 'tags': road_tags }
+
+                road_class = {'tags': road_tags}
 
                 if road_type:
                     road_class['name'] = road_type
@@ -135,10 +135,10 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
                         road_class['filter'] = road_filters['filter']
                     else:
                         warnings.append(f'{country_code}: There is only a fuzzy filter for \'{road_type}\'')
-                    
+
                     if road_filters['fuzzy_filter']:
                         road_class['fuzzy_filter'] = road_filters['fuzzy_filter']
-                
+
                 result[country_code].append(road_class)
             else:
                 warnings.append(f'{country_code}: Unable to map \'{road_type}\'')

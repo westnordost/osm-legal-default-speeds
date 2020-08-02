@@ -1,5 +1,4 @@
 import json
-import os
 import sys
 
 from bs4 import BeautifulSoup
@@ -32,6 +31,6 @@ if __name__ == "__main__":
 
     for warning in result['warnings']:
         print(warning)
-    
+
     with open(output_file_name, "w", encoding='utf8') as file:
         file.write(json.dumps(result['speed_limits'], sort_keys=True, indent=2))
