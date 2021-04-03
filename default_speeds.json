@@ -3745,6 +3745,13 @@
       }
     },
     {
+      "filter": "{is_school_zone}",
+      "name": "school zone",
+      "tags": {
+        "maxspeed": "25 mph"
+      }
+    },
+    {
       "filter": "{is_residential_district}",
       "name": "residence district",
       "tags": {
@@ -4167,10 +4174,24 @@
       }
     },
     {
+      "filter": "{is_urban} and highway~^motorway(_link)?$",
+      "name": "urban motorway",
+      "tags": {
+        "maxspeed": "60 mph"
+      }
+    },
+    {
       "filter": "{is_urban} and ref~^I and highway~^motorway|motorway_link$",
       "name": "US urban interstate highway",
       "tags": {
         "maxspeed": "60 mph"
+      }
+    },
+    {
+      "filter": "ref and lanes>=2",
+      "name": "numbered road with 2 lanes",
+      "tags": {
+        "maxspeed": "55 mph"
       }
     },
     {
@@ -4188,6 +4209,13 @@
     {
       "filter": "ref~^I and highway~^motorway|motorway_link$",
       "name": "US interstate highway",
+      "tags": {
+        "maxspeed": "70 mph"
+      }
+    },
+    {
+      "filter": "highway~^motorway(_link)?$",
+      "name": "motorway",
       "tags": {
         "maxspeed": "70 mph"
       }
@@ -4349,6 +4377,20 @@
       }
     },
     {
+      "filter": "{is_residential_district} and {is_urban}",
+      "name": "urban residential district",
+      "tags": {
+        "maxspeed": "30 mph"
+      }
+    },
+    {
+      "filter": "{is_residential_district} and\u00a0!{is_urban}",
+      "name": "non-urban residential district",
+      "tags": {
+        "maxspeed": "35 mph"
+      }
+    },
+    {
       "filter": "{is_urban}",
       "name": "urban",
       "tags": {
@@ -4387,15 +4429,15 @@
       }
     },
     {
-      "filter": "{is_business_district}",
-      "name": "business district",
+      "filter": "{is_business_district} and {is_urban}",
+      "name": "urban business district",
       "tags": {
         "maxspeed": "25 mph"
       }
     },
     {
-      "filter": "{is_residential_district}",
-      "name": "residence district",
+      "filter": "{is_residential_district} and {is_urban}",
+      "name": "urban residential district",
       "tags": {
         "maxspeed": "25 mph"
       }
@@ -4476,6 +4518,20 @@
       "name": "Ohio urban state route",
       "tags": {
         "maxspeed": "35 mph"
+      }
+    },
+    {
+      "filter": "{is_urban} and highway~^motorway(_link)?$",
+      "name": "urban motorway",
+      "tags": {
+        "maxspeed": "50 mph"
+      }
+    },
+    {
+      "filter": "{is_urban} and highway~^motorway(_link)?$ and shoulders~^yes|both|left|right$",
+      "name": "urban motorway with paved shoulders",
+      "tags": {
+        "maxspeed": "55 mph"
       }
     },
     {
@@ -4568,6 +4624,13 @@
       "name": "school zone",
       "tags": {
         "maxspeed": "15 mph"
+      }
+    },
+    {
+      "filter": "{is_urban} and !ref",
+      "name": "urban road which is not numbered",
+      "tags": {
+        "maxspeed": "25 mph"
       }
     },
     {
