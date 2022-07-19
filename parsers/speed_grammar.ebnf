@@ -63,7 +63,7 @@ LENGTH_UNIT: "m" | "ft"
 TIME: /[0-9][0-9]:[0-9][0-9]/
 EVENT: "sunset" | "sunrise" | "dusk" | "dawn"
 WEEKDAY: "Mo" | "Tu" | "We" | "Th" | "Fr" | "Sa" | "So"
-MONTH: "Jan" | "Feb" | "Mar" | "Apr" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Dec"
+MONTH: "Jan" | "Feb" | "Mar" | "Apr" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Nov" | "Dec"
 
 %import common.INT -> NUMBER
 %import common.WS
