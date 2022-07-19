@@ -20,7 +20,7 @@ def get_page_html(api_url: str, page_name: str) -> str:
 
 
 if __name__ == "__main__":
-    output_file_name = sys.argv[1]
+    output_file_name = sys.argv[1] if len(sys.argv)>1 else "default_speeds.json"
 
     html_string = get_page_html(WIKI_API_URL, WIKI_PAGE)
     soup = BeautifulSoup(html_string, "html.parser")
