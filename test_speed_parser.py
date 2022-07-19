@@ -15,6 +15,8 @@ from parsers.osm_restrictions import parse_speeds
         
         # Conditionals
         ("40 mph (2t trailer)", {"maxspeed:conditional": "40 mph @ (trailerweight>2)"}),
+        ("40 mph (0.75t trailer)", {"maxspeed:conditional": "40 mph @ (trailerweight>0.75)"}),
+        ("40 mph (2st trailer)", {"maxspeed:conditional": "40 mph @ (trailerweight>2 st)"}),
         
         ("40 mph (articulated)", {"maxspeed:conditional": "40 mph @ (articulated)"}),
         ("40 mph (trailer)", {"maxspeed:conditional": "40 mph @ (trailer)"}),
@@ -27,6 +29,7 @@ from parsers.osm_restrictions import parse_speeds
         ("40 mph (2 trailers)", {"maxspeed:conditional": "40 mph @ (trailers>=2)"}),
         
         ("40 mph (2t)", {"maxspeed:conditional": "40 mph @ (weightrating>2)"}),
+        ("40 mph (2.5t)", {"maxspeed:conditional": "40 mph @ (weightrating>2.5)"}),
         
         ("40 (current 2t)", {"maxspeed:conditional": "40 @ (weight>2)"}),
         ("40 (2t current)", {"maxspeed:conditional": "40 @ (weight>2)"}),
@@ -37,6 +40,7 @@ from parsers.osm_restrictions import parse_speeds
         
         ("40 mph (2000lb)", {"maxspeed:conditional": "40 mph @ (weightrating>2000 lb)"}),
         ("40 mph (2st)", {"maxspeed:conditional": "40 mph @ (weightrating>2 st)"}),
+        ("40 mph (2.5st)", {"maxspeed:conditional": "40 mph @ (weightrating>2.5 st)"}),
 
         ("40 mph (current 2st)", {"maxspeed:conditional": "40 mph @ (weight>2 st)"}),
         ("40 mph (2st current)", {"maxspeed:conditional": "40 mph @ (weight>2 st)"}),
