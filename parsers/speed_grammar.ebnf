@@ -52,7 +52,7 @@ speed_value: NUMBER+ "mph" -> mph_speed
            | NUMBER+       -> kph_speed
            | "walk"        -> walk_speed
 
-RESTRICTION_CONDITIONAL: "articulated" | "trailer" | "caravan" |"wet"
+RESTRICTION_CONDITIONAL: "articulated" | "trailer" | "caravan" | "wet" | "empty"
 
 WEIGHT: /\d+([.]\d+)?/
 WEIGHT_QUALIFIER: "empty" | "capacity" | "trailer" | "current"
