@@ -25,23 +25,28 @@ restriction: weight                   -> weight_restriction
            | NUMBER+ "seats"          -> seat_restriction
            | NUMBER+ "axles"          -> axle_restriction
            | NUMBER+ "trailers"       -> trailers_restriction
-           | date_time                -> date_time
+           | date_interval            -> date_interval
 
 weight: WEIGHT WEIGHT_UNIT                   -> weight_rating
       | WEIGHT_QUALIFIER WEIGHT WEIGHT_UNIT  -> qualified_weight_pre
       | WEIGHT WEIGHT_UNIT WEIGHT_QUALIFIER  -> qualified_weight_post
 
-date_time: [month_span] [weekday_span] time_span
+date_interval: [month_span] [weekday_span] time_span
+             | [month_span] weekday_span
+             | month_span
 
 month_span: MONTH "-" MONTH
 
 weekday_span: WEEKDAY "-" WEEKDAY
 
-time_span: time_interval                                    -> time_interval
-         | "(" time_interval ")" "-" "(" time_interval ")"  -> complex_time_span
+time_span: time "-" time
 
-time_interval: TIME "-" TIME  -> neg_interval
-             | TIME "+" TIME  -> pos_interval
+time: TIME                       -> time_time
+    | EVENT                      -> time_event
+    | "(" event_with_offset ")"  -> event_with_offset
+
+event_with_offset: EVENT "-" TIME  -> neg_interval
+                 | EVENT "+" TIME  -> pos_interval
 
 speed_value: NUMBER+ "mph" -> mph_speed
            | NUMBER+       -> kph_speed
@@ -55,7 +60,8 @@ WEIGHT_UNIT: "t" | "st" | "lt" | "lb"
 
 LENGTH_UNIT: "m" | "ft"
 
-TIME: /[a-zA-Z0-9:]+/
+TIME: /[0-9][0-9]:[0-9][0-9]/
+EVENT: "sunset" | "sunrise" | "dusk" | "dawn"
 WEEKDAY: "Mo" | "Tu" | "We" | "Th" | "Fr" | "Sa" | "So"
 MONTH: "Jan" | "Feb" | "Mar" | "Apr" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Dec"
 

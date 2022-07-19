@@ -66,7 +66,6 @@ from parsers.osm_restrictions import parse_speeds
 
         # Time intervals
         ("40 mph (sunset-sunrise)", {"maxspeed:conditional": "40 mph @ (sunset-sunrise)"}),
-        ("40 mph (sunset+01:00)", {"maxspeed:conditional": "40 mph @ (sunset+01:00)"}),
         (
             "40 mph ((sunset+01:30)-(sunrise-01:30))",
             {"maxspeed:conditional": "40 mph @ ((sunset+01:30)-(sunrise-01:30))"},

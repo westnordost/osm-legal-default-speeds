@@ -46,18 +46,18 @@ def osm_speed_visitor(t):
         return f"axles>={t.children[0]}"
     elif t.data == "trailers_restriction":
         return f"trailers>={t.children[0]}"
-    elif t.data == "restriction_conditional":
+    elif t.data in {"restriction_conditional", "time_time", "time_event"}:
         return t.children[0]
-    elif t.data == "date_time":
+    elif t.data == "date_interval":
         return " ".join([osm_speed_visitor(child) for child in filter(None, t.children)])
-    elif t.data == "time_interval":
-        return osm_speed_visitor(t.children[0])
-    if t.data in {"neg_interval", "weekday_span", "month_span"}:
+    elif t.data == "time_span":
+        return f"{osm_speed_visitor(t.children[0])}-{osm_speed_visitor(t.children[1])}"
+    elif t.data == "event_with_offset":
+        return f"({osm_speed_visitor(t.children[0])})"
+    elif t.data in {"neg_interval", "time_span", "weekday_span", "month_span"}:
         return f"{t.children[0]}-{t.children[1]}"
     elif t.data == "pos_interval":
         return f"{t.children[0]}+{t.children[1]}"
-    elif t.data == "complex_time_span":
-        return f"({osm_speed_visitor(t.children[0])})-({osm_speed_visitor(t.children[1])})"
 
     else:
         raise ParseError(f'Unexpected token "{t}"')
