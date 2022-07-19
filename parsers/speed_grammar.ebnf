@@ -19,32 +19,35 @@ _restriction_def: "(" _restrictions ")"
 _restrictions: restriction
              | restriction "," _restrictions
 
-restriction: weight                          -> weight_restriction
-           | restriction_conditional         -> conditional_restriction
-           | NUMBER+ LENGTH_UNIT             -> length_restriction
-           | NUMBER+ "seats"                 -> seat_restriction
-           | NUMBER+ "axles"                 -> axle_restriction
-           | NUMBER+ "trailers"              -> trailers_restriction
-
-restriction_conditional: "articulated"  -> articulated
-                       | "trailer"      -> trailer
-                       | "caravan"      -> caravan
-                       | "wet"          -> wet
-                       | time_span      -> time
+restriction: weight                   -> weight_restriction
+           | RESTRICTION_CONDITIONAL  -> restriction_conditional
+           | NUMBER+ LENGTH_UNIT      -> length_restriction
+           | NUMBER+ "seats"          -> seat_restriction
+           | NUMBER+ "axles"          -> axle_restriction
+           | NUMBER+ "trailers"       -> trailers_restriction
+           | date_time                -> date_time
 
 weight: WEIGHT WEIGHT_UNIT                   -> weight_rating
       | WEIGHT_QUALIFIER WEIGHT WEIGHT_UNIT  -> qualified_weight_pre
       | WEIGHT WEIGHT_UNIT WEIGHT_QUALIFIER  -> qualified_weight_post
 
-interval: TIME "-" TIME  -> neg_interval
-        | TIME "+" TIME  -> pos_interval
+date_time: [month_span] [weekday_span] time_span
 
-time_span: interval                               -> interval
-         | "(" interval ")" "-" "(" interval ")"  -> complex_time_span
+month_span: MONTH "-" MONTH
+
+weekday_span: WEEKDAY "-" WEEKDAY
+
+time_span: time_interval                                    -> time_interval
+         | "(" time_interval ")" "-" "(" time_interval ")"  -> complex_time_span
+
+time_interval: TIME "-" TIME  -> neg_interval
+             | TIME "+" TIME  -> pos_interval
 
 speed_value: NUMBER+ "mph" -> mph_speed
            | NUMBER+       -> kph_speed
            | "walk"        -> walk_speed
+
+RESTRICTION_CONDITIONAL: "articulated" | "trailer" | "caravan" |"wet"
 
 WEIGHT: /\d+([.]\d+)?/
 WEIGHT_QUALIFIER: "empty" | "capacity" | "trailer" | "current"
@@ -53,6 +56,8 @@ WEIGHT_UNIT: "t" | "st" | "lt" | "lb"
 LENGTH_UNIT: "m" | "ft"
 
 TIME: /[a-zA-Z0-9:]+/
+WEEKDAY: "Mo" | "Tu" | "We" | "Th" | "Fr" | "Sa" | "So"
+MONTH: "Jan" | "Feb" | "Mar" | "Apr" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Dec"
 
 %import common.INT -> NUMBER
 %import common.WS

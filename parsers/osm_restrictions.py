@@ -32,8 +32,6 @@ def osm_speed_visitor(t):
     # restrictions
     elif t.data == "weight_restriction":
         return osm_speed_visitor(t.children[0])
-    elif t.data == "qualified_restriction":
-        return t.children[0].data
     elif t.data == "weight_rating":
         return f"weightrating>{t.children[0]}{osm_weight_unit(t.children[1])}"
     elif t.data == "qualified_weight_pre":
@@ -48,14 +46,13 @@ def osm_speed_visitor(t):
         return f"axles>={t.children[0]}"
     elif t.data == "trailers_restriction":
         return f"trailers>={t.children[0]}"
-    elif t.data == "conditional_restriction":
-        if t.children[0].data == "time":
-            return osm_speed_visitor(t.children[0].children[0])
-        else:
-            return t.children[0].data
-    elif t.data == "interval":
+    elif t.data == "restriction_conditional":
+        return t.children[0]
+    elif t.data == "date_time":
+        return " ".join([osm_speed_visitor(child) for child in filter(None, t.children)])
+    elif t.data == "time_interval":
         return osm_speed_visitor(t.children[0])
-    if t.data == "neg_interval":
+    if t.data in {"neg_interval", "weekday_span", "month_span"}:
         return f"{t.children[0]}-{t.children[1]}"
     elif t.data == "pos_interval":
         return f"{t.children[0]}+{t.children[1]}"

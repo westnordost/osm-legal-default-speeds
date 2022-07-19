@@ -71,6 +71,11 @@ from parsers.osm_restrictions import parse_speeds
             "40 mph ((sunset+01:30)-(sunrise-01:30))",
             {"maxspeed:conditional": "40 mph @ ((sunset+01:30)-(sunrise-01:30))"},
         ),
+        ("40 (Sep-Jun)", {"maxspeed:conditional": "40 @ (Sep-Jun)"}),
+        ("40 (Sep-Jun Mo-Fr)", {"maxspeed:conditional": "40 @ (Sep-Jun Mo-Fr)"}),
+        ("40 (Sep-Jun Mo-Fr 08:00-16:00)", {"maxspeed:conditional": "40 @ (Sep-Jun Mo-Fr 08:00-16:00)"}),
+        ("40 (08:00-16:00)", {"maxspeed:conditional": "40 @ (08:00-16:00)"}),
+        ("40 (Mo-Fr)", {"maxspeed:conditional": "40 @ (Mo-Fr)"}),
         # Advisory speed
         ("advisory: 130", {"maxspeed:advisory": "130"}),
         ("junk", None),  # Obviously invalid
