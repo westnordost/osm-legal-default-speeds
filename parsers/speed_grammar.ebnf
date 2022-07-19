@@ -21,9 +21,10 @@ _restrictions: restriction
 
 restriction: weight                          -> weight_restriction
            | restriction_conditional         -> conditional_restriction
-           | NUMBER+ "m"                     -> length_restriction
+           | NUMBER+ LENGTH_UNIT             -> length_restriction
            | NUMBER+ "seats"                 -> seat_restriction
            | NUMBER+ "axles"                 -> axle_restriction
+           | NUMBER+ "trailers"              -> trailers_restriction
 
 restriction_conditional: "articulated"  -> articulated
                        | "trailer"      -> trailer
@@ -31,14 +32,9 @@ restriction_conditional: "articulated"  -> articulated
                        | "wet"          -> wet
                        | time_span      -> time
 
-weight: WEIGHT "t"                   -> weight_rating
-      | weight_qualifier WEIGHT "t"  -> qualified_weight_pre
-      | WEIGHT "t" weight_qualifier  -> qualified_weight_post
-
-weight_qualifier: "empty"     -> empty
-                | "capacity"  -> capacity
-                | "trailer"   -> trailer
-				| "current"   -> current
+weight: WEIGHT WEIGHT_UNIT                   -> weight_rating
+      | WEIGHT_QUALIFIER WEIGHT WEIGHT_UNIT  -> qualified_weight_pre
+      | WEIGHT WEIGHT_UNIT WEIGHT_QUALIFIER  -> qualified_weight_post
 
 interval: TIME "-" TIME  -> neg_interval
         | TIME "+" TIME  -> pos_interval
@@ -51,6 +47,10 @@ speed_value: NUMBER+ "mph" -> mph_speed
            | "walk"        -> walk_speed
 
 WEIGHT: /\d+([.]\d+)?/
+WEIGHT_QUALIFIER: "empty" | "capacity" | "trailer" | "current"
+WEIGHT_UNIT: "t" | "st" | "lt" | "lb"
+
+LENGTH_UNIT: "m" | "ft"
 
 TIME: /[a-zA-Z0-9:]+/
 
