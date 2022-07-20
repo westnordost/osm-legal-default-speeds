@@ -118,7 +118,7 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
 
                     for maxspeed_key, maxspeed_value in parsed_speeds.items():
                         if vehicle_type != "(default)":
-                            maxspeed_key = maxspeed_key.replace("maxspeed:", "maxspeed:" + vehicle_type + ":", 1)
+                            maxspeed_key = maxspeed_key.replace("maxspeed", "maxspeed:" + vehicle_type, 1)
                         road_tags[maxspeed_key] = maxspeed_value
 
             road_filters = road_types[road_type] if road_type in road_types else None
