@@ -1,3 +1,4 @@
+from re import finditer
 from bs4 import element
 from lark import Lark
 
@@ -65,12 +66,15 @@ def parse_road_types_table(table) -> dict:
 
             tags_filter = table_row_helper.get_td(1).get_text(" ", strip=True)
             fuzzy_tags_filter = table_row_helper.get_td(2).get_text(" ", strip=True)
-            result[road_type] = {'filter': tags_filter, 'fuzzy_filter': fuzzy_tags_filter}
+            road_class = {}
+            if tags_filter: road_class['filter'] = tags_filter
+            if fuzzy_tags_filter: road_class['fuzzy_filter'] = fuzzy_tags_filter
+            result[road_type] = road_class
 
     return result
 
 
-def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
+def parse_speed_table(table, speed_parse_func) -> dict:
     column_names = []
     result = {}
     warnings = []
@@ -121,26 +125,36 @@ def parse_speed_table(table, road_types: dict, speed_parse_func) -> dict:
                             maxspeed_key = maxspeed_key.replace("maxspeed", "maxspeed:" + vehicle_type, 1)
                         road_tags[maxspeed_key] = maxspeed_value
 
-            road_filters = road_types[road_type] if road_type in road_types else None
+            if country_code not in result:
+                result[country_code] = []
 
-            if not road_type or road_filters:
-                if country_code not in result:
-                    result[country_code] = []
-
-                road_class = {'tags': road_tags}
-
-                if road_type:
-                    road_class['name'] = road_type
-                    if road_filters['filter']:
-                        road_class['filter'] = road_filters['filter']
-                    else:
-                        warnings.append(f'{country_code}: There is only a fuzzy filter for \'{road_type}\'')
-
-                    if road_filters['fuzzy_filter']:
-                        road_class['fuzzy_filter'] = road_filters['fuzzy_filter']
-
-                result[country_code].append(road_class)
-            else:
-                warnings.append(f'{country_code}: Unable to map \'{road_type}\'')
+            road_class = { 'tags': road_tags }
+            if road_type:
+                road_class['name'] = road_type
+                
+            result[country_code].append(road_class)
 
     return {'speed_limits': result, 'warnings': warnings}
+
+def validate_road_types(road_types: dict):
+    warnings = []
+    for road_type, filters in road_types.items():
+        all_filters = []
+        if "filter" in filters: all_filters.append(filters["filter"])
+        if "fuzzy_filter" in filters: all_filters.append(filters["fuzzy_filter"])
+        for f in all_filters:
+            for match in finditer("{.*?}", f):
+                placeholder = match.group(0)[1:-1]
+                if placeholder not in road_types:
+                    warnings.append(f'{road_type}: Unable to map \'{placeholder}\'')
+    return warnings
+
+def validate_road_types_in_speed_table(speeds_by_country_code: dict, road_types: dict):
+    warnings = []
+    for country_code in speeds_by_country_code:
+        for road_class in speeds_by_country_code[country_code]:
+            if "name" in road_class:
+                road_type = road_class["name"]
+                if road_type not in road_types:
+                    warnings.append(f'{country_code}: Unable to map \'{road_type}\'')
+    return warnings

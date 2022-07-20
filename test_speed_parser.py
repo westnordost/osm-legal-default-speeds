@@ -1,7 +1,8 @@
 import pytest
 
 from parsers.osm_restrictions import parse_speeds
-
+from parsers.parse_utils import validate_road_types
+from parsers.parse_utils import validate_road_types_in_speed_table
 
 @pytest.mark.parametrize(
     "data,expected",
@@ -80,13 +81,16 @@ from parsers.osm_restrictions import parse_speeds
         ("40 (Sep-Jun Mo-Fr 08:00-16:00)", {"maxspeed:conditional": "40 @ (Sep-Jun Mo-Fr 08:00-16:00)"}),
         ("40 (08:00-16:00)", {"maxspeed:conditional": "40 @ (08:00-16:00)"}),
         ("40 (Mo-Fr)", {"maxspeed:conditional": "40 @ (Mo-Fr)"}),
+        
         # Advisory speed
         ("advisory: 130", {"maxspeed:advisory": "130"}),
+        
+        # Junk
         ("junk", None),  # Obviously invalid
         ("40 mph ((2t)", None),  # Mismatched braces
         ("40 mph (2t))", None),  # Mismatched braces
         ("40 mph (2u))", None),  # Invalid restriction
-    ],
+    ]
 )
 def test_parser(data, expected):
     try:
@@ -95,3 +99,73 @@ def test_parser(data, expected):
     except:  # noqa: E722
         if expected is not None:
             raise
+
+@pytest.mark.parametrize(
+    "data,expected",
+    [
+        (
+            {"alley": {"filter": "highway=service"}},
+            []
+        ),
+        (
+            {"alley": {"fuzzy_filter": "highway=service"}},
+            []
+        ),
+        (
+            {"alley": {"filter": "{service}"}},
+            ["alley: Unable to map 'service'"]
+        ),
+        (
+            {"alley": {"fuzzy_filter": "{service}"}},
+            ["alley: Unable to map 'service'"]
+        ),
+        (
+            {"urban": {"filter": "{lit}"}, "lit": { "filter": "lit=yes" }},
+            []
+        ),
+        (
+            {"urban": {"filter": "{lit} or {residential}"}, "lit": { "filter": "lit=yes" }},
+            ["urban: Unable to map 'residential'"]
+        ),
+        (
+            {"urban": {"filter": "{lit}"}, "rural": { "filter": "!{lit}" }},
+            ["urban: Unable to map 'lit'", "rural: Unable to map 'lit'"]
+        ),
+    ]
+)
+def test_validate_road_types(data, expected):
+    assert validate_road_types(data) == expected
+
+@pytest.mark.parametrize(
+    "speeds_by_country_code,road_types,expected",
+    [
+        (
+            { "AA": [{}] },
+            {},
+            []
+        ),
+        (
+            { "AA": [{ "name": "rural" }] },
+            { "rural": {"filter": "lit=no"} },
+            []
+        ),
+        (
+            { "AA": [{ "name": "rural" }] },
+            {},
+            ["AA: Unable to map 'rural'"]
+        ),
+        (
+            { "AA": [{ "name": "rural" }, { "name": "urban" }] },
+            { "rural": {"filter": "lit=no"} },
+            ["AA: Unable to map 'urban'"]
+        ),
+        (
+            { "AA": [{ "name": "rural" }], "AB": [{ "name": "urban" }] },
+            { "rural": {"filter": "lit=no"} },
+            ["AB: Unable to map 'urban'"]
+        ),
+    ]
+)
+def test_validate_road_types_in_speed_table(speeds_by_country_code, road_types, expected):
+    assert validate_road_types_in_speed_table(speeds_by_country_code, road_types) == expected
+

@@ -8,6 +8,8 @@ import requests
 from parsers.osm_restrictions import parse_speeds
 from parsers.parse_utils import parse_road_types_table
 from parsers.parse_utils import parse_speed_table
+from parsers.parse_utils import validate_road_types
+from parsers.parse_utils import validate_road_types_in_speed_table
 
 WIKI_URL = "https://wiki.openstreetmap.org/wiki/"
 WIKI_API_URL = "https://wiki.openstreetmap.org/w/api.php"
@@ -23,16 +25,16 @@ if __name__ == "__main__":
     speed_table = soup.find_all("table")[0]
     road_types = parse_road_types_table(soup.find_all("table")[1])
 
-    result = parse_speed_table(speed_table, road_types, parse_speeds)
+    result = parse_speed_table(speed_table, parse_speeds)
     result["meta"] = {
         "source": WIKI_URL + WIKI_PAGE,
         "revision_id": parsed["revid"],
         "license": "Creative Commons Attribution-ShareAlike 2.0 license",
         "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
     }
-
-    for warning in result['warnings']:
-        print(warning)
+    result["road_types"] = road_types
+    result['warnings'] += validate_road_types(road_types)
+    result['warnings'] += validate_road_types_in_speed_table(result['speed_limits'], road_types)
 
     with open(output_file_name, "w", encoding='utf8') as file:
-        file.write(json.dumps(result['speed_limits'], sort_keys=True, indent=2))
+        file.write(json.dumps(result, sort_keys=True, indent=2))
