@@ -1,9 +1,10 @@
 import json
 import sys
 
-from bs4 import BeautifulSoup
-
 import requests
+import datetime
+
+from bs4 import BeautifulSoup
 
 from parsers.osm_restrictions import parse_speeds
 from parsers.parse_utils import parse_road_types_table
@@ -29,6 +30,7 @@ if __name__ == "__main__":
     result["meta"] = {
         "source": WIKI_URL + WIKI_PAGE,
         "revision_id": parsed["revid"],
+        "timestamp": datetime.datetime.utcnow().replace(microsecond=0).isoformat(),
         "license": "Creative Commons Attribution-ShareAlike 2.0 license",
         "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
     }
