@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter
 
 import kotlin.test.*
 
-class BooleanExpressionBuilderTest {
+internal class BooleanExpressionBuilderTest {
     @Test fun leaf() { check("a") }
     @Test fun and() { check("a*b") }
     @Test fun or() { check("a+b") }

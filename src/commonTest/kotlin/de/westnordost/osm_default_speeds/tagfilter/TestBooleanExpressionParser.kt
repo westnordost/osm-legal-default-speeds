@@ -1,6 +1,6 @@
 package de.westnordost.osm_default_speeds.tagfilter
 
-object TestBooleanExpressionParser {
+internal object TestBooleanExpressionParser {
     fun parse(input: String): BooleanExpression<Matcher<String>, String>? {
         val builder = BooleanExpressionBuilder<Matcher<String>, String>()
         val reader = StringWithCursor(input)

@@ -4,7 +4,7 @@ import de.westnordost.osm_default_speeds.tagfilter.filters.HasKey
 import de.westnordost.osm_default_speeds.tagfilter.filters.NotHasKey
 import kotlin.test.*
 
-class TagFilterExpressionTest {
+internal class TagFilterExpressionTest {
 
     @Test fun matches_filter() {
         val expr1 = Leaf(HasKey("bla"))

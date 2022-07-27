@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter
 
 import kotlin.test.*
 
-class BooleanExpressionTest {
+internal class BooleanExpressionTest {
 
     @Test fun match_leaf() {
         assertTrue(evalExpression("1"))

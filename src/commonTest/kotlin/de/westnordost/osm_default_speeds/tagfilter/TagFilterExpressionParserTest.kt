@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter
 
 import kotlin.test.*
 
-class TagFilterExpressionParserTest {
+internal class TagFilterExpressionParserTest {
 
     @Test fun fail_if_no_space_after_or_before_and_or() {
         shouldFail("shop andfail")

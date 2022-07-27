@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter
 
 import kotlin.test.*
 
-class NumberWithUnitParserKtTest {
+internal class NumberWithUnitParserKtTest {
 
     @Test fun empty() {
         assertNull(parse(""))

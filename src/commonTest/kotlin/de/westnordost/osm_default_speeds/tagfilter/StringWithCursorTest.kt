@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter
 
 import kotlin.test.*
 
-class StringWithCursorTest {
+internal class StringWithCursorTest {
     @Test fun advance() {
         val x = StringWithCursor("ab")
         assertEquals(0, x.cursorPos)
