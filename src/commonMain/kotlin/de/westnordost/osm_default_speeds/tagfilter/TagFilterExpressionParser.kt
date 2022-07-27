@@ -228,13 +228,6 @@ private fun StringWithCursor.parseWord(): String {
 private fun StringWithCursor.expectAnyNumberOfSpaces(): Int =
     nextMatchesAndAdvance(WHITESPACES_REGEX)?.value?.length ?: 0
 
-private fun StringWithCursor.expectOneOrMoreSpaces(): Int {
-    if (nextMatchesAndAdvance(WHITESPACE_REGEX) == null) {
-        throw ParseException("Expected a whitespace", cursorPos)
-    }
-    return expectAnyNumberOfSpaces() + 1
-}
-
 private fun StringWithCursor.nextIsReservedWord(): String? {
     val wordLength = findWordLength()
     return RESERVED_WORDS.firstOrNull { nextIs(it) && wordLength == it.length }
