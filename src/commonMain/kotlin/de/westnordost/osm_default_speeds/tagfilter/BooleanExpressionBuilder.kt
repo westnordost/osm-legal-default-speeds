@@ -1,7 +1,7 @@
 package de.westnordost.osm_default_speeds.tagfilter
 
 /** Builds a boolean expression. Basically a BooleanExpression with a cursor.  */
-class BooleanExpressionBuilder<I : Matcher<T>, T> {
+internal class BooleanExpressionBuilder<I : Matcher<T>, T> {
     private var node: Chain<I, T> = BracketHelper()
     private var bracketCount = 0
 
@@ -52,6 +52,10 @@ class BooleanExpressionBuilder<I : Matcher<T>, T> {
         node.addChild(Leaf(i))
     }
 
+    fun addPlaceholder(p: String) {
+        node.addChild(Placeholder(p))
+    }
+
     fun addAnd() {
         if (node !is AllOf) {
             val last = node.children.last()
@@ -98,5 +102,5 @@ private fun <I : Matcher<T>, T> Chain<I, T>.ensureNoBracketNodes() {
 }
 
 private class BracketHelper<I : Matcher<T>, T> : Chain<I, T>() {
-    override fun matches(obj: T) = throw IllegalStateException("Bracket cannot match")
+    override fun matches(obj: T, evaluate: (name: String) -> Boolean) = throw IllegalStateException("Bracket cannot match")
 }

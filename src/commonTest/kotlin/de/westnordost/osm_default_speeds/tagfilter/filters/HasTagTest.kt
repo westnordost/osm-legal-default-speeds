@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter.filters
 
 import kotlin.test.*
 
-class HasTagTest {
+internal class HasTagTest {
     val c = HasTag("highway", "residential")
 
     @Test fun matches() {

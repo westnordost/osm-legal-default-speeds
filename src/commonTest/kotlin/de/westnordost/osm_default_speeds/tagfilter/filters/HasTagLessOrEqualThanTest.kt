@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter.filters
 
 import kotlin.test.*
 
-class HasTagLessOrEqualThanTest {
+internal class HasTagLessOrEqualThanTest {
     val c = HasTagLessOrEqualThan("width", 3.5f)
 
     @Test fun matches() {

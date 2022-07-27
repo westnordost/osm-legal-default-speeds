@@ -3,8 +3,6 @@ package de.westnordost.osm_default_speeds.tagfilter
 import de.westnordost.osm_default_speeds.tagfilter.filters.*
 import kotlin.math.min
 
-typealias TagFilterExpression = BooleanExpression<TagFilter, Tags>
-
 /** Compiles a string in filter syntax into a TagFilterExpression. A string in filter syntax is something like this:
  *
  *  `(highway = residential or highway = tertiary) and !name`
@@ -44,7 +42,6 @@ typealias TagFilterExpression = BooleanExpression<TagFilter, Tags>
  *  | `craft or shop and name`       | `craft or (shop and name)` (`and` has higher precedence) |
  *  | `!(amenity and craft)`         | **<error>** (negation of expression not supported)       |
  *  */
-fun String.toTagFilterExpression(): TagFilterExpression = StringWithCursor(this).parseTags()
 
 private const val OR = "or"
 private const val AND = "and"
@@ -82,8 +79,8 @@ private val ESCAPED_QUOTE_REGEX = Regex("\\\\(['\"])")
 private val WHITESPACE_REGEX = Regex("\\s")
 private val WHITESPACES_REGEX = Regex("\\s*")
 
-private fun StringWithCursor.parseTags(): BooleanExpression<TagFilter, Tags> {
-    val builder = BooleanExpressionBuilder<TagFilter, Tags>()
+internal fun StringWithCursor.parseTags(): BooleanExpression<TagFilter, Map<String, String>> {
+    val builder = BooleanExpressionBuilder<TagFilter, Map<String, String>>()
     var first = true
 
     do {

@@ -44,6 +44,6 @@ internal class BooleanExpressionTest {
 
     private fun evalExpression(input: String): Boolean {
         val expr = TestBooleanExpressionParser.parse(input)
-        return expr!!.matches("1")
+        return expr!!.matches("1") { false }
     }
 }

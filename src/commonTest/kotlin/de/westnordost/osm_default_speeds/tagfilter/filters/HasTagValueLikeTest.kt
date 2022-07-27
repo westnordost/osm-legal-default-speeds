@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter.filters
 
 import kotlin.test.*
 
-class HasTagValueLikeTest {
+internal class HasTagValueLikeTest {
 
     @Test fun matches_like_dot() {
         val f = HasTagValueLike("highway", ".esidential")

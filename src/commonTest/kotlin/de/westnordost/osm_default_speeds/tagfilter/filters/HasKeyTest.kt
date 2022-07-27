@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter.filters
 
 import kotlin.test.*
 
-class HasKeyTest {
+internal class HasKeyTest {
     private val key = HasKey("name")
 
     @Test fun matches() {

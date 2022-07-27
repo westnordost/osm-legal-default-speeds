@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter.filters
 
 import kotlin.test.*
 
-class RegexOrSetTest {
+internal class RegexOrSetTest {
     @Test fun pipesMatch() {
         val r = RegexOrSet.from("a|b|c")
         assertTrue(r.matches("a"))

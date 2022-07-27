@@ -391,16 +391,13 @@ internal class TagFilterExpressionParserTest {
         notMatchesTags(mapOfKeys("b", "c"), expr)
     }
 
-
-    private fun parse(input: String) = input.toTagFilterExpression()
-
     private fun shouldFail(input: String) {
-        assertFailsWith(ParseException::class) { parse(input) }
+        assertFailsWith(ParseException::class) { TagFilterExpression(input) }
     }
 
     private fun matchesTags(tags: Map<String,String>, input: String) =
-        assertTrue(parse(input).matches(tags))
+        assertTrue(TagFilterExpression(input).matches(tags) { false })
 
     private fun notMatchesTags(tags: Map<String,String>, input: String) =
-        assertFalse(parse(input).matches(tags))
+        assertFalse(TagFilterExpression(input).matches(tags) { false })
 }

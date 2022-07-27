@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter.filters
 
 import kotlin.test.*
 
-class HasTagLikeTest {
+internal class HasTagLikeTest {
 
     @Test fun matches_regex_key_and_value() {
         val f = HasTagLike(".ame", "y.s")

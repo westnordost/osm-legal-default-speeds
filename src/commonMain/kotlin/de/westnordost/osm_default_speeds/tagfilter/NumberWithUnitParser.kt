@@ -1,6 +1,6 @@
 package de.westnordost.osm_default_speeds.tagfilter
 
-fun String.withOptionalUnitToDoubleOrNull(): Double? {
+internal fun String.withOptionalUnitToDoubleOrNull(): Double? {
     if (isEmpty()) return null
     if (!first().isDigit() && first() != '.') return null
 

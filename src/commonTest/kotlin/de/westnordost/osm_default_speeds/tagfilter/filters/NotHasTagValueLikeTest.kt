@@ -2,7 +2,7 @@ package de.westnordost.osm_default_speeds.tagfilter.filters
 
 import kotlin.test.*
 
-class NotHasTagValueLikeTest {
+internal class NotHasTagValueLikeTest {
 
     @Test fun matches_not_like_dot() {
         val f = NotHasTagValueLike("highway", ".*")

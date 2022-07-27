@@ -4,7 +4,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 /** Convenience class to make it easier to go step by step through a string  */
-class StringWithCursor(private val string: String) {
+internal class StringWithCursor(private val string: String) {
     var cursorPos = 0
         private set
 
