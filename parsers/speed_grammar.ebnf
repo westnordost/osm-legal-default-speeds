@@ -8,6 +8,7 @@ _speed_def: single_speed_def
 
 single_speed_def: _speed             -> normal_speed
                 | "advisory:" _speed -> advisory_speed
+                | "min:" _speed -> min_speed
 
 multilane_speed: single_speed_def ("|" single_speed_def)+
 

@@ -85,6 +85,9 @@ from parsers.parse_utils import validate_road_types_in_speed_table
         # Advisory speed
         ("advisory: 130", {"maxspeed:advisory": "130"}),
         
+        # Min speed
+        ("min: 50", {"minspeed": "50"}),
+        
         # Junk
         ("junk", None),  # Obviously invalid
         ("40 mph ((2t)", None),  # Mismatched braces
