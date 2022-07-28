@@ -3,7 +3,8 @@ package de.westnordost.osm_default_speeds.tagfilter
 import de.westnordost.osm_default_speeds.tagfilter.filters.*
 import kotlin.math.min
 
-/** Compiles a string in filter syntax into a TagFilterExpression. A string in filter syntax is something like this:
+/** Compiles a string in filter syntax into a TagFilterExpression. A string in filter syntax is
+ *  something like this:
  *
  *  `(highway = residential or highway = tertiary) and !name`
  *

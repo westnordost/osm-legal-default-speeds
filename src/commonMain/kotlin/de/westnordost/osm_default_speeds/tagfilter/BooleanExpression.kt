@@ -95,13 +95,17 @@ internal class Leaf<I : Matcher<T>, T>(val value: I) : BooleanExpression<I, T>()
 }
 
 internal class AllOf<I : Matcher<T>, T> : Chain<I, T>() {
-    override fun matches(obj: T, evaluate: (name: String) -> Boolean) = nodes.all { it.matches(obj, evaluate) }
-    override fun toString() = nodes.joinToString(" and ") { if (it is AnyOf) "($it)" else "$it" }
+    override fun matches(obj: T, evaluate: (name: String) -> Boolean) =
+        nodes.all { it.matches(obj, evaluate) }
+    override fun toString() =
+        nodes.joinToString(" and ") { if (it is AnyOf) "($it)" else "$it" }
 }
 
 internal class AnyOf<I : Matcher<T>, T> : Chain<I, T>() {
-    override fun matches(obj: T, evaluate: (name: String) -> Boolean) = nodes.any { it.matches(obj, evaluate) }
-    override fun toString() = nodes.joinToString(" or ") { "$it" }
+    override fun matches(obj: T, evaluate: (name: String) -> Boolean) =
+        nodes.any { it.matches(obj, evaluate) }
+    override fun toString() =
+        nodes.joinToString(" or ") { "$it" }
 }
 
 internal interface Matcher<in T> {
