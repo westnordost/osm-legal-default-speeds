@@ -49,6 +49,8 @@ private const val AND = "and"
 private const val EQUALS = "="
 private const val NOT_EQUALS = "!="
 private const val LIKE = "~"
+private const val PLACEHOLDER_START = "{"
+private const val PLACEHOLDER_END = "}"
 private const val NOT = "!"
 private const val NOT_LIKE = "!~"
 private const val GREATER_THAN = ">"
@@ -90,7 +92,13 @@ internal fun StringWithCursor.parseTags(): BooleanExpression<TagFilter, Map<Stri
         }
         first = false
 
-        builder.addValue(parseTag())
+        if (nextIsAndAdvance(NOT + PLACEHOLDER_START)) {
+            builder.addNotPlaceholder(parsePlaceholder())
+        } else if (nextIsAndAdvance(PLACEHOLDER_START)) {
+            builder.addPlaceholder(parsePlaceholder())
+        } else {
+            builder.addValue(parseTag())
+        }
 
         val separated = parseBracketsAndSpaces(')', builder)
 
@@ -206,6 +214,16 @@ private fun StringWithCursor.parseOperatorWithSurroundingSpaces(): String? {
         return null
     }
     expectAnyNumberOfSpaces()
+    return result
+}
+
+private fun StringWithCursor.parsePlaceholder(): String {
+    val length = findNext(PLACEHOLDER_END)
+    if (isAtEnd(length)) {
+        throw ParseException("Missing closing bracket '}' for placeholder", cursorPos + length)
+    }
+    val result = advanceBy(length)
+    advance() // consume "}"
     return result
 }
 

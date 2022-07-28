@@ -84,6 +84,11 @@ internal class Placeholder<I : Matcher<T>, T>(val value: String) : BooleanExpres
     override fun toString() = "{$value}"
 }
 
+internal class NotPlaceholder<I : Matcher<T>, T>(val value: String) : BooleanExpression<I, T>() {
+    override fun matches(obj: T, evaluate: (name: String) -> Boolean) = !evaluate(value)
+    override fun toString() = "!{$value}"
+}
+
 internal class Leaf<I : Matcher<T>, T>(val value: I) : BooleanExpression<I, T>() {
     override fun matches(obj: T, evaluate: (name: String) -> Boolean) = value.matches(obj)
     override fun toString() = value.toString()

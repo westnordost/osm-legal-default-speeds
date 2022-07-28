@@ -24,44 +24,44 @@ internal class TagFilterExpressionParserTest {
 
     @Test fun tag_key_like_reserved_word_in_quotation_marks_is_ok() {
         val tags = mapOf("with" to "with")
-        matchesTags(tags, "'with'")
-        matchesTags(tags, "'with'='with'")
+        matches(tags, "'with'")
+        matches(tags, "'with'='with'")
     }
 
     @Test fun quotes_are_optional() {
         val tags = mapOf("shop" to "yes")
-        matchesTags(tags, "shop")
-        matchesTags(tags, "'shop'")
-        matchesTags(tags, "\"shop\"")
+        matches(tags, "shop")
+        matches(tags, "'shop'")
+        matches(tags, "\"shop\"")
     }
 
     @Test fun quoting_empty_string() {
-        matchesTags(mapOf("shop" to ""), "shop = ''")
+        matches(mapOf("shop" to ""), "shop = ''")
     }
 
     @Test fun escaping_quotes() {
-        matchesTags(mapOf("shop\"" to "yes"), "\"shop\\\"\"")
-        matchesTags(mapOf("shop'" to "yes"), "'shop\\\''")
-        matchesTags(mapOf("shop" to "yes\""), "shop = \"yes\\\"\"")
-        matchesTags(mapOf("shop" to "yes'"), "shop = 'yes\\\''")
-        matchesTags(mapOf("sh'op" to "yes'"), "sh\\'op = yes\\'")
+        matches(mapOf("shop\"" to "yes"), "\"shop\\\"\"")
+        matches(mapOf("shop'" to "yes"), "'shop\\\''")
+        matches(mapOf("shop" to "yes\""), "shop = \"yes\\\"\"")
+        matches(mapOf("shop" to "yes'"), "shop = 'yes\\\''")
+        matches(mapOf("sh'op" to "yes'"), "sh\\'op = yes\\'")
     }
 
     @Test fun unquoted_tag_may_start_with_reserved_word() {
-        matchesTags(mapOf("withdrawn" to "with"), "withdrawn = with")
-        matchesTags(mapOf("orchard" to "or"), "orchard = or")
-        matchesTags(mapOf("android" to "and"), "android = and")
+        matches(mapOf("withdrawn" to "with"), "withdrawn = with")
+        matches(mapOf("orchard" to "or"), "orchard = or")
+        matches(mapOf("android" to "and"), "android = and")
     }
 
     @Test fun tag_key_with_quotation_marks_is_ok() {
-        matchesTags(
+        matches(
             mapOf("highway = residential or bla" to "yes"),
             "\"highway = residential or bla\""
         )
     }
 
     @Test fun tag_value_with_quotation_marks_is_ok() {
-        matchesTags(
+        matches(
             mapOf("highway" to "residential or bla"),
             "highway = \"residential or bla\""
         )
@@ -78,22 +78,22 @@ internal class TagFilterExpressionParserTest {
     @Test fun whitespaces_around_tag_key_do_not_matter() {
         val tags = mapOf("shop" to "yes")
 
-        matchesTags(tags, "shop")
-        matchesTags(tags, " \t\n\t\n shop \t\n\t\n ")
-        matchesTags(tags, " \t\n\t\n ( \t\n\t\n shop \t\n\t\n ) \t\n\t\n ")
+        matches(tags, "shop")
+        matches(tags, " \t\n\t\n shop \t\n\t\n ")
+        matches(tags, " \t\n\t\n ( \t\n\t\n shop \t\n\t\n ) \t\n\t\n ")
     }
 
     @Test fun whitespaces_around_tag_value_do_not_matter() {
         val tags = mapOf("shop" to "yes")
 
-        matchesTags(tags, "shop=yes")
-        matchesTags(tags, "shop \t\n\t\n = \t\n\t\n yes \t\n\t\n ")
-        matchesTags(tags, " \t\n\t\n ( \t\n\t\n shop \t\n\t\n = \t\n\t\n yes \t\n\t\n ) \t\n\t\n ")
+        matches(tags, "shop=yes")
+        matches(tags, "shop \t\n\t\n = \t\n\t\n yes \t\n\t\n ")
+        matches(tags, " \t\n\t\n ( \t\n\t\n shop \t\n\t\n = \t\n\t\n yes \t\n\t\n ) \t\n\t\n ")
     }
 
     @Test fun whitespaces_in_tag_do_matter() {
         val tags = mapOf(" \t\n\t\n shop \t\n\t\n " to " \t\n\t\n yes \t\n\t\n ")
-        matchesTags(tags, "\" \t\n\t\n shop \t\n\t\n \" = \" \t\n\t\n yes \t\n\t\n \"")
+        matches(tags, "\" \t\n\t\n shop \t\n\t\n \" = \" \t\n\t\n yes \t\n\t\n \"")
     }
 
     @Test fun fail_on_dangling_operator() {
@@ -127,8 +127,8 @@ internal class TagFilterExpressionParserTest {
 
     @Test fun whitespaces_do_not_matter_for_brackets() {
         val tags = mapOf("shop" to "yes", "fee" to "yes")
-        matchesTags(tags,"shop and((fee=yes))")
-        matchesTags(tags,"shop and \t\n\t\n ( \t\n\t\n ( \n\t\n\t fee=yes \n\t\n\t ))")
+        matches(tags,"shop and((fee=yes))")
+        matches(tags,"shop and \t\n\t\n ( \t\n\t\n ( \n\t\n\t fee=yes \n\t\n\t ))")
     }
 
     @Test fun fail_on_unknown_thing_after_tag() {
@@ -157,247 +157,261 @@ internal class TagFilterExpressionParserTest {
     }
 
     @Test fun empty_key_and_value() {
-        matchesTags(mapOf("" to ""), "'' = ''")
+        matches(mapOf("" to ""), "'' = ''")
     }
 
     @Test fun not_key_operator_is_parsed_correctly() {
-        matchesTags(mapOf(), "!shop")
-        matchesTags(mapOf(), "!  shop")
-        notMatchesTags(mapOf("shop" to "yes"), "!shop")
+        matches(mapOf(), "!shop")
+        matches(mapOf(), "!  shop")
+        notMatches(mapOf("shop" to "yes"), "!shop")
     }
 
     @Test fun not_key_like_operator_is_parsed_correctly() {
-        matchesTags(mapOf(), "!~...")
-        matchesTags(mapOf(), "!~  ...")
-        notMatchesTags(mapOf("abc" to "yes"), "!~...")
+        matches(mapOf(), "!~...")
+        matches(mapOf(), "!~  ...")
+        notMatches(mapOf("abc" to "yes"), "!~...")
     }
 
     @Test fun key_like_operator_is_parsed_correctly() {
-        matchesTags(mapOf("abc" to "yes"), "~...")
-        matchesTags(mapOf("abc" to "yes"), "~   ...")
-        notMatchesTags(mapOf("ab" to "yes"), "~   ...")
+        matches(mapOf("abc" to "yes"), "~...")
+        matches(mapOf("abc" to "yes"), "~   ...")
+        notMatches(mapOf("ab" to "yes"), "~   ...")
     }
 
     @Test fun tag_like_operator_is_parsed_correctly() {
-        matchesTags(mapOf("abc" to "yes"), "~...~...")
-        matchesTags(mapOf("abc" to "yes"), "~  ...  ~  ...")
-        notMatchesTags(mapOf("abc" to "ye"), "~  ...  ~  ...")
-        notMatchesTags(mapOf("ab" to "yes"), "~  ...  ~  ...")
+        matches(mapOf("abc" to "yes"), "~...~...")
+        matches(mapOf("abc" to "yes"), "~  ...  ~  ...")
+        notMatches(mapOf("abc" to "ye"), "~  ...  ~  ...")
+        notMatches(mapOf("ab" to "yes"), "~  ...  ~  ...")
     }
 
     @Test fun key_operator_is_parsed_correctly() {
-        matchesTags(mapOf("shop" to "yes"), "shop")
-        notMatchesTags(mapOf("snop" to "yes"), "shop")
+        matches(mapOf("shop" to "yes"), "shop")
+        notMatches(mapOf("snop" to "yes"), "shop")
     }
 
     @Test fun has_tag_operator_is_parsed_correctly() {
-        matchesTags(mapOf("lit" to "yes"), "lit = yes")
-        matchesTags(mapOf("lit" to "yes"), "lit=yes")
-        matchesTags(mapOf("lit" to "yes"), "lit   =   yes")
-        notMatchesTags(mapOf("lit" to "yesnt"), "lit = yes")
+        matches(mapOf("lit" to "yes"), "lit = yes")
+        matches(mapOf("lit" to "yes"), "lit=yes")
+        matches(mapOf("lit" to "yes"), "lit   =   yes")
+        notMatches(mapOf("lit" to "yesnt"), "lit = yes")
     }
 
     @Test fun not_has_tag_operator_is_parsed_correctly() {
-        matchesTags(mapOf("lit" to "no"), "lit != yes")
-        matchesTags(mapOf("lit" to "no"), "lit!=yes")
-        matchesTags(mapOf("lit" to "no"), "lit   !=   yes")
-        notMatchesTags(mapOf("lit" to "yes"), "lit   !=   yes")
+        matches(mapOf("lit" to "no"), "lit != yes")
+        matches(mapOf("lit" to "no"), "lit!=yes")
+        matches(mapOf("lit" to "no"), "lit   !=   yes")
+        notMatches(mapOf("lit" to "yes"), "lit   !=   yes")
     }
 
     @Test fun has_tag_value_like_operator_is_parsed_correctly() {
-        matchesTags(mapOf("lit" to "yes"), "lit ~ ...")
-        matchesTags(mapOf("lit" to "yes"), "lit~...")
-        matchesTags(mapOf("lit" to "yes"), "lit   ~   ...")
-        notMatchesTags(mapOf("lit" to "ye"), "lit   ~   ...")
+        matches(mapOf("lit" to "yes"), "lit ~ ...")
+        matches(mapOf("lit" to "yes"), "lit~...")
+        matches(mapOf("lit" to "yes"), "lit   ~   ...")
+        notMatches(mapOf("lit" to "ye"), "lit   ~   ...")
     }
 
     @Test fun not_has_tag_value_like_operator_is_parsed_correctly() {
-        matchesTags(mapOf("lit" to "ye"), "lit !~ ...")
-        matchesTags(mapOf("lit" to "ye"), "lit!~...")
-        matchesTags(mapOf("lit" to "ye"), "lit   !~   ...")
-        notMatchesTags(mapOf("lit" to "yes"), "lit   !~   ...")
+        matches(mapOf("lit" to "ye"), "lit !~ ...")
+        matches(mapOf("lit" to "ye"), "lit!~...")
+        matches(mapOf("lit" to "ye"), "lit   !~   ...")
+        notMatches(mapOf("lit" to "yes"), "lit   !~   ...")
     }
 
     @Test fun tag_value_greater_than_operator_is_parsed_correctly() {
-        matchesTags(mapOf("width" to "5"), "width > 3")
-        matchesTags(mapOf("width" to "5"), "width>3.0")
-        matchesTags(mapOf("width" to "5"), "width   >   3")
-        notMatchesTags(mapOf("width" to "3"), "width   >   3")
-        matchesTags(mapOf("width" to "0.4"), "width>0.3")
-        matchesTags(mapOf("width" to ".4"), "width>.3")
-        notMatchesTags(mapOf("width" to ".3"), "width>.3")
+        matches(mapOf("width" to "5"), "width > 3")
+        matches(mapOf("width" to "5"), "width>3.0")
+        matches(mapOf("width" to "5"), "width   >   3")
+        notMatches(mapOf("width" to "3"), "width   >   3")
+        matches(mapOf("width" to "0.4"), "width>0.3")
+        matches(mapOf("width" to ".4"), "width>.3")
+        notMatches(mapOf("width" to ".3"), "width>.3")
     }
 
     @Test fun tag_value_greater_or_equal_than_operator_is_parsed_correctly() {
-        matchesTags(mapOf("width" to "3"), "width >= 3")
-        matchesTags(mapOf("width" to "3"), "width>=3.0")
-        matchesTags(mapOf("width" to "3"), "width   >=   3")
-        notMatchesTags(mapOf("width" to "2"), "width   >=   3")
-        matchesTags(mapOf("width" to "0.3"), "width>=0.3")
-        matchesTags(mapOf("width" to ".3"), "width>=.3")
-        notMatchesTags(mapOf("width" to ".2"), "width>=.3")
+        matches(mapOf("width" to "3"), "width >= 3")
+        matches(mapOf("width" to "3"), "width>=3.0")
+        matches(mapOf("width" to "3"), "width   >=   3")
+        notMatches(mapOf("width" to "2"), "width   >=   3")
+        matches(mapOf("width" to "0.3"), "width>=0.3")
+        matches(mapOf("width" to ".3"), "width>=.3")
+        notMatches(mapOf("width" to ".2"), "width>=.3")
     }
 
     @Test fun tag_value_less_than_operator_is_parsed_correctly() {
-        matchesTags(mapOf("width" to "2"), "width < 3")
-        matchesTags(mapOf("width" to "2"), "width<3.0")
-        matchesTags(mapOf("width" to "2"), "width   <   3")
-        notMatchesTags(mapOf("width" to "3"), "width   <   3")
-        matchesTags(mapOf("width" to "0.2"), "width<0.3")
-        matchesTags(mapOf("width" to ".2"), "width<.3")
-        notMatchesTags(mapOf("width" to ".3"), "width<.3")
+        matches(mapOf("width" to "2"), "width < 3")
+        matches(mapOf("width" to "2"), "width<3.0")
+        matches(mapOf("width" to "2"), "width   <   3")
+        notMatches(mapOf("width" to "3"), "width   <   3")
+        matches(mapOf("width" to "0.2"), "width<0.3")
+        matches(mapOf("width" to ".2"), "width<.3")
+        notMatches(mapOf("width" to ".3"), "width<.3")
     }
 
     @Test fun tag_value_less_or_equal_than_operator_is_parsed_correctly() {
-        matchesTags(mapOf("width" to "3"), "width <= 3")
-        matchesTags(mapOf("width" to "3"), "width<=3.0")
-        matchesTags(mapOf("width" to "3"), "width   <=   3")
-        notMatchesTags(mapOf("width" to "4"), "width   <=   3")
-        matchesTags(mapOf("width" to "0.3"), "width<=0.3")
-        matchesTags(mapOf("width" to ".3"), "width<=.3")
-        notMatchesTags(mapOf("width" to ".4"), "width<=.3")
+        matches(mapOf("width" to "3"), "width <= 3")
+        matches(mapOf("width" to "3"), "width<=3.0")
+        matches(mapOf("width" to "3"), "width   <=   3")
+        notMatches(mapOf("width" to "4"), "width   <=   3")
+        matches(mapOf("width" to "0.3"), "width<=0.3")
+        matches(mapOf("width" to ".3"), "width<=.3")
+        notMatches(mapOf("width" to ".4"), "width<=.3")
     }
 
     @Test fun comparisons_work_with_units() {
-        matchesTags(mapOf("maxspeed" to "30.1 mph"), "maxspeed > 30mph")
-        matchesTags(mapOf("maxspeed" to "48.3"), "maxspeed > 30mph")
-        matchesTags(mapOf("maxspeed" to "48.3 km/h"), "maxspeed > 30mph")
+        matches(mapOf("maxspeed" to "30.1 mph"), "maxspeed > 30mph")
+        matches(mapOf("maxspeed" to "48.3"), "maxspeed > 30mph")
+        matches(mapOf("maxspeed" to "48.3 km/h"), "maxspeed > 30mph")
 
-        notMatchesTags(mapOf("maxspeed" to "30.0 mph"), "maxspeed > 30mph")
-        notMatchesTags(mapOf("maxspeed" to "48.2"), "maxspeed > 30mph")
-        notMatchesTags(mapOf("maxspeed" to "48.2 km/h"), "maxspeed > 30mph")
+        notMatches(mapOf("maxspeed" to "30.0 mph"), "maxspeed > 30mph")
+        notMatches(mapOf("maxspeed" to "48.2"), "maxspeed > 30mph")
+        notMatches(mapOf("maxspeed" to "48.2 km/h"), "maxspeed > 30mph")
     }
 
     @Test fun comparisons_work_with_extra_special_units() {
-        matchesTags(mapOf("maxwidth" to "4 ft 7 in"), "maxwidth > 4'6\"")
-        matchesTags(mapOf("maxwidth" to "4'7\""), "maxwidth > 4'6\"")
-        matchesTags(mapOf("maxwidth" to "1.4 m"), "maxwidth > 4'6\"")
-        matchesTags(mapOf("maxwidth" to "1.4m"), "maxwidth > 4'6\"")
-        matchesTags(mapOf("maxwidth" to "1.4"), "maxwidth > 4'6\"")
+        matches(mapOf("maxwidth" to "4 ft 7 in"), "maxwidth > 4'6\"")
+        matches(mapOf("maxwidth" to "4'7\""), "maxwidth > 4'6\"")
+        matches(mapOf("maxwidth" to "1.4 m"), "maxwidth > 4'6\"")
+        matches(mapOf("maxwidth" to "1.4m"), "maxwidth > 4'6\"")
+        matches(mapOf("maxwidth" to "1.4"), "maxwidth > 4'6\"")
 
-        notMatchesTags(mapOf("maxwidth" to "4'6\""), "maxwidth > 4'6\"")
-        notMatchesTags(mapOf("maxwidth" to "1.3"), "maxwidth > 4'6\"")
+        notMatches(mapOf("maxwidth" to "4'6\""), "maxwidth > 4'6\"")
+        notMatches(mapOf("maxwidth" to "1.3"), "maxwidth > 4'6\"")
     }
 
     @Test fun and() {
         val expr = "a and b"
-        matchesTags(mapOfKeys("a", "b"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
+        matches(mapOfKeys("a", "b"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("b"), expr)
     }
 
     @Test fun two_and() {
         val expr = "a and b and c"
-        matchesTags(mapOfKeys("a", "b", "c"), expr)
-        notMatchesTags(mapOfKeys("a", "b"), expr)
-        notMatchesTags(mapOfKeys("a", "c"), expr)
-        notMatchesTags(mapOfKeys("b", "c"), expr)
+        matches(mapOfKeys("a", "b", "c"), expr)
+        notMatches(mapOfKeys("a", "b"), expr)
+        notMatches(mapOfKeys("a", "c"), expr)
+        notMatches(mapOfKeys("b", "c"), expr)
     }
 
     @Test fun or() {
         val expr = "a or b"
-        matchesTags(mapOfKeys("b"), expr)
-        matchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys(), expr)
+        matches(mapOfKeys("b"), expr)
+        matches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys(), expr)
     }
 
     @Test fun two_or() {
         val expr = "a or b or c"
-        matchesTags(mapOfKeys("c"), expr)
-        matchesTags(mapOfKeys("b"), expr)
-        matchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys(), expr)
+        matches(mapOfKeys("c"), expr)
+        matches(mapOfKeys("b"), expr)
+        matches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys(), expr)
     }
 
     @Test fun or_as_first_child_in_and() {
         val expr = "(a or b) and c"
-        matchesTags(mapOfKeys("c", "a"), expr)
-        matchesTags(mapOfKeys("c", "b"), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
+        matches(mapOfKeys("c", "a"), expr)
+        matches(mapOfKeys("c", "b"), expr)
+        notMatches(mapOfKeys("b"), expr)
+        notMatches(mapOfKeys("a"), expr)
     }
 
     @Test fun or_as_last_child_in_and() {
         val expr = "c and (a or b)"
-        matchesTags(mapOfKeys("c", "a"), expr)
-        matchesTags(mapOfKeys("c", "b"), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
+        matches(mapOfKeys("c", "a"), expr)
+        matches(mapOfKeys("c", "b"), expr)
+        notMatches(mapOfKeys("b"), expr)
+        notMatches(mapOfKeys("a"), expr)
     }
 
     @Test fun or_in_the_middle_of_and() {
         val expr = "c and (a or b) and d"
-        matchesTags(mapOfKeys("c", "d", "a"), expr)
-        matchesTags(mapOfKeys("c", "d", "b"), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
+        matches(mapOfKeys("c", "d", "a"), expr)
+        matches(mapOfKeys("c", "d", "b"), expr)
+        notMatches(mapOfKeys("b"), expr)
+        notMatches(mapOfKeys("a"), expr)
     }
-
-    private fun mapOfKeys(vararg key: String) =
-        key.mapIndexed { i, s -> s to i.toString() }.toMap()
 
     @Test fun and_as_first_child_in_or() {
         val expr = "a and b or c"
-        matchesTags(mapOfKeys("a", "b"), expr)
-        matchesTags(mapOfKeys("c"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
+        matches(mapOfKeys("a", "b"), expr)
+        matches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("b"), expr)
     }
 
     @Test fun and_as_last_child_in_or() {
         val expr = "c or a and b"
-        matchesTags(mapOfKeys("a", "b"), expr)
-        matchesTags(mapOfKeys("c"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
+        matches(mapOfKeys("a", "b"), expr)
+        matches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("b"), expr)
     }
 
     @Test fun and_in_the_middle_of_or() {
         val expr = "c or a and b or d"
-        matchesTags(mapOfKeys("a", "b"), expr)
-        matchesTags(mapOfKeys("c"), expr)
-        matchesTags(mapOfKeys("d"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
+        matches(mapOfKeys("a", "b"), expr)
+        matches(mapOfKeys("c"), expr)
+        matches(mapOfKeys("d"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("b"), expr)
     }
 
     @Test fun and_in_or_in_and() {
         val expr = "a and (b and c or d)"
-        matchesTags(mapOfKeys("a", "d"), expr)
-        matchesTags(mapOfKeys("a", "b", "c"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys("b", "c"), expr)
-        notMatchesTags(mapOfKeys("d"), expr)
+        matches(mapOfKeys("a", "d"), expr)
+        matches(mapOfKeys("a", "b", "c"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("b", "c"), expr)
+        notMatches(mapOfKeys("d"), expr)
     }
 
     @Test fun and_in_or_in_and_in_or() {
         val expr = "a or (b and (c or (d and e)))"
-        matchesTags(mapOfKeys("a"), expr)
-        matchesTags(mapOfKeys("b", "c"), expr)
-        matchesTags(mapOfKeys("b", "d", "e"), expr)
-        notMatchesTags(mapOfKeys(), expr)
-        notMatchesTags(mapOfKeys("b"), expr)
-        notMatchesTags(mapOfKeys("c"), expr)
-        notMatchesTags(mapOfKeys("b", "d"), expr)
-        notMatchesTags(mapOfKeys("b", "e"), expr)
+        matches(mapOfKeys("a"), expr)
+        matches(mapOfKeys("b", "c"), expr)
+        matches(mapOfKeys("b", "d", "e"), expr)
+        notMatches(mapOfKeys(), expr)
+        notMatches(mapOfKeys("b"), expr)
+        notMatches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("b", "d"), expr)
+        notMatches(mapOfKeys("b", "e"), expr)
     }
 
     @Test fun and_in_bracket_followed_by_another_and() {
         val expr = "(a or (b and c)) and d"
-        matchesTags(mapOfKeys("a", "d"), expr)
-        matchesTags(mapOfKeys("b", "c", "d"), expr)
-        notMatchesTags(mapOfKeys("a"), expr)
-        notMatchesTags(mapOfKeys("d"), expr)
-        notMatchesTags(mapOfKeys("b", "c"), expr)
+        matches(mapOfKeys("a", "d"), expr)
+        matches(mapOfKeys("b", "c", "d"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("d"), expr)
+        notMatches(mapOfKeys("b", "c"), expr)
     }
 
-    private fun shouldFail(input: String) {
-        assertFailsWith(ParseException::class) { TagFilterExpression(input) }
+    @Test fun fail_on_placeholder_not_closed() {
+        shouldFail("{my placeholder")
     }
 
-    private fun matchesTags(tags: Map<String,String>, input: String) =
-        assertTrue(TagFilterExpression(input).matches(tags) { false })
+    @Test fun placeholders() {
+        matches(mapOfKeys(), "{placeholder}") { it == "placeholder" }
+        notMatches(mapOfKeys(), "{placeholder}") { it == "placeholder2" }
 
-    private fun notMatchesTags(tags: Map<String,String>, input: String) =
-        assertFalse(TagFilterExpression(input).matches(tags) { false })
+        matches(mapOfKeys(), "{stuff $§%&\"'()or}") { it == "stuff $§%&\"'()or" }
+
+        matches(mapOfKeys("a"), "{placeholder} and a") { it == "placeholder" }
+        notMatches(mapOfKeys(), "{placeholder} and a") { it == "placeholder" }
+    }
 }
+
+private fun mapOfKeys(vararg key: String) =
+    key.mapIndexed { i, s -> s to i.toString() }.toMap()
+
+private fun shouldFail(input: String) {
+    assertFailsWith(ParseException::class) { TagFilterExpression(input) }
+}
+
+private fun matches(tags: Map<String,String>, input: String, evaluate: (String) -> Boolean = { false }) =
+    assertTrue(TagFilterExpression(input).matches(tags, evaluate))
+
+private fun notMatches(tags: Map<String,String>, input: String, evaluate: (String) -> Boolean = { false }) =
+    assertFalse(TagFilterExpression(input).matches(tags, evaluate))

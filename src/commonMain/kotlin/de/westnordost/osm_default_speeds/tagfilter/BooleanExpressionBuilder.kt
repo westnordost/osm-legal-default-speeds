@@ -56,6 +56,10 @@ internal class BooleanExpressionBuilder<I : Matcher<T>, T> {
         node.addChild(Placeholder(p))
     }
 
+    fun addNotPlaceholder(p: String) {
+        node.addChild(NotPlaceholder(p))
+    }
+
     fun addAnd() {
         if (node !is AllOf) {
             val last = node.children.last()
