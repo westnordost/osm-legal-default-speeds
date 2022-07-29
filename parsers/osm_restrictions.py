@@ -3,6 +3,9 @@ from parsers.parse_utils import parser, ParseError
 
 def osm_speed_visitor(t):
     """Visitor function that outputs speeds in OSM tag syntax"""
+    if t.data == "access_prohibited":
+        return {"access": "no"}
+    
     if t.data in {"normal_speed", "advisory_speed", "min_speed"}:
         if t.data == "normal_speed":
             tag = "maxspeed"

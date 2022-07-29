@@ -5,10 +5,13 @@ _speed_defs: _speed_def
 
 _speed_def: single_speed_def
           | multilane_speed
+          | access_prohibited
+
+access_prohibited: "X"
 
 single_speed_def: _speed             -> normal_speed
                 | "advisory:" _speed -> advisory_speed
-                | "min:" _speed -> min_speed
+                | "min:" _speed      -> min_speed
 
 multilane_speed: single_speed_def ("|" single_speed_def)+
 

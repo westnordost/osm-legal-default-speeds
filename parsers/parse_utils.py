@@ -120,10 +120,11 @@ def parse_speed_table(table, speed_parse_func) -> dict:
                         parsed_speeds = {}
                         warnings.append(f'{country_code}: Unable to parse \'{vehicle_type}\' for \'{road_type}\'')
 
-                    for maxspeed_key, maxspeed_value in parsed_speeds.items():
+                    for key, value in parsed_speeds.items():
                         if vehicle_type != "(default)":
-                            maxspeed_key = maxspeed_key.replace("maxspeed", "maxspeed:" + vehicle_type, 1)
-                        road_tags[maxspeed_key] = maxspeed_value
+                            key = key.replace("maxspeed", "maxspeed:" + vehicle_type, 1)
+                            key = key.replace("access", vehicle_type)
+                        road_tags[key] = value
 
             if country_code not in result:
                 result[country_code] = []
