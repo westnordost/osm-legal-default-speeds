@@ -29,7 +29,7 @@ if __name__ == "__main__":
     result = parse_speed_table(speed_table, parse_speeds)
     result["meta"] = {
         "source": WIKI_URL + WIKI_PAGE,
-        "revision_id": parsed["revid"],
+        "revision_id": str(parsed["revid"]),
         "timestamp": datetime.datetime.utcnow().replace(microsecond=0).isoformat(),
         "license": "Creative Commons Attribution-ShareAlike 2.0 license",
         "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
