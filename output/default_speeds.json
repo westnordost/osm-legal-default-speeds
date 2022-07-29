@@ -4,7 +4,7 @@
     "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
     "revision_id": 2361981,
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-07-29T12:18:43"
+    "timestamp": "2022-07-29T12:34:12"
   },
   "road_types": {
     "Alabama: rural highway": {
@@ -5714,7 +5714,7 @@
       {
         "name": "Panama: Avenida de dos carriles",
         "tags": {
-          "maxspeed": "80; 80",
+          "maxspeed": "80",
           "maxspeed:hazmat": "80",
           "maxspeed:lanes": "80|50"
         }
@@ -5722,7 +5722,7 @@
       {
         "name": "Panama: Carretera multicarril en zona urbana",
         "tags": {
-          "maxspeed": "80; 80",
+          "maxspeed": "80",
           "maxspeed:hazmat": "80",
           "maxspeed:lanes": "80|60|50"
         }
@@ -9501,7 +9501,7 @@
       {
         "name": "motorway",
         "tags": {
-          "maxspeed": "90; 90",
+          "maxspeed": "90",
           "maxspeed:lanes": "90|70"
         }
       }

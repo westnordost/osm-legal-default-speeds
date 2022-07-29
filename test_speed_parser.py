@@ -11,8 +11,8 @@ from parsers.parse_utils import validate_road_types_in_speed_table
         ("40 mph", {"maxspeed": "40 mph"}),
         
         # Lanes
-        ("80|60", {"maxspeed:lanes": "80|60", "maxspeed": "80"}),
-        ("80|60|40", {"maxspeed:lanes": "80|60|40", "maxspeed": "80"}),
+        ("80|60", {"maxspeed:lanes": "80|60"}),
+        ("80|60|40", {"maxspeed:lanes": "80|60|40"}),
         
         # Conditionals
         ("40 mph (2t trailer)", {"maxspeed:conditional": "40 mph @ (trailerweight>2)"}),

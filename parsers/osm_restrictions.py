@@ -33,8 +33,7 @@ def osm_speed_visitor(t):
     # multilane speed
     elif t.data == "multilane_speed":
         return {
-            "maxspeed:lanes": "|".join(list(osm_speed_visitor(child).values())[0] for child in t.children),
-            **osm_speed_visitor(t.children[0]),
+            "maxspeed:lanes": "|".join(list(osm_speed_visitor(child).values())[0] for child in t.children)
         }
 
     # restrictions
