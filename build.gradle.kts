@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
 group = "de.westnordost"
@@ -44,7 +45,11 @@ kotlin {
             }
         }
         val jvmMain by getting
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0-RC")
+            }
+        }
         val jsMain by getting
         val jsTest by getting
         val nativeMain by getting
