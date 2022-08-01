@@ -6,7 +6,7 @@ import kotlin.test.*
 
 internal class DefaultSpeedsTest {
 
-    val za = DefaultSpeeds(
+    private val za = DefaultSpeeds(
         mapOf(
             "living street" to filters("highway=living_street"), // only exact filter
             "alley" to filters("{urban} and alley=yes"), // with placeholder
@@ -169,6 +169,162 @@ internal class DefaultSpeedsTest {
             za.getSpeedLimits("ZA", mapOf("highway" to "residential")) { name, ev ->
                 if (name == "state road") true else ev()
             }
+        )
+    }
+
+    @Test fun removes_subtags_with_higher_speeds() {
+        assertEquals(
+            mapOf("maxspeed" to "60", "maxspeed:mofa" to "50"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "60",
+                    "maxspeed:hgv" to "80", // this
+                    "maxspeed:mofa" to "50" // but not this
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_subtags_with_higher_mph_speeds() {
+        assertEquals(
+            mapOf("maxspeed" to "35 mph", "maxspeed:mofa" to "10 mph"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "35 mph",
+                    "maxspeed:hgv" to "40 mph", // this
+                    "maxspeed:mofa" to "10 mph" // but not this
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_conditionals_with_higher_speeds() {
+        assertEquals(
+            mapOf("maxspeed" to "60", "maxspeed:conditional" to "50 @ (something else)"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "60",
+                    "maxspeed:conditional" to "80 @ (something); 50 @ (something else)" // first, not second
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_conditionals_with_higher_mph_speeds() {
+        assertEquals(
+            mapOf("maxspeed" to "35 mph", "maxspeed:conditional" to "20 mph @ (something else)"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "35 mph",
+                    "maxspeed:conditional" to "35 mph @ (something); 20 mph @ (something else)" // first, not second
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_all_conditionals_if_they_all_have_higher_speeds() {
+        assertEquals(
+            mapOf("maxspeed" to "60"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "60",
+                    "maxspeed:conditional" to "80 @ (something); 60 @ (something else)"
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_all_conditionals_if_they_all_have_higher_mph_speeds() {
+        assertEquals(
+            mapOf("maxspeed" to "20 mph"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "20 mph",
+                    "maxspeed:conditional" to "40 mph @ (something); 30 mph @ (something else)"
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_conditionals_of_subtags_with_higher_speeds() {
+        assertEquals(
+            mapOf("maxspeed:hgv" to "60", "maxspeed:hgv:conditional" to "50 @ (something else)"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed:hgv" to "60",
+                    "maxspeed:hgv:conditional" to "80 @ (something); 50 @ (something else)"
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_conditionals_of_subtags_with_higher_mph_speeds() {
+        assertEquals(
+            mapOf("maxspeed:hgv" to "30 mph", "maxspeed:hgv:conditional" to "20 mph @ (something else)"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed:hgv" to "30 mph",
+                    "maxspeed:hgv:conditional" to "40 mph @ (something); 20 mph @ (something else)"
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_all_conditionals_of_subtags_if_they_all_have_with_higher_speeds() {
+        assertEquals(
+            mapOf("maxspeed:hgv" to "60"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed:hgv" to "60",
+                    "maxspeed:hgv:conditional" to "80 @ (something); 60 @ (something else)"
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_all_conditionals_of_subtags_if_they_all_have_with_higher_mph_speeds() {
+        assertEquals(
+            mapOf("maxspeed:hgv" to "10 mph"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed:hgv" to "10 mph",
+                    "maxspeed:hgv:conditional" to "40 mph @ (something); 30 mph @ (something else)"
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_subtags_with_higher_speeds_when_lower_speed_is_specified() {
+        assertEquals(
+            mapOf("maxspeed:mofa" to "50"),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "100",
+                    "maxspeed:hgv" to "80",
+                    "maxspeed:mofa" to "50"
+                ))))
+            ).getSpeedLimits("AB", mapOf("maxspeed" to "80"))!!.tags
+        )
+        assertEquals(
+            mapOf(),
+            DefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "100",
+                    "maxspeed:hgv" to "80"
+                ))))
+            ).getSpeedLimits("AB", mapOf("maxspeed" to "80", "maxspeed:hgv" to "50"))!!.tags
         )
     }
 }
