@@ -18,12 +18,12 @@ interface RoadTypeFilter {
 /** Class with which to look up the default speed limits per country as specified in the
  *  given data (usually default_speed_limits.json) */
 class LegalDefaultSpeeds(
-    roadTypes: Map<String, RoadTypeFilter>,
-    private val speedLimits: Map<String, List<RoadType>>
+    roadTypesByName: Map<String, RoadTypeFilter>,
+    private val speedLimitsByCountryCode: Map<String, List<RoadType>>
 ) {
 
     private val roadTypeFilters: Map<String, RoadTypeTagFilterExpressions> =
-        roadTypes.mapValues { (_, roadTypeFilter) ->
+        roadTypesByName.mapValues { (_, roadTypeFilter) ->
             /* let's parse the filters defined in strings right in the constructor, so it doesn't
                need to be done again and again (and if there is a syntax error, it becomes apparent
                immediately) */
@@ -32,6 +32,17 @@ class LegalDefaultSpeeds(
                 roadTypeFilter.fuzzyFilter?.let { TagFilterExpression(it) },
                 roadTypeFilter.relationFilter?.let { TagFilterExpression(it) }
             )
+        }
+
+    // country code -> ( speed limit -> road type )
+    private val speedLimitsByCountryCodeIndex: Map<String, Map<String, RoadType>> =
+        speedLimitsByCountryCode.mapValues { (_, roadTypes) ->
+            val speedLimitMap = HashMap<String, RoadType>(roadTypes.size)
+            for (roadType in roadTypes) {
+                val maxspeed = roadType.tags["maxspeed"]
+                if (maxspeed != null) speedLimitMap[maxspeed] = roadType
+            }
+            speedLimitMap
         }
 
     /** The result of looking for the speed limits via [getSpeedLimits]. It includes the road type
@@ -54,6 +65,8 @@ class LegalDefaultSpeeds(
             /** It is an exact match with the road type. I.e., the tag filter for the road type
              *  matched. */
             Exact,
+            /** A certain `maxspeed` is set, so the road type was inferred from that */
+            FromMaxSpeed,
             /** It can be assumed with reasonable certainty that the match is of the given road
              *  type. I.e., the fuzzy tag filter for the road type matched. */
             Fuzzy,
@@ -89,25 +102,36 @@ class LegalDefaultSpeeds(
         relationsTags: List<Map<String, String>> = emptyList(),
         replacerFn: (name: String, evaluate: () -> Boolean) -> Boolean = { _, ev -> ev() }
     ): Result? {
-        val roadTypes = speedLimits[countryCode]
-            ?: speedLimits[countryCode.substringBefore('-')]
+        val roadTypes = speedLimitsByCountryCode[countryCode]
+            ?: speedLimitsByCountryCode[countryCode.substringBefore('-')]
             ?: return null
 
-        // 1. Try to match non-fuzzy first, if nothing found, then fuzzy
-        for (fuzzy in listOf(false, true)) {
-            val roadType = findRoadType(roadTypes, tags, relationsTags, fuzzy, replacerFn)
-            if (roadType != null) {
-                val certitude = if (!fuzzy) Exact else Fuzzy
-                return Result(roadType.name, createResultTags(tags, roadType.tags), certitude)
-            }
+        // 1. Try to match tags first
+        val exactRoadType = findRoadTypeByTags(roadTypes, tags, relationsTags, false, replacerFn)
+        if (exactRoadType != null) {
+            return Result(exactRoadType.name, createResultTags(tags, exactRoadType.tags), Exact)
+        }
+        // 2. If a `maxspeed` is set, try to reverse-search by maxspeed
+        val maxSpeedRoadType = findRoadTypeByMaxSpeed(countryCode, tags)
+        if (maxSpeedRoadType != null) {
+            return Result(maxSpeedRoadType.name, createResultTags(tags, maxSpeedRoadType.tags), FromMaxSpeed)
         }
 
-        // 2. Otherwise, match the default (if it exists)
-        val fallbackRoadType = roadTypes.find { it.name == null } ?: return null
-        return Result(fallbackRoadType.name, createResultTags(tags, fallbackRoadType.tags), Fallback)
+        // 3. If still nothing is found, try to match fuzzy tags
+        val fuzzyRoadType = findRoadTypeByTags(roadTypes, tags, relationsTags, true, replacerFn)
+        if (fuzzyRoadType != null) {
+            return Result(fuzzyRoadType.name, createResultTags(tags, fuzzyRoadType.tags), Fuzzy)
+        }
+
+        // 4. Otherwise, match the default (if it exists)
+        val fallbackRoadType = roadTypes.find { it.name == null }
+        if (fallbackRoadType != null) {
+            return Result(fallbackRoadType.name, createResultTags(tags, fallbackRoadType.tags), Fallback)
+        }
+        return null
     }
 
-    private fun findRoadType(
+    private fun findRoadTypeByTags(
         roadTypes: List<RoadType>,
         tags: Map<String, String>,
         relationsTags: List<Map<String, String>>,
@@ -144,6 +168,15 @@ class LegalDefaultSpeeds(
         return relationsTags.any { f.relationFilter?.matches(it, fn) == true }
             || f.filter?.matches(tags, fn) == true
             || fuzzy && f.fuzzyFilter?.matches(tags, fn) == true
+    }
+
+    private fun findRoadTypeByMaxSpeed(countryCode: String, tags: Map<String, String>): RoadType? {
+        val maxspeed = tags["maxspeed"] ?: return null
+        val roadTypesBySpeedLimit = speedLimitsByCountryCodeIndex[countryCode]
+            ?: speedLimitsByCountryCodeIndex[countryCode.substringBefore('-')]
+            ?: return null
+
+        return roadTypesBySpeedLimit[maxspeed]
     }
 }
 
@@ -193,5 +226,3 @@ private data class RoadTypeTagFilterExpressions(
     val fuzzyFilter: TagFilterExpression?,
     val relationFilter: TagFilterExpression?,
 )
-
-// TODO reverse search?!

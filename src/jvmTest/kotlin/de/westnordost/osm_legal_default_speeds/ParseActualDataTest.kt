@@ -59,6 +59,3 @@ internal data class RoadTypeJson(
     override val name: String? = null,
     override val tags: Map<String, String>
 ) : RoadType
-
-
-// TODO detect circular references to placeholders?

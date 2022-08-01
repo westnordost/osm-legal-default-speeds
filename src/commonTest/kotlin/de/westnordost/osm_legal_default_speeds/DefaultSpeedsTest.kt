@@ -67,6 +67,13 @@ internal class DefaultSpeedsTest {
         )
     }
 
+    @Test fun from_maxspeed_match() {
+        assertEquals(
+            LegalDefaultSpeeds.Result("dual carriageway", mapOf(), FromMaxSpeed),
+            za.getSpeedLimits("ZA", mapOf("maxspeed" to "110"))
+        )
+    }
+
     @Test fun fuzzy_match() {
         assertEquals(
             LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Fuzzy),
@@ -78,6 +85,13 @@ internal class DefaultSpeedsTest {
         assertEquals(
             LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
             za.getSpeedLimits("ZA-NC", mapOf("lit" to "yes"))
+        )
+    }
+
+    @Test fun fallback_to_country_if_subdivision_unknown_for_from_maxspeed() {
+        assertEquals(
+            LegalDefaultSpeeds.Result("urban", mapOf(), FromMaxSpeed),
+            za.getSpeedLimits("ZA-NC", mapOf("maxspeed" to "50"))
         )
     }
 
@@ -103,6 +117,20 @@ internal class DefaultSpeedsTest {
         assertEquals(
             LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
             za.getSpeedLimits("ZA", mapOf("lit" to "yes", "sidewalk" to "no"))
+        )
+    }
+
+    @Test fun prefer_exact_over_from_maxspeed_rules() {
+        assertEquals(
+            LegalDefaultSpeeds.Result("urban", mapOf(), Exact),
+            za.getSpeedLimits("ZA", mapOf("lit" to "yes", "sidewalk" to "no", "maxspeed" to "110"))
+        )
+    }
+
+    @Test fun prefer_from_maxspeed_over_fuzzy_rules() {
+        assertEquals(
+            LegalDefaultSpeeds.Result("dual carriageway", mapOf(), FromMaxSpeed),
+            za.getSpeedLimits("ZA", mapOf("sidewalk" to "no", "maxspeed" to "110"))
         )
     }
 
