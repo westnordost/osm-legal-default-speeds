@@ -4,7 +4,7 @@
     "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
     "revision_id": "2362000",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-07-29T18:48:58"
+    "timestamp": "2022-08-01T12:12:38"
   },
   "road_types": {
     "Alabama: rural highway": {
@@ -121,7 +121,7 @@
       "filter": "ref~\"(ID|SH|US).*\""
     },
     "Iowa: suburban district": {
-      "filter": "{urban} and\u00a0!{school zone} and\u00a0!{residential district} and\u00a0!{business district}"
+      "filter": "{urban} and !{school zone} and !{residential district} and !{business district}"
     },
     "Ireland: National road": {
       "filter": "ref~N.* or (highway~trunk|trunk_link|primary|primary_link and (!ref or ref~N.*))"
@@ -263,7 +263,7 @@
       "filter": "ref~I.* and {motorway}"
     },
     "US interstate highway with 2 or more lanes in each direction": {
-      "filter": "ref~I.* and {motorway} and ((lanes>=2 and {oneway}) or (lanes>=4 and\u00a0!{oneway}))"
+      "filter": "ref~I.* and {motorway} and ((lanes>=2 and {oneway}) or (lanes>=4 and !{oneway}))"
     },
     "United Kingdom: restricted road": {
       "filter": "lit=yes or maxspeed:type=GB:nsl_restricted"
@@ -454,7 +454,7 @@
       "filter": "{rural} and {school zone}"
     },
     "rural single carriageway": {
-      "filter": "{rural} and\u00a0!{oneway}"
+      "filter": "{rural} and !{oneway}"
     },
     "rural single carriageway with 2 or more lanes in each direction": {
       "filter": "{rural} and {single carriageway} and lanes>=4"
@@ -494,7 +494,7 @@
       "filter": "{urban} and {business district}"
     },
     "urban but not a motorroad or motorway": {
-      "filter": "{urban} and\u00a0!{motorroad} and\u00a0!{motorway}"
+      "filter": "{urban} and !{motorroad} and !{motorway}"
     },
     "urban dual carriageway": {
       "filter": "{urban} and {dual carriageway}"
@@ -527,7 +527,7 @@
       "filter": "{urban} and {residential district}"
     },
     "urban road which is not numbered": {
-      "filter": "{urban} and\u00a0!{numbered road}"
+      "filter": "{urban} and !{numbered road}"
     },
     "urban road with 1 lane in each direction": {
       "filter": "{urban} and {road with 1 lane in each direction}"

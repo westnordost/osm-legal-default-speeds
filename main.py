@@ -22,7 +22,9 @@ if __name__ == "__main__":
 
     parsed = requests.get(WIKI_API_URL, {"action": "parse", "page": WIKI_PAGE, "format": "json"}).json()["parse"]
     html_string = parsed["text"]["*"]
-    soup = BeautifulSoup(html_string, "html.parser")
+    # (UI editor of) mediawiki sometimes adds crap like this (no-break space)
+    html_string_cleaned = html_string.replace("&#160;", " ")
+    soup = BeautifulSoup(html_string_cleaned, "html.parser")
     speed_table = soup.find_all("table")[0]
     road_types = parse_road_types_table(soup.find_all("table")[1])
 
