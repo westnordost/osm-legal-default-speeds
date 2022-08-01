@@ -1,7 +1,7 @@
 package de.westnordost.osm_legal_default_speeds
 
 import de.westnordost.osm_legal_default_speeds.tagfilter.TagFilterExpression
-import de.westnordost.osm_legal_default_speeds.DefaultSpeeds.Result.Certitude.*
+import de.westnordost.osm_legal_default_speeds.LegalDefaultSpeeds.Result.Certitude.*
 import de.westnordost.osm_legal_default_speeds.tagfilter.withOptionalUnitToDoubleOrNull
 
 interface RoadType {
@@ -17,7 +17,7 @@ interface RoadTypeFilter {
 
 /** Class with which to look up the default speed limits per country as specified in the
  *  given data (usually default_speed_limits.json) */
-class DefaultSpeeds(
+class LegalDefaultSpeeds(
     roadTypes: Map<String, RoadTypeFilter>,
     private val speedLimits: Map<String, List<RoadType>>
 ) {

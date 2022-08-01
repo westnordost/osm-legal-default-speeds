@@ -1,12 +1,12 @@
 package de.westnordost.osm_legal_default_speeds
 
 import de.westnordost.osm_legal_default_speeds.tagfilter.ParseException
-import de.westnordost.osm_legal_default_speeds.DefaultSpeeds.Result.Certitude.*
+import de.westnordost.osm_legal_default_speeds.LegalDefaultSpeeds.Result.Certitude.*
 import kotlin.test.*
 
 internal class DefaultSpeedsTest {
 
-    private val za = DefaultSpeeds(
+    private val za = LegalDefaultSpeeds(
         mapOf(
             "living street" to filters("highway=living_street"), // only exact filter
             "alley" to filters("{urban} and alley=yes"), // with placeholder
@@ -35,7 +35,7 @@ internal class DefaultSpeedsTest {
 
     @Test fun fails_on_syntax_exception_in_filter() {
         assertFailsWith(ParseException::class) {
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf("urban" to filters("and and")),
                 mapOf("FR" to listOf(road("urban", mapOf("maxspeed" to "50"))))
             )
@@ -43,7 +43,7 @@ internal class DefaultSpeedsTest {
     }
 
     @Test fun no_tags_match() {
-        assertNull(DefaultSpeeds(
+        assertNull(LegalDefaultSpeeds(
             mapOf("urban" to filters("lit=yes")),
             mapOf("SD" to listOf(road("urban", mapOf("maxspeed" to "60"))))
         ).getSpeedLimits("SD", mapOf("lit" to "no")))
@@ -55,74 +55,74 @@ internal class DefaultSpeedsTest {
 
     @Test fun fallback_when_no_tags_match() {
         assertEquals(
-            DefaultSpeeds.Result(null, mapOf("maxspeed" to "100"), Fallback),
+            LegalDefaultSpeeds.Result(null, mapOf("maxspeed" to "100"), Fallback),
             za.getSpeedLimits("ZA", mapOf("lit" to "no"))
         )
     }
 
     @Test fun simple_match() {
         assertEquals(
-            DefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
+            LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
             za.getSpeedLimits("ZA", mapOf("lit" to "yes"))
         )
     }
 
     @Test fun fuzzy_match() {
         assertEquals(
-            DefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Fuzzy),
+            LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Fuzzy),
             za.getSpeedLimits("ZA", mapOf("highway" to "residential"))
         )
     }
 
     @Test fun fallback_to_country_if_subdivision_unknown() {
         assertEquals(
-            DefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
+            LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
             za.getSpeedLimits("ZA-NC", mapOf("lit" to "yes"))
         )
     }
 
     @Test fun prefer_matches_further_down_the_list() {
         assertEquals(
-            DefaultSpeeds.Result("motorway", mapOf("maxspeed" to "120"), Exact),
+            LegalDefaultSpeeds.Result("motorway", mapOf("maxspeed" to "120"), Exact),
             za.getSpeedLimits("ZA", mapOf("highway" to "motorway", "lit" to "yes", "dual_carriageway" to "yes"))
         )
         assertEquals(
-            DefaultSpeeds.Result("dual carriageway", mapOf("maxspeed" to "110"), Exact),
+            LegalDefaultSpeeds.Result("dual carriageway", mapOf("maxspeed" to "110"), Exact),
             za.getSpeedLimits("ZA", mapOf("lit" to "yes", "dual_carriageway" to "yes"))
         )
     }
 
     @Test fun prefer_matches_further_at_the_top_of_the_list_otherwise() {
         assertEquals(
-            DefaultSpeeds.Result("living street", mapOf("maxspeed" to "10"), Exact),
+            LegalDefaultSpeeds.Result("living street", mapOf("maxspeed" to "10"), Exact),
             za.getSpeedLimits("ZA", mapOf("highway" to "living_street", "lit" to "yes"))
         )
     }
 
     @Test fun prefer_exact_over_fuzzy_rules() {
         assertEquals(
-            DefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
+            LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
             za.getSpeedLimits("ZA", mapOf("lit" to "yes", "sidewalk" to "no"))
         )
     }
 
     @Test fun exact_match_with_placeholder() {
         assertEquals(
-            DefaultSpeeds.Result("alley", mapOf("maxspeed" to "5"), Exact),
+            LegalDefaultSpeeds.Result("alley", mapOf("maxspeed" to "5"), Exact),
             za.getSpeedLimits("ZA", mapOf("lit" to "yes", "alley" to "yes"))
         )
     }
 
     @Test fun fuzzy_match_with_placeholder() {
         assertEquals(
-            DefaultSpeeds.Result("alley", mapOf("maxspeed" to "5"), Fuzzy),
+            LegalDefaultSpeeds.Result("alley", mapOf("maxspeed" to "5"), Fuzzy),
             za.getSpeedLimits("ZA", mapOf("highway" to "residential", "alley" to "yes"))
         )
     }
 
     @Test fun find_contained_in_relation_with_additional_fuzzy_rule() {
         assertEquals(
-            DefaultSpeeds.Result("rural state road", mapOf("maxspeed" to "115"), Fuzzy),
+            LegalDefaultSpeeds.Result("rural state road", mapOf("maxspeed" to "115"), Fuzzy),
             za.getSpeedLimits(
                 "ZA",
                 mapOf("sidewalk" to "no"),
@@ -136,7 +136,7 @@ internal class DefaultSpeedsTest {
 
     @Test fun find_contained_in_relation_with_additional_exact_rule() {
         assertEquals(
-            DefaultSpeeds.Result("urban state road", mapOf("maxspeed" to "60"), Exact),
+            LegalDefaultSpeeds.Result("urban state road", mapOf("maxspeed" to "60"), Exact),
             za.getSpeedLimits(
                 "ZA",
                 mapOf("lit" to "yes"),
@@ -147,7 +147,7 @@ internal class DefaultSpeedsTest {
 
     @Test fun replacing_urban() {
         assertEquals(
-            DefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
+            LegalDefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
             za.getSpeedLimits("ZA", mapOf()) { name, ev ->
                 if (name == "urban") true else ev()
             }
@@ -156,7 +156,7 @@ internal class DefaultSpeedsTest {
 
     @Test fun replacing_urban_combined_with_other_filter() {
         assertEquals(
-            DefaultSpeeds.Result("alley", mapOf("maxspeed" to "5"), Exact),
+            LegalDefaultSpeeds.Result("alley", mapOf("maxspeed" to "5"), Exact),
             za.getSpeedLimits("ZA", mapOf("alley" to "yes")) { name, ev ->
                 if (name == "urban") true else ev()
             }
@@ -165,7 +165,7 @@ internal class DefaultSpeedsTest {
 
     @Test fun replacing_urban_combined_with_fuzzy_filter() {
         assertEquals(
-            DefaultSpeeds.Result("urban state road", mapOf("maxspeed" to "60"), Fuzzy),
+            LegalDefaultSpeeds.Result("urban state road", mapOf("maxspeed" to "60"), Fuzzy),
             za.getSpeedLimits("ZA", mapOf("highway" to "residential")) { name, ev ->
                 if (name == "state road") true else ev()
             }
@@ -175,7 +175,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_subtags_with_higher_speeds() {
         assertEquals(
             mapOf("maxspeed" to "60", "maxspeed:mofa" to "50"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "60",
@@ -189,7 +189,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_subtags_with_higher_mph_speeds() {
         assertEquals(
             mapOf("maxspeed" to "35 mph", "maxspeed:mofa" to "10 mph"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "35 mph",
@@ -203,7 +203,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_conditionals_with_higher_speeds() {
         assertEquals(
             mapOf("maxspeed" to "60", "maxspeed:conditional" to "50 @ (something else)"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "60",
@@ -216,7 +216,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_conditionals_with_higher_mph_speeds() {
         assertEquals(
             mapOf("maxspeed" to "35 mph", "maxspeed:conditional" to "20 mph @ (something else)"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "35 mph",
@@ -229,7 +229,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_all_conditionals_if_they_all_have_higher_speeds() {
         assertEquals(
             mapOf("maxspeed" to "60"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "60",
@@ -242,7 +242,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_all_conditionals_if_they_all_have_higher_mph_speeds() {
         assertEquals(
             mapOf("maxspeed" to "20 mph"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "20 mph",
@@ -255,7 +255,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_conditionals_of_subtags_with_higher_speeds() {
         assertEquals(
             mapOf("maxspeed:hgv" to "60", "maxspeed:hgv:conditional" to "50 @ (something else)"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed:hgv" to "60",
@@ -268,7 +268,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_conditionals_of_subtags_with_higher_mph_speeds() {
         assertEquals(
             mapOf("maxspeed:hgv" to "30 mph", "maxspeed:hgv:conditional" to "20 mph @ (something else)"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed:hgv" to "30 mph",
@@ -281,7 +281,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_all_conditionals_of_subtags_if_they_all_have_with_higher_speeds() {
         assertEquals(
             mapOf("maxspeed:hgv" to "60"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed:hgv" to "60",
@@ -294,7 +294,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_all_conditionals_of_subtags_if_they_all_have_with_higher_mph_speeds() {
         assertEquals(
             mapOf("maxspeed:hgv" to "10 mph"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed:hgv" to "10 mph",
@@ -307,7 +307,7 @@ internal class DefaultSpeedsTest {
     @Test fun removes_subtags_with_higher_speeds_when_lower_speed_is_specified() {
         assertEquals(
             mapOf("maxspeed:mofa" to "50"),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "100",
@@ -318,7 +318,7 @@ internal class DefaultSpeedsTest {
         )
         assertEquals(
             mapOf(),
-            DefaultSpeeds(
+            LegalDefaultSpeeds(
                 mapOf(),
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "100",
