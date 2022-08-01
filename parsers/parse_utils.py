@@ -66,9 +66,11 @@ def parse_road_types_table(table) -> dict:
 
             tags_filter = table_row_helper.get_td(1).get_text(" ", strip=True)
             fuzzy_tags_filter = table_row_helper.get_td(2).get_text(" ", strip=True)
+            relation_tags_filter = table_row_helper.get_td(3).get_text(" ", strip=True)
             road_class = {}
             if tags_filter: road_class['filter'] = tags_filter
             if fuzzy_tags_filter: road_class['fuzzy_filter'] = fuzzy_tags_filter
+            if relation_tags_filter: road_class['relation_filter'] = relation_tags_filter
             result[road_type] = road_class
 
     return result
@@ -143,6 +145,7 @@ def validate_road_types(road_types: dict):
         all_filters = []
         if "filter" in filters: all_filters.append(filters["filter"])
         if "fuzzy_filter" in filters: all_filters.append(filters["fuzzy_filter"])
+        if "relation_filter" in filters: all_filters.append(filters["relation_filter"])
         for f in all_filters:
             for match in finditer("{.*?}", f):
                 placeholder = match.group(0)[1:-1]

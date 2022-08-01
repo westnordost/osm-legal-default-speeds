@@ -2,14 +2,15 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revision_id": "2362000",
+    "revision_id": "2363703",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-08-01T12:12:38"
+    "timestamp": "2022-08-01T14:28:45"
   },
   "road_types": {
     "Alabama: rural highway": {
       "filter": "{rural} and ref~\"(US|AL|I).*\"",
-      "fuzzy_filter": "{rural} and highway~trunk|trunk_link|primary|primary_link"
+      "fuzzy_filter": "{rural} and highway~trunk|trunk_link|primary|primary_link",
+      "relation_filter": "type=route and route=road and network~\"US:(AL|US)(:.*)?\""
     },
     "Alabama: rural highway with 2 or more lanes in each direction": {
       "filter": "{Alabama: rural highway} and {road with 2 or more lanes in each direction}"
@@ -44,7 +45,8 @@
       "filter": "highway~trunk|trunk_link and {motorroad}"
     },
     "Benin: Route nationale": {
-      "filter": "ref~RN.*"
+      "filter": "ref~\"RN(IE)?.*\"",
+      "relation_filter": "type=route and route=road and name~\"RN(IE)?.*\""
     },
     "Brasil: Via arterial": {
       "fuzzy_filter": "{urban} and highway~primary|primary_link and {has shoulder}"
@@ -62,7 +64,7 @@
       "filter": "highway=service and (!width or width<=7.6)"
     },
     "Colorado: freeway or expressway with 2 or more lanes in each direction": {
-      "filter": "({motorway} or  {expressway}) and {road with 2 or more lanes in each direction}"
+      "filter": "({motorway} or {expressway}) and {road with 2 or more lanes in each direction}"
     },
     "Croatia:brza cesta": {
       "filter": "highway~trunk|trunk_link and ref~B.*"
@@ -118,7 +120,8 @@
       "fuzzy_filter": "{rural} and highway~primary|primary_link"
     },
     "Idaho: State highway": {
-      "filter": "ref~\"(ID|SH|US).*\""
+      "filter": "ref~\"(ID|SH|US).*\"",
+      "relation_filter": "type=route and route=road and network~\"US:(ID|US)(:.*)?\""
     },
     "Iowa: suburban district": {
       "filter": "{urban} and !{school zone} and !{residential district} and !{business district}"
@@ -139,13 +142,8 @@
       "filter": "{rural} and {single carriageway} and lanes>=2"
     },
     "Kansas: state highway": {
-      "filter": "ref~KS.*"
-    },
-    "Kerala: National highway": {
-      "filter": "ref~NH.*"
-    },
-    "Kerala: State highway": {
-      "filter": "ref~SH.*"
+      "filter": "ref~\"(KS|US).*\"",
+      "relation_filter": "type=route and route=road and network~\"US:(KS|US)(:.*)?\""
     },
     "Malawi: rural highway": {
       "filter": "{rural} and surface~asphalt|concrete and width>5.5"
@@ -166,10 +164,11 @@
       "filter": "ref~M.*"
     },
     "Nebraska: State expressway or super-two highway": {
-      "filter": "{expressway} and ref~\"(NE|US).*\""
+      "filter": "{expressway} and {Nebraska: State highway}"
     },
     "Nebraska: State highway": {
-      "filter": "ref~\"(NE|US).*\""
+      "filter": "ref~\"(NE|US).*\"",
+      "relation_filter": "type=route and route=road and network=US:NE"
     },
     "Newfoundland and Labrador: Trans-Canada highway": {
       "filter": "ref=1"
@@ -184,7 +183,8 @@
       "filter": "ref~N.*"
     },
     "Ohio: Urban state route": {
-      "filter": "ref~SR.* and {urban}"
+      "filter": "ref~SR.* and {urban}",
+      "relation_filter": "type=route and route=road and network=US:OH"
     },
     "Palestine: \u0634\u0627\u0631\u0639\u0645\u062e\u062a\u0644": {
       "fuzzy_filter": "{urban} and (highway~living_street|service|pedestrian or highway=residential and {has no sidewalk})"
@@ -202,10 +202,11 @@
       "filter": "name~Avenida.*"
     },
     "Per\u00fa: Carretera": {
-      "filter": "ref~PE.*"
+      "filter": "ref~PE.*",
+      "relation_filter": "type=route and route=road and ref~PE.*"
     },
     "Per\u00fa: V\u00eda Expresa": {
-      "filter": "name~V\u00eda Expresa.*"
+      "filter": "name~\"V\u00eda Expresa.*\""
     },
     "Philippines: Barangay road": {
       "filter": "designation=barangay_road or designation=barangay",
@@ -226,26 +227,22 @@
     "Philippines: Through street": {
       "filter": "{urban} and (ref or designation~provincial_road|national_tertiary_road|national_secondary_road|national_primary_road)"
     },
-    "Punjab national highway": {
-      "filter": "ref~NH.*"
-    },
-    "Punjab national highway with dual carriageway": {
-      "filter": "ref~NH.* and {dual carriageway}"
-    },
-    "Punjab state highway": {
-      "filter": "ref~SH.*"
-    },
-    "Punjab state highway with dual carriageway": {
-      "filter": "ref~SH.* and {dual carriageway}"
-    },
     "Romania: drumurile expres sau pe cele na\u021bionale europene": {
-      "filter": "ref~DN.*"
+      "filter": "ref~DN.*",
+      "relation_filter": "type=route and route=road and network=RO:DN"
     },
     "Senegal: National road": {
       "filter": "ref~N.*"
     },
     "Singapore: silver zone": {
       "filter": "hazard=elderly or silver_zone=yes or hazard=silver_zone"
+    },
+    "Tennessee: Rural state road with 2 or more lanes in each direction": {
+      "filter": "{Tennessee: State route} and {rural} and {road with 2 or more lanes in each direction}"
+    },
+    "Tennessee: State route": {
+      "filter": "ref~\"(TN|SR|US).*\"",
+      "relation_filter": "type=route and route=road and network~\"US:(TN|US)(:.*)?\""
     },
     "Thailand: motorway that is not a \u0e17\u0e4d\u0e32\u0e07\u0e1e\u0e34\u0e40\u0e28\u0e29": {
       "filter": "{motorway} and ref"
@@ -260,10 +257,11 @@
       "filter": "{motorway} and !ref and ((bridge and bridge!=no) or (tunnel and tunnel!=no))"
     },
     "US interstate highway": {
-      "filter": "ref~I.* and {motorway}"
+      "filter": "ref~I.* and {motorway}",
+      "relation_filter": "type=route and route=road and network=US:I"
     },
     "US interstate highway with 2 or more lanes in each direction": {
-      "filter": "ref~I.* and {motorway} and ((lanes>=2 and {oneway}) or (lanes>=4 and !{oneway}))"
+      "filter": "{US interstate highway} and ((lanes>=2 and {oneway}) or (lanes>=4 and !{oneway}))"
     },
     "United Kingdom: restricted road": {
       "filter": "lit=yes or maxspeed:type=GB:nsl_restricted"
@@ -272,16 +270,19 @@
       "filter": "ref~R.*"
     },
     "Virginia: State primary highway": {
-      "filter": "ref~\"(US|VA).*\""
+      "filter": "ref~\"(US|VA).*\"",
+      "relation_filter": "type=route and route=road and network~\"US:(VA|US)(:.*)?\""
     },
     "Washington: State highway": {
-      "filter": "ref~WA.*"
+      "filter": "ref~\"(US|WA).*\"",
+      "relation_filter": "type=route and route=road and network~\"US:(WA|US)(:.*)?"
     },
     "Wisconsin: Rustic road": {
       "filter": "ref~R.*"
     },
     "Wyoming: State highway": {
-      "filter": "ref~WYO?.*"
+      "filter": "ref~WYO?.*",
+      "relation_filter": "type=route and route=road and network~\"US:(WY|US)(:.*)?"
     },
     "alley": {
       "filter": "highway=service and service=alley"
@@ -341,7 +342,8 @@
       "filter": "{motorway} and {road with 2 or more lanes in each direction}"
     },
     "numbered road": {
-      "filter": "ref"
+      "filter": "ref",
+      "relation_filter": "type=route and route=road and ref"
     },
     "oneway": {
       "filter": "oneway~yes|-1 or junction~roundabout|circular"
@@ -417,9 +419,6 @@
     "rural numbered road": {
       "filter": "{rural} and {numbered road}"
     },
-    "rural numbered road with 2 or more lanes in each direction": {
-      "filter": "{rural numbered road} and {road with 2 or more lanes in each direction}"
-    },
     "rural one-way road with 1 lane": {
       "filter": "{rural} and {oneway} and lanes=1"
     },
@@ -485,7 +484,7 @@
       "fuzzy_filter": "highway~living_street|residential or lit=yes or {has sidewalk}"
     },
     "urban US interstate highway": {
-      "filter": "{urban} and ref~I.* and {motorway}"
+      "filter": "{urban} and {US interstate highway}"
     },
     "urban and without centerline": {
       "filter": "{urban} and {without centerline}"
@@ -9066,7 +9065,7 @@
         }
       },
       {
-        "name": "rural numbered road with 2 or more lanes in each direction",
+        "name": "Tennessee: Rural state road with 2 or more lanes in each direction",
         "tags": {
           "maxspeed": "70 mph",
           "minspeed": "55 mph"
