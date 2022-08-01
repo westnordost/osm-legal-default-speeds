@@ -1,3 +1,3 @@
 
-rootProject.name = "osm-default-speeds"
+rootProject.name = "osm-legal-default-speeds"
 
