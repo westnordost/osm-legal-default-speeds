@@ -194,6 +194,4 @@ private data class RoadTypeTagFilterExpressions(
     val relationFilter: TagFilterExpression?,
 )
 
-// TODO remove higher default limits than signed limit, e.g. maxspeed=50, maxspeed:hgv=80
-
 // TODO reverse search?!
