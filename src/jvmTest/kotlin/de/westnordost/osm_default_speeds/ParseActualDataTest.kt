@@ -2,6 +2,7 @@ package de.westnordost.osm_default_speeds
 
 import de.westnordost.osm_default_speeds.tagfilter.ParseException
 import de.westnordost.osm_default_speeds.tagfilter.TagFilterExpression
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
@@ -11,10 +12,11 @@ import kotlin.test.*
 
 
 class ParseActualDataTest {
+    @OptIn(ExperimentalSerializationApi::class)
     @Test fun parse_actual_data() {
         // just parse, it should just not throw an exception
-        val url = URL("https://raw.githubusercontent.com/westnordost/osm-default-speeds/master/output/default_speeds.json")
-        val data = Json {ignoreUnknownKeys = true}.decodeFromStream<SpeedLimitsJson>(url.openStream())
+        val url = javaClass.getResource("/default_speeds.json")!!
+        val data = Json.decodeFromStream<SpeedLimitsJson>(url.openStream())
         for ((name, roadType) in data.roadTypes.entries) {
             roadType.filter?.let {
                 try {
