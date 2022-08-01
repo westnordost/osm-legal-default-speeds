@@ -7,7 +7,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.decodeFromStream
-import java.net.URL
 import kotlin.test.*
 
 
@@ -50,7 +49,9 @@ internal data class SpeedLimitsJson(
 internal data class RoadTypeFilterJson(
     override val filter: String? = null,
     @SerialName("fuzzy_filter")
-    override val fuzzyFilter: String? = null
+    override val fuzzyFilter: String? = null,
+    @SerialName("relation_filter")
+    override val relationFilter: String? = null
 ) : RoadTypeFilter
 
 @Serializable

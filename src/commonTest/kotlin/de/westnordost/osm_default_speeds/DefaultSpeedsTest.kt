@@ -11,18 +11,23 @@ internal class DefaultSpeedsTest {
             "living street" to filters("highway=living_street"), // only exact filter
             "alley" to filters("{urban} and alley=yes"), // with placeholder
             "urban" to filters("lit=yes", "highway=residential"), // both exact and fuzzy filter
+            "urban state road" to filters("{urban} and {state road}"), // filter referring to relation filter
             "rural" to filters(null, "sidewalk=no"), // only fuzzy filter
             "dual carriageway" to filters("dual_carriageway=yes"), // only fuzzy filter
             "motorway" to filters("highway=motorway"),
+            "state road" to filters(null, null, "type=route and ref~ZA.*"), // only relation filter
+            "rural state road" to filters("{rural} and {state road}"),
         ),
         mapOf(
             "ZA" to listOf(
                 road("living street", mapOf("maxspeed" to "10")),
                 road("alley", mapOf("maxspeed" to "5")),
+                road("urban state road", mapOf("maxspeed" to "60")),
                 road("urban", mapOf("maxspeed" to "50")),
                 road(null, mapOf("maxspeed" to "100")), // default rule
                 road("rural", mapOf("maxspeed" to "100")),
                 road("dual carriageway", mapOf("maxspeed" to "110")),
+                road("rural state road", mapOf("maxspeed" to "115")),
                 road("motorway", mapOf("maxspeed" to "120")),
             )
         )
@@ -115,12 +120,35 @@ internal class DefaultSpeedsTest {
         )
     }
 
+    @Test fun find_contained_in_relation() {
+        assertEquals(
+            DefaultSpeeds.Result("rural state road", mapOf("maxspeed" to "115"), Fuzzy),
+            za.getSpeedLimits(
+                "ZA",
+                mapOf("sidewalk" to "no"),
+                listOf(mapOf("type" to "route", "ref" to "Bus 1234"), mapOf("type" to "route", "ref" to "ZA 2"))
+            )
+        )
+        assertEquals(
+            DefaultSpeeds.Result("urban state road", mapOf("maxspeed" to "60"), Exact),
+            za.getSpeedLimits(
+                "ZA",
+                mapOf("lit" to "yes"),
+                listOf(mapOf("type" to "route", "ref" to "ZA 2"))
+            )
+        )
+        assertNull(
+            za.getSpeedLimits("ZA", mapOf(), listOf(mapOf("type" to "route", "ref" to "ZA 2")))
+        )
+    }
+
     // TODO tests for replace function...
 }
 
 internal data class RoadTypeFilterImpl(
     override val filter: String?,
-    override val fuzzyFilter: String?
+    override val fuzzyFilter: String?,
+    override val relationFilter: String?
 ) : RoadTypeFilter
 
 internal data class RoadTypeImpl(
@@ -131,5 +159,5 @@ internal data class RoadTypeImpl(
 internal fun road(name: String? = null, tags: Map<String, String> = mapOf()) =
     RoadTypeImpl(name, tags)
 
-internal fun filters(filter: String? = null, fuzzyFilter: String? = null) =
-    RoadTypeFilterImpl(filter, fuzzyFilter)
+internal fun filters(filter: String? = null, fuzzyFilter: String? = null, relationFilter: String? = null) =
+    RoadTypeFilterImpl(filter, fuzzyFilter, relationFilter)

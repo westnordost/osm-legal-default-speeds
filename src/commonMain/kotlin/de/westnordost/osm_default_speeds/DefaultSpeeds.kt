@@ -10,6 +10,7 @@ interface RoadType {
 interface RoadTypeFilter {
     val filter: String?
     val fuzzyFilter: String?
+    val relationFilter: String?
 }
 
 /** Class with which to look up the default speed limits per country as specified in the
@@ -26,7 +27,8 @@ class DefaultSpeeds(
                immediately) */
             RoadTypeTagFilterExpressions(
                 roadTypeFilter.filter?.let { TagFilterExpression(it) },
-                roadTypeFilter.fuzzyFilter?.let { TagFilterExpression(it) }
+                roadTypeFilter.fuzzyFilter?.let { TagFilterExpression(it) },
+                roadTypeFilter.relationFilter?.let { TagFilterExpression(it) }
             )
         }
 
@@ -59,14 +61,19 @@ class DefaultSpeeds(
      *
      * @param tags OpenStreetMap tags of the road (segment) in question
      *
-     * @param replacerFn You can replace the result of any number of placeholders in a tag filter
-     *        here (e.g. for name = "urban"), for example if you have another data source to acquire
-     *        whether a road is in a built-up area or not. For those you do not want to replace,
-     *        simply pass on the result of evaluate as result
+     * @param relationsTags the OpenStreetMap tags of all relations the road (segment) in question
+     *        is a member of. Optional, but may lead to more precise results, especially in the
+     *        United States.
+     *
+     * @param replacerFn Optional. You can replace the result of any number of placeholders in a
+     *        tag filter here (e.g. for name = "urban"), for example if you have another data source
+     *        to acquire whether a road is in a built-up area or not. For those you do not want to
+     *        replace, simply pass on the result of evaluate as result
      */
     fun getSpeedLimits(
         countryCode: String,
         tags: Map<String, String>,
+        relationsTags: List<Map<String, String>> = emptyList(),
         replacerFn: (name: String, evaluate: () -> Boolean) -> Boolean = { _, ev -> ev() }
     ): Result? {
         val roadTypes = speedLimits[countryCode]
@@ -75,56 +82,64 @@ class DefaultSpeeds(
 
         // 1. Try to match non-fuzzy first, if nothing found, then fuzzy
         for (fuzzy in listOf(false, true)) {
-            val certitude = if (!fuzzy) Result.Certitude.Exact else Result.Certitude.Fuzzy
-
-            // a. First try to match the road that is defined the furthest to the bottom
-            for (roadType in roadTypes.asReversed()) {
-                val name = roadType.name ?: break
-                if (matchesReplace(name, tags, fuzzy, replacerFn)) {
-                    return Result(name, roadType.tags, certitude)
-                }
-            }
-
-            // b. If nothing matched, match the road that is defined furthest to the top
-            for (roadType in roadTypes) {
-                val name = roadType.name ?: break
-                if (matchesReplace(name, tags, fuzzy, replacerFn)) {
-                    return Result(name, roadType.tags, certitude)
-                }
+            val roadType = findRoadType(roadTypes, tags, relationsTags, fuzzy, replacerFn)
+            if (roadType != null) {
+                val certitude = if (!fuzzy) Result.Certitude.Exact else Result.Certitude.Fuzzy
+                return Result(roadType.name, roadType.tags, certitude)
             }
         }
 
-        // 3. Otherwise, match the default (if it exists)
+        // 2. Otherwise, match the default (if it exists)
         val fallbackRoadType = roadTypes.find { it.name == null } ?: return null
         return Result(fallbackRoadType.name, fallbackRoadType.tags, Result.Certitude.Fallback)
     }
 
-    private fun matchesReplace(
-        name: String, tags: Map<String, String>, fuzzy: Boolean,
+    private fun findRoadType(
+        roadTypes: List<RoadType>,
+        tags: Map<String, String>,
+        relationsTags: List<Map<String, String>>,
+        fuzzy: Boolean,
         replacerFn: (name: String, evaluate: () -> Boolean) -> Boolean
-    ): Boolean =
-        replacerFn(name) { matchesTags(name, tags, fuzzy, replacerFn) }
+    ): RoadType? {
+        // a. First try to match the road that is defined the furthest to the bottom
+        for (roadType in roadTypes.asReversed()) {
+            val name = roadType.name ?: break
+            if (filtersMatchReplace(name, tags, relationsTags, fuzzy, replacerFn)) return roadType
+        }
 
-    private fun matchesTags(
-        name: String, tags: Map<String, String>, fuzzy: Boolean,
-        replacerFn: (name: String, evaluate: () -> Boolean) -> Boolean
+        // b. If nothing matched, match the road that is defined furthest to the top
+        for (roadType in roadTypes) {
+            val name = roadType.name ?: break
+            if (filtersMatchReplace(name, tags, relationsTags, fuzzy, replacerFn)) return roadType
+        }
+        return null
+    }
+
+    private fun filtersMatchReplace(
+        name: String, tags: Map<String, String>, relationsTags: List<Map<String, String>>,
+        fuzzy: Boolean, replacerFn: (name: String, evaluate: () -> Boolean) -> Boolean
+    ): Boolean =
+        replacerFn(name) { filtersMatch(name, tags, relationsTags, fuzzy, replacerFn) }
+
+    private fun filtersMatch(
+        name: String, tags: Map<String, String>, relationsTags: List<Map<String, String>>,
+        fuzzy: Boolean, replacerFn: (name: String, evaluate: () -> Boolean) -> Boolean
     ): Boolean {
         val f = roadTypeFilters[name] ?: return false
-        val filters = listOfNotNull(f.filter, f.fuzzyFilter.takeIf { fuzzy })
-        return filters.any { filter ->
-            filter.matches(tags) { placeholder -> matchesReplace(placeholder, tags, fuzzy, replacerFn) }
-        }
+        val fn: (String) -> Boolean = { filtersMatchReplace(it, tags, relationsTags, fuzzy, replacerFn) }
+
+        return relationsTags.any { f.relationFilter?.matches(it, fn) == true }
+            || f.filter?.matches(tags, fn) == true
+            || fuzzy && f.fuzzyFilter?.matches(tags, fn) == true
     }
 }
 
 private data class RoadTypeTagFilterExpressions(
     val filter: TagFilterExpression?,
-    val fuzzyFilter: TagFilterExpression?
+    val fuzzyFilter: TagFilterExpression?,
+    val relationFilter: TagFilterExpression?,
 )
-
 
 // TODO remove higher default limits than signed limit, e.g. maxspeed=50, maxspeed:hgv=80
 
 // TODO reverse search?!
-
-// TODO relations....?
