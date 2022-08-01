@@ -4,7 +4,7 @@ import de.westnordost.osm_legal_default_speeds.tagfilter.ParseException
 import de.westnordost.osm_legal_default_speeds.LegalDefaultSpeeds.Result.Certitude.*
 import kotlin.test.*
 
-internal class DefaultSpeedsTest {
+internal class LegalDefaultSpeedsTest {
 
     private val za = LegalDefaultSpeeds(
         mapOf(
