@@ -120,15 +120,21 @@ internal class DefaultSpeedsTest {
         )
     }
 
-    @Test fun find_contained_in_relation() {
+    @Test fun find_contained_in_relation_with_additional_fuzzy_rule() {
         assertEquals(
             DefaultSpeeds.Result("rural state road", mapOf("maxspeed" to "115"), Fuzzy),
             za.getSpeedLimits(
                 "ZA",
                 mapOf("sidewalk" to "no"),
-                listOf(mapOf("type" to "route", "ref" to "Bus 1234"), mapOf("type" to "route", "ref" to "ZA 2"))
+                listOf(
+                    mapOf("type" to "route", "ref" to "Bus 1234"),
+                    mapOf("type" to "route", "ref" to "ZA 2")
+                )
             )
         )
+    }
+
+    @Test fun find_contained_in_relation_with_additional_exact_rule() {
         assertEquals(
             DefaultSpeeds.Result("urban state road", mapOf("maxspeed" to "60"), Exact),
             za.getSpeedLimits(
@@ -137,12 +143,34 @@ internal class DefaultSpeedsTest {
                 listOf(mapOf("type" to "route", "ref" to "ZA 2"))
             )
         )
-        assertNull(
-            za.getSpeedLimits("ZA", mapOf(), listOf(mapOf("type" to "route", "ref" to "ZA 2")))
+    }
+
+    @Test fun replacing_urban() {
+        assertEquals(
+            DefaultSpeeds.Result("urban", mapOf("maxspeed" to "50"), Exact),
+            za.getSpeedLimits("ZA", mapOf()) { name, ev ->
+                if (name == "urban") true else ev()
+            }
         )
     }
 
-    // TODO tests for replace function...
+    @Test fun replacing_urban_combined_with_other_filter() {
+        assertEquals(
+            DefaultSpeeds.Result("alley", mapOf("maxspeed" to "5"), Exact),
+            za.getSpeedLimits("ZA", mapOf("alley" to "yes")) { name, ev ->
+                if (name == "urban") true else ev()
+            }
+        )
+    }
+
+    @Test fun replacing_urban_combined_with_fuzzy_filter() {
+        assertEquals(
+            DefaultSpeeds.Result("urban state road", mapOf("maxspeed" to "60"), Fuzzy),
+            za.getSpeedLimits("ZA", mapOf("highway" to "residential")) { name, ev ->
+                if (name == "state road") true else ev()
+            }
+        )
+    }
 }
 
 internal data class RoadTypeFilterImpl(
