@@ -12,12 +12,12 @@ signed.
 
 It takes the data from the [Default speed limits](https://wiki.openstreetmap.org/wiki/Default_speed_limits)
 page from the OpenStreetMap wiki as input, best parsed from a JSON.
-
+<!--
 ## Installation
 
 Add [`de.westnordost:osm-legal-default-speeds:1.0`](https://mvnrepository.com/artifact/de.westnordost/osm-legal-default-speeds/1.0) 
 as a Maven dependency or download the jar from there.
-
+-->
 ## Usage
 
 ### Parse Data
