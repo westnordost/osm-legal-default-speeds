@@ -12,6 +12,11 @@ signed.
 
 It takes the data from the [Default speed limits](https://wiki.openstreetmap.org/wiki/Default_speed_limits)
 page from the OpenStreetMap wiki as input, best parsed from a JSON.
+
+## Copyright and License
+
+© 2022 Tobias Zwick. This library is released under the terms of the [BSD 3-Clause License](https://raw.githubusercontent.com/westnordost/osm-legal-default-speeds/master/LICENSE.txt).
+
 <!--
 ## Installation
 
@@ -31,8 +36,8 @@ into the constructor.
 ```kotlin
 @Serializable data class SpeedLimitsJson(
     val meta: Map<String, String>,
-    val roadTypes: Map<String, RoadTypeFilterJson>,
-    val speedLimits: Map<String, List<RoadTypeJson>>,
+    val roadTypesByName: Map<String, RoadTypeFilterJson>,
+    val speedLimitsByCountryCode: Map<String, List<RoadTypeJson>>,
     val warnings: List<String>
 )
 
