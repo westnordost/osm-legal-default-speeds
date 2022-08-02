@@ -74,9 +74,9 @@ LegalDefaultSpeeds.Result(
     roadTypeName = "motorway",
     tags = mapOf(
         "maxspeed" to "130",
-        "maxspeed:bus:conditional" to "80 @ (weightrating>3.5)",
+        "maxspeed:bus:conditional" to "80 @ (maxweightrating>3.5)",
         "maxspeed:coach" to "100",
-        "maxspeed:conditional" to "80 @ (trailer); 80 @ (weightrating>3.5)",
+        "maxspeed:conditional" to "80 @ (trailer); 80 @ (maxweightrating>3.5)",
         "maxspeed:hgv" to "80",
         "minspeed" to "50"
     ),
@@ -160,7 +160,7 @@ LegalDefaultSpeeds.Result(
     tags = mapOf(
         "maxspeed:bus" to "80",
         "maxspeed:bus:conditional" to "70 @ (articulated)",
-        "maxspeed:conditional" to "80 @ (trailer); 70 @ (weightrating>3.5)",
+        "maxspeed:conditional" to "80 @ (trailer); 70 @ (maxweightrating>3.5)",
         "maxspeed:hgv" to "70"
     ),
     certitude = Certitude.FromMaxSpeed
