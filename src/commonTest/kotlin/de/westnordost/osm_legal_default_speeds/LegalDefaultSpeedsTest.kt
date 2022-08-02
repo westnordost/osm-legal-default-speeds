@@ -1,7 +1,7 @@
 package de.westnordost.osm_legal_default_speeds
 
 import de.westnordost.osm_legal_default_speeds.tagfilter.ParseException
-import de.westnordost.osm_legal_default_speeds.LegalDefaultSpeeds.Result.Certitude.*
+import de.westnordost.osm_legal_default_speeds.Certitude.*
 import kotlin.test.*
 
 internal class LegalDefaultSpeedsTest {

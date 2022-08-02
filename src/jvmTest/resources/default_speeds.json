@@ -1,16 +1,16 @@
 {
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
-    "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revision_id": "2363703",
+    "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
+    "revisionId": "2363703",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-08-01T14:28:45"
+    "timestamp": "2022-08-02T09:40:00"
   },
-  "road_types": {
+  "roadTypesByName": {
     "Alabama: rural highway": {
       "filter": "{rural} and ref~\"(US|AL|I).*\"",
-      "fuzzy_filter": "{rural} and highway~trunk|trunk_link|primary|primary_link",
-      "relation_filter": "type=route and route=road and network~\"US:(AL|US)(:.*)?\""
+      "fuzzyFilter": "{rural} and highway~trunk|trunk_link|primary|primary_link",
+      "relationFilter": "type=route and route=road and network~\"US:(AL|US)(:.*)?\""
     },
     "Alabama: rural highway with 2 or more lanes in each direction": {
       "filter": "{Alabama: rural highway} and {road with 2 or more lanes in each direction}"
@@ -29,11 +29,11 @@
     },
     "Andorra: Carretera general": {
       "filter": "ref~CG.*",
-      "fuzzy_filter": "highway=primary"
+      "fuzzyFilter": "highway=primary"
     },
     "Andorra: Carretera secund\u00e0ria": {
       "filter": "ref~CS.*",
-      "fuzzy_filter": "highway=secondary"
+      "fuzzyFilter": "highway=secondary"
     },
     "Argentina: Avenida": {
       "filter": "{urban} and highway~trunk|trunk_link|primary|primary_link|secondary|secondary_link"
@@ -46,19 +46,19 @@
     },
     "Benin: Route nationale": {
       "filter": "ref~\"RN(IE)?.*\"",
-      "relation_filter": "type=route and route=road and name~\"RN(IE)?.*\""
+      "relationFilter": "type=route and route=road and name~\"RN(IE)?.*\""
     },
     "Brasil: Via arterial": {
-      "fuzzy_filter": "{urban} and highway~primary|primary_link and {has shoulder}"
+      "fuzzyFilter": "{urban} and highway~primary|primary_link and {has shoulder}"
     },
     "Brasil: Via coletora": {
-      "fuzzy_filter": "{urban} and highway~secondary|secondary_link|tertiary|tertiary_link"
+      "fuzzyFilter": "{urban} and highway~secondary|secondary_link|tertiary|tertiary_link"
     },
     "Brasil: Via de tr\u00e2nsito r\u00e1pido": {
-      "fuzzy_filter": "{urban} and (highway~primary|primary_link and {has shoulder} or highway~trunk|motorway)"
+      "fuzzyFilter": "{urban} and (highway~primary|primary_link and {has shoulder} or highway~trunk|motorway)"
     },
     "Brasil: Via local": {
-      "fuzzy_filter": "{urban} and highway~service|residential|unclassified"
+      "fuzzyFilter": "{urban} and highway~service|residential|unclassified"
     },
     "California: alley": {
       "filter": "highway=service and (!width or width<=7.6)"
@@ -73,55 +73,55 @@
       "filter": "highway=service and (!width or width<9.144)"
     },
     "Ecuador: Via perimetral": {
-      "fuzzy_filter": "{urban} and highway~trunk|trunk_link and ref~E.*"
+      "fuzzyFilter": "{urban} and highway~trunk|trunk_link and ref~E.*"
     },
     "Egypt: \"\u0627\u0644\u0637\u0631\u0642 \u0627\u0644\u0633\u0631\u064a\u0639\u0629 \u0623\u0648 \u0627\u0644\u0631\u0626\u064a\u0633\u064a\u0629 \u0627\u0644\u062a\u0649 \u062a\u0631\u0628\u0637 \u0627\u0644\u0645\u062d\u0627\u0641\u0638\u0627\u062a \u060c \u0648\u0627\u0644\u062a\u0649 \u062a\u062a\u0628\u0639 \u0627\u0644\u0645\u062d\u0644\u064a\u0627\u062a \u0623\u0648 \u0627\u0644\u0647\u064a\u0626\u0629 \u0627\u0644\u0639\u0627\u0645\u0629 \u0644\u0644\u0637\u0631\u0642 \u0648\u0627\u0644\u0643\u0628\u0627\u0631\u0649\"": {
-      "fuzzy_filter": "{rural} and highway~primary|primary_link|secondary|secondary_link"
+      "fuzzyFilter": "{rural} and highway~primary|primary_link|secondary|secondary_link"
     },
     "Egypt: \"\u0627\u0644\u0637\u0631\u0642 \u0627\u0644\u0635\u062d\u0631\u0627\u0648\u064a\u0629\"": {
-      "fuzzy_filter": "{rural} and highway~trunk|trunk_link|motorway|motorway_link"
+      "fuzzyFilter": "{rural} and highway~trunk|trunk_link|motorway|motorway_link"
     },
     "Guatemala: Arteria principal": {
       "filter": "{urban} and ((!{oneway} and lanes>=3 and width>=10.5) or ({oneway} and lanes>=2 and width>=7))",
-      "fuzzy_filter": "{urban} and highway~primary|primary_link"
+      "fuzzyFilter": "{urban} and highway~primary|primary_link"
     },
     "Guatemala: Arteria secundaria": {
       "filter": "{urban} and ((!{oneway} and lanes>=3 and width>=9) or ({oneway} and lanes>=2 and width>=6))",
-      "fuzzy_filter": "{urban} and highway~secondary|secondary_link"
+      "fuzzyFilter": "{urban} and highway~secondary|secondary_link"
     },
     "Guatemala: Camino": {
       "filter": "{unpaved road}"
     },
     "Guatemala: Carretera principal": {
       "filter": "{rural} and lanes>=2 and width>=7 and {has shoulder}",
-      "fuzzy_filter": "highway~primary|primary_link"
+      "fuzzyFilter": "highway~primary|primary_link"
     },
     "Guatemala: Carretera secundaria": {
       "filter": "{rural} and lanes>=2 and width>=5.5",
-      "fuzzy_filter": "highway~secondary|secondary_link|tertiary|tertiary_link|unclassified"
+      "fuzzyFilter": "highway~secondary|secondary_link|tertiary|tertiary_link|unclassified"
     },
     "Guatemala: V\u00eda local": {
       "filter": "{urban} and width>=5",
-      "fuzzy_filter": "{urban} and highway~tertiary|tertiary_link|unclassified"
+      "fuzzyFilter": "{urban} and highway~tertiary|tertiary_link|unclassified"
     },
     "Guatemala: V\u00eda residencial": {
       "filter": "{urban} and width>=3 and width<5.5",
-      "fuzzy_filter": "{urban} and highway~service|residential"
+      "fuzzyFilter": "{urban} and highway~service|residential"
     },
     "Guatemala: V\u00eda r\u00e1pida": {
       "filter": "{rural} and {has shoulder} and (({oneway} and lanes>=2 and width>=7) or (!{oneway} and lanes>=4 and width>=14))",
-      "fuzzy_filter": "highway~trunk|trunk_link"
+      "fuzzyFilter": "highway~trunk|trunk_link"
     },
     "Guatemala: V\u00eda r\u00e1pida urbana": {
       "filter": "{urban} and {has shoulder} and (({oneway} and lanes>=2 and width>=7) or (!{oneway} and lanes>=4 and width>=14))",
-      "fuzzy_filter": "{urban} and highway~trunk|trunk_link"
+      "fuzzyFilter": "{urban} and highway~trunk|trunk_link"
     },
     "Guyana: Timehri Field / Linden Highway": {
-      "fuzzy_filter": "{rural} and highway~primary|primary_link"
+      "fuzzyFilter": "{rural} and highway~primary|primary_link"
     },
     "Idaho: State highway": {
       "filter": "ref~\"(ID|SH|US).*\"",
-      "relation_filter": "type=route and route=road and network~\"US:(ID|US)(:.*)?\""
+      "relationFilter": "type=route and route=road and network~\"US:(ID|US)(:.*)?\""
     },
     "Iowa: suburban district": {
       "filter": "{urban} and !{school zone} and !{residential district} and !{business district}"
@@ -143,22 +143,22 @@
     },
     "Kansas: state highway": {
       "filter": "ref~\"(KS|US).*\"",
-      "relation_filter": "type=route and route=road and network~\"US:(KS|US)(:.*)?\""
+      "relationFilter": "type=route and route=road and network~\"US:(KS|US)(:.*)?\""
     },
     "Malawi: rural highway": {
       "filter": "{rural} and surface~asphalt|concrete and width>5.5"
     },
     "Mauritius: A road": {
       "filter": "ref~A.*",
-      "fuzzy_filter": "highway~primary|primary_link"
+      "fuzzyFilter": "highway~primary|primary_link"
     },
     "Mauritius: B road": {
       "filter": "ref~B.*",
-      "fuzzy_filter": "highway~secondary|secondary_link"
+      "fuzzyFilter": "highway~secondary|secondary_link"
     },
     "Mauritius: C road": {
       "filter": "ref~C.*",
-      "fuzzy_filter": "highway~tertiary|tertiary_link"
+      "fuzzyFilter": "highway~tertiary|tertiary_link"
     },
     "Mauritius: M road": {
       "filter": "ref~M.*"
@@ -168,13 +168,13 @@
     },
     "Nebraska: State highway": {
       "filter": "ref~\"(NE|US).*\"",
-      "relation_filter": "type=route and route=road and network=US:NE"
+      "relationFilter": "type=route and route=road and network=US:NE"
     },
     "Newfoundland and Labrador: Trans-Canada highway": {
       "filter": "ref=1"
     },
     "Nicaragua: Carretera": {
-      "fuzzy_filter": "{rural} and (name~Carretera.* or highway~trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link)"
+      "fuzzyFilter": "{rural} and (name~Carretera.* or highway~trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link)"
     },
     "Niger: autoroute": {
       "filter": "highway~motorway|motorway_link"
@@ -184,33 +184,33 @@
     },
     "Ohio: Urban state route": {
       "filter": "ref~SR.* and {urban}",
-      "relation_filter": "type=route and route=road and network=US:OH"
+      "relationFilter": "type=route and route=road and network=US:OH"
     },
     "Palestine: \u0634\u0627\u0631\u0639\u0645\u062e\u062a\u0644": {
-      "fuzzy_filter": "{urban} and (highway~living_street|service|pedestrian or highway=residential and {has no sidewalk})"
+      "fuzzyFilter": "{urban} and (highway~living_street|service|pedestrian or highway=residential and {has no sidewalk})"
     },
     "Panama: Avenida": {
-      "fuzzy_filter": "{urban} and highway~tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link and (!lanes or ((!{oneway} and lanes<4) or ({oneway} and lanes<2)))"
+      "fuzzyFilter": "{urban} and highway~tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link and (!lanes or ((!{oneway} and lanes<4) or ({oneway} and lanes<2)))"
     },
     "Panama: Avenida de dos carriles": {
-      "fuzzy_filter": "{urban} and highway~tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link and ((!{oneway} and lanes=4) or ({oneway} and lanes=2))"
+      "fuzzyFilter": "{urban} and highway~tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link and ((!{oneway} and lanes=4) or ({oneway} and lanes=2))"
     },
     "Panama: Carretera multicarril en zona urbana": {
-      "fuzzy_filter": "{urban} and highway~tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link and ((!{oneway} and lanes>4) or ({oneway} and lanes>2))"
+      "fuzzyFilter": "{urban} and highway~tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link and ((!{oneway} and lanes>4) or ({oneway} and lanes>2))"
     },
     "Per\u00fa: Avenida": {
       "filter": "name~Avenida.*"
     },
     "Per\u00fa: Carretera": {
       "filter": "ref~PE.*",
-      "relation_filter": "type=route and route=road and ref~PE.*"
+      "relationFilter": "type=route and route=road and ref~PE.*"
     },
     "Per\u00fa: V\u00eda Expresa": {
       "filter": "name~\"V\u00eda Expresa.*\""
     },
     "Philippines: Barangay road": {
       "filter": "designation=barangay_road or designation=barangay",
-      "fuzzy_filter": "{rural} and highway~unclassified|track"
+      "fuzzyFilter": "{rural} and highway~unclassified|track"
     },
     "Philippines: National primary road": {
       "filter": "designation=national_primary_road or ref~[0-9][0-9]?"
@@ -229,7 +229,7 @@
     },
     "Romania: drumurile expres sau pe cele na\u021bionale europene": {
       "filter": "ref~DN.*",
-      "relation_filter": "type=route and route=road and network=RO:DN"
+      "relationFilter": "type=route and route=road and network=RO:DN"
     },
     "Senegal: National road": {
       "filter": "ref~N.*"
@@ -242,7 +242,7 @@
     },
     "Tennessee: State route": {
       "filter": "ref~\"(TN|SR|US).*\"",
-      "relation_filter": "type=route and route=road and network~\"US:(TN|US)(:.*)?\""
+      "relationFilter": "type=route and route=road and network~\"US:(TN|US)(:.*)?\""
     },
     "Thailand: motorway that is not a \u0e17\u0e4d\u0e32\u0e07\u0e1e\u0e34\u0e40\u0e28\u0e29": {
       "filter": "{motorway} and ref"
@@ -258,7 +258,7 @@
     },
     "US interstate highway": {
       "filter": "ref~I.* and {motorway}",
-      "relation_filter": "type=route and route=road and network=US:I"
+      "relationFilter": "type=route and route=road and network=US:I"
     },
     "US interstate highway with 2 or more lanes in each direction": {
       "filter": "{US interstate highway} and ((lanes>=2 and {oneway}) or (lanes>=4 and !{oneway}))"
@@ -271,18 +271,18 @@
     },
     "Virginia: State primary highway": {
       "filter": "ref~\"(US|VA).*\"",
-      "relation_filter": "type=route and route=road and network~\"US:(VA|US)(:.*)?\""
+      "relationFilter": "type=route and route=road and network~\"US:(VA|US)(:.*)?\""
     },
     "Washington: State highway": {
       "filter": "ref~\"(US|WA).*\"",
-      "relation_filter": "type=route and route=road and network~\"US:(WA|US)(:.*)?"
+      "relationFilter": "type=route and route=road and network~\"US:(WA|US)(:.*)?"
     },
     "Wisconsin: Rustic road": {
       "filter": "ref~R.*"
     },
     "Wyoming: State highway": {
       "filter": "ref~WYO?.*",
-      "relation_filter": "type=route and route=road and network~\"US:(WY|US)(:.*)?"
+      "relationFilter": "type=route and route=road and network~\"US:(WY|US)(:.*)?"
     },
     "alley": {
       "filter": "highway=service and service=alley"
@@ -343,7 +343,7 @@
     },
     "numbered road": {
       "filter": "ref",
-      "relation_filter": "type=route and route=road and ref"
+      "relationFilter": "type=route and route=road and ref"
     },
     "oneway": {
       "filter": "oneway~yes|-1 or junction~roundabout|circular"
@@ -359,7 +359,7 @@
     },
     "residential district": {
       "filter": "abutters=residential",
-      "fuzzy_filter": "highway~living_street|residential"
+      "fuzzyFilter": "highway~living_street|residential"
     },
     "road with 1 lane in each direction": {
       "filter": "!lanes or ((!{oneway} and lanes=2) or ({oneway} and lanes=1))"
@@ -387,7 +387,7 @@
     },
     "rural": {
       "filter": "source:maxspeed~rural or maxspeed:type~rural or zone:maxspeed~rural or zone:traffic~rural or maxspeed~rural or HFCS~.*Rural.*",
-      "fuzzy_filter": "lit=no or {has no sidewalk}"
+      "fuzzyFilter": "lit=no or {has no sidewalk}"
     },
     "rural US interstate highway": {
       "filter": "{rural} and {US interstate highway}"
@@ -481,7 +481,7 @@
     },
     "urban": {
       "filter": "source:maxspeed~urban or maxspeed:type~urban or zone:maxspeed~urban or zone:traffic~urban or maxspeed~urban or HFCS~.*Urban.*",
-      "fuzzy_filter": "highway~living_street|residential or lit=yes or {has sidewalk}"
+      "fuzzyFilter": "highway~living_street|residential or lit=yes or {has sidewalk}"
     },
     "urban US interstate highway": {
       "filter": "{urban} and {US interstate highway}"
@@ -559,7 +559,7 @@
       "filter": "lanes<2 or lane_markings=no"
     }
   },
-  "speed_limits": {
+  "speedLimitsByCountryCode": {
     "AD": [
       {
         "name": "living street",
