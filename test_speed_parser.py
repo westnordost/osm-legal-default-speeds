@@ -114,7 +114,7 @@ def test_parser(data, expected):
             []
         ),
         (
-            {"alley": {"fuzzy_filter": "highway=service"}},
+            {"alley": {"fuzzyFilter": "highway=service"}},
             []
         ),
         (
@@ -122,7 +122,7 @@ def test_parser(data, expected):
             ["alley: Unable to map 'service'"]
         ),
         (
-            {"alley": {"fuzzy_filter": "{service}"}},
+            {"alley": {"fuzzyFilter": "{service}"}},
             ["alley: Unable to map 'service'"]
         ),
         (

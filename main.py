@@ -31,14 +31,14 @@ if __name__ == "__main__":
     result = parse_speed_table(speed_table, parse_speeds)
     result["meta"] = {
         "source": WIKI_URL + WIKI_PAGE,
-        "revision_id": str(parsed["revid"]),
+        "revisionId": str(parsed["revid"]),
         "timestamp": datetime.datetime.utcnow().replace(microsecond=0).isoformat(),
         "license": "Creative Commons Attribution-ShareAlike 2.0 license",
-        "license_url": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
+        "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
     }
-    result["road_types"] = road_types
+    result["roadTypesByName"] = road_types
     result['warnings'] += validate_road_types(road_types)
-    result['warnings'] += validate_road_types_in_speed_table(result['speed_limits'], road_types)
+    result['warnings'] += validate_road_types_in_speed_table(result['speedLimitsByCountryCode'], road_types)
 
     with open(output_file_name, "w", encoding='utf8') as file:
         file.write(json.dumps(result, sort_keys=True, indent=2))

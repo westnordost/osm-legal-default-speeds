@@ -69,8 +69,8 @@ def parse_road_types_table(table) -> dict:
             relation_tags_filter = table_row_helper.get_td(3).get_text(" ", strip=True)
             road_class = {}
             if tags_filter: road_class['filter'] = tags_filter
-            if fuzzy_tags_filter: road_class['fuzzy_filter'] = fuzzy_tags_filter
-            if relation_tags_filter: road_class['relation_filter'] = relation_tags_filter
+            if fuzzy_tags_filter: road_class['fuzzyFilter'] = fuzzy_tags_filter
+            if relation_tags_filter: road_class['relationFilter'] = relation_tags_filter
             result[road_type] = road_class
 
     return result
@@ -137,15 +137,15 @@ def parse_speed_table(table, speed_parse_func) -> dict:
                 
             result[country_code].append(road_class)
 
-    return {'speed_limits': result, 'warnings': warnings}
+    return {'speedLimitsByCountryCode': result, 'warnings': warnings}
 
 def validate_road_types(road_types: dict):
     warnings = []
     for road_type, filters in road_types.items():
         all_filters = []
         if "filter" in filters: all_filters.append(filters["filter"])
-        if "fuzzy_filter" in filters: all_filters.append(filters["fuzzy_filter"])
-        if "relation_filter" in filters: all_filters.append(filters["relation_filter"])
+        if "fuzzyFilter" in filters: all_filters.append(filters["fuzzyFilter"])
+        if "relationFilter" in filters: all_filters.append(filters["relationFilter"])
         for f in all_filters:
             for match in finditer("{.*?}", f):
                 placeholder = match.group(0)[1:-1]
