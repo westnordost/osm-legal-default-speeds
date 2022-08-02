@@ -132,7 +132,7 @@ legalSpeeds.getSpeedLimits("US-MO", mapOf("highway" to "motorway"), null)
     if (name == "urban") myDataSource.isUrban(roadSegment) else evaluate()
 }
 ```
-...returns (if `myDataSource.isUrban` returns true)...
+...returns (if `myDataSource.isUrban` returns `true`)...
 ```kotlin
 LegalDefaultSpeeds.Result(
     roadTypeName = "urban motorway",
