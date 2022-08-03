@@ -1,8 +1,8 @@
-name: Generate default speed limits JSON
+name: Generate JSON
 on: workflow_dispatch
 jobs:
   parse:
-    name: Generate default speed limits JSON
+    name: Generate JSON
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,5 +21,5 @@ jobs:
       - name: Upload JSON
         uses: actions/upload-artifact@v3
         with: 
-          name: default_speeds.json
-          path: default_speeds.json
+          name: legal_default_speeds.json
+          path: legal_default_speeds.json

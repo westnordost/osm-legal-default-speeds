@@ -18,7 +18,7 @@ WIKI_PAGE = "Default_speed_limits"
 
 
 if __name__ == "__main__":
-    output_file_name = sys.argv[1] if len(sys.argv)>1 else "default_speeds.json"
+    output_file_name = sys.argv[1] if len(sys.argv)>1 else "legal_default_speeds.json"
 
     parsed = requests.get(WIKI_API_URL, {"action": "parse", "page": WIKI_PAGE, "format": "json"}).json()["parse"]
     html_string = parsed["text"]["*"]
