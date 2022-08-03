@@ -1,17 +1,20 @@
 # OSM Legal Default Speeds
 
 Kotlin multiplatform library that provides information about legal default speed limits.
+Runs on JVM, native and JavaScript.
 
 It can be used by data consumers such as router software to fill the gaps in OpenStreetMap data, 
 i.e. when explicit `maxspeed` tagging is missing because there is no explicit sign or because it 
 hasn't been tagged yet. 
 
-Additionally, it can be used to supplement the legal speed limits for other vehicle types (busses, 
+Additionally, it can be used to supplement the legal speed limits for other vehicle types (buses, 
 goods vehicles, motorcycles, ...), as these can be assumed to never be tagged unless explicitly
 signed.
 
-It takes the data from the [Default speed limits](https://wiki.openstreetmap.org/wiki/Default_speed_limits)
-page from the OpenStreetMap wiki as input, best parsed from a JSON.
+It uses the data from the [Default speed limits](https://wiki.openstreetmap.org/wiki/Default_speed_limits)
+page from the OpenStreetMap wiki as input. 
+Check out [osm-legal-default-speeds-parser](https://github.com/westnordost/osm-legal-default-speeds-parser)
+for a python script that generates a JSON from the data in the aforementioned wiki page.
 
 ## Copyright and License
 
@@ -27,8 +30,8 @@ as a Maven dependency or download the jar from there.
 
 ### Parse Data
 
-You need to parse the `default_speeds.json` with the JSON l ibrary of your choice and feed its data
-into the constructor.
+You need to parse the [`legal_default_speeds.json`](https://github.com/westnordost/osm-legal-default-speeds-parser)
+with the JSON library of your choice and feed its data into the constructor.
 
 <details>
 <summary>Example parsing it with <a href="https://github.com/Kotlin/kotlinx.serialization">kotlinx-serialization</a> (click to expand)</summary>
