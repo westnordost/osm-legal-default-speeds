@@ -1,4 +1,4 @@
-# OSM Default Speeds
+# OSM Legal Default Speeds Parser
 
 This project generates a machine-readable JSON from the data on the [Default speed limits](https://wiki.openstreetmap.org/wiki/Default_speed_limits) page from the OpenStreetMap wiki.
 
