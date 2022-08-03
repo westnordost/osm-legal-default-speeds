@@ -2,6 +2,8 @@ from re import finditer
 from bs4 import element
 from lark import Lark
 
+import pycountry
+
 from parsers import SPEED_GRAMMAR
 
 parser = Lark(SPEED_GRAMMAR)
@@ -63,7 +65,6 @@ def parse_road_types_table(table) -> dict:
         table_row_helper.set_tds(tds)
         if tds:
             road_type = table_row_helper.get_td(0).get_text(strip=True)
-
             tags_filter = table_row_helper.get_td(1).get_text(" ", strip=True)
             fuzzy_tags_filter = table_row_helper.get_td(2).get_text(" ", strip=True)
             relation_tags_filter = table_row_helper.get_td(3).get_text(" ", strip=True)
@@ -106,7 +107,12 @@ def parse_speed_table(table, speed_parse_func) -> dict:
         tds = row.find_all("td")
         table_row_helper.set_tds(tds)
         if tds:
-            country_code = table_row_helper.get_td(0).get_text(strip=True)
+            country = table_row_helper.get_td(0).get_text(strip=True)
+            country_code = get_country_code(country)
+            if not country_code:
+                warnings.append(f'{country}: Unknown country / subdivision')
+                continue
+            
             road_type = table_row_helper.get_td(1).get_text(strip=True)
 
             road_tags = {}
@@ -120,7 +126,7 @@ def parse_speed_table(table, speed_parse_func) -> dict:
                         parsed_speeds = speed_parse_func(speeds)
                     except Exception:
                         parsed_speeds = {}
-                        warnings.append(f'{country_code}: Unable to parse \'{vehicle_type}\' for \'{road_type}\'')
+                        warnings.append(f'{country_and_subdivision_name}: Unable to parse \'{vehicle_type}\' for \'{road_type}\'')
 
                     for key, value in parsed_speeds.items():
                         if vehicle_type != "(default)":
@@ -138,6 +144,48 @@ def parse_speed_table(table, speed_parse_func) -> dict:
             result[country_code].append(road_class)
 
     return {'speedLimitsByCountryCode': result, 'warnings': warnings}
+    
+
+def get_country_code(name):
+    if name in country_codes:
+        return country_codes[name]
+
+    country_and_subdivision_name = name.split(":")
+    country_name = country_and_subdivision_name[0].strip()
+    try:
+        country_code = pycountry.countries.lookup(country_name).alpha_2
+        
+        if len(country_and_subdivision_name) > 1:
+            subdivision_name = country_and_subdivision_name[1].strip()
+            subdivisions = pycountry.subdivisions.get(country_code=country_code)
+            for subdivision in subdivisions:
+                if subdivision.name == subdivision_name:
+                    return subdivision.code
+            return
+        else:
+            return country_code
+        
+    except Exception:
+        return
+
+country_codes = {
+    "Brunei": "BN",
+    "Belgium:Brussels-Capital Region": "BE-BRU",
+    "Belgium:Flanders": "BE-VLG",
+    "Belgium:Wallonia": "BE-WAL",
+    "Democratic Republic of the Congo": "CD",
+    "Kosovo": "XK",
+    "Micronesia": "FM",
+    "Micronesia:Kosrae": "FM-KSA",
+    "Micronesia:Pohnpei": "FM-PNI",
+    "Micronesia:Chuuk": "FM-TRK",
+    "Micronesia:Yap": "FM-YAP",
+    "Palestine": "PS",
+    "Pitcairn Islands": "PN",
+    "Russia": "RU",
+    "United Kingdom:Scotland": "GB-SCT"
+}
+
 
 def validate_road_types(road_types: dict):
     warnings = []
