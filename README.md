@@ -2,7 +2,7 @@
 
 This project generates a machine-readable JSON from the data on the [Default speed limits](https://wiki.openstreetmap.org/wiki/Default_speed_limits) page from the OpenStreetMap wiki.
 
-Are you looking for a library that interprets the data? Check out https://github.com/westnordost/osm-legal-default-speeds
+Are you looking for a library that interprets this data? Check out https://github.com/westnordost/osm-legal-default-speeds
 
 ### Usage
 
