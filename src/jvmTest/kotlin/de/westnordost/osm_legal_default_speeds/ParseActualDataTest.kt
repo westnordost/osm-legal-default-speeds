@@ -13,7 +13,7 @@ class ParseActualDataTest {
     @OptIn(ExperimentalSerializationApi::class)
     @Test fun parse_actual_data() {
         // just parse, it should just not throw an exception
-        val url = javaClass.getResource("/default_speeds.json")!!
+        val url = javaClass.getResource("/legal_default_speeds.json")!!
         val json = Json { ignoreUnknownKeys = true }
         val data: SpeedLimitsJson = json.decodeFromStream(url.openStream())
         for ((name, roadType) in data.roadTypesByName.entries) {
