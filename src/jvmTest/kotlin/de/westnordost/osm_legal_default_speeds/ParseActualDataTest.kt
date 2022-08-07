@@ -1,13 +1,10 @@
 package de.westnordost.osm_legal_default_speeds
 
-import de.westnordost.osm_legal_default_speeds.tagfilter.ParseException
-import de.westnordost.osm_legal_default_speeds.tagfilter.TagFilterExpression
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.decodeFromStream
 import kotlin.test.*
-
 
 class ParseActualDataTest {
     @OptIn(ExperimentalSerializationApi::class)
@@ -16,22 +13,7 @@ class ParseActualDataTest {
         val url = javaClass.getResource("/legal_default_speeds.json")!!
         val json = Json { ignoreUnknownKeys = true }
         val data: SpeedLimitsJson = json.decodeFromStream(url.openStream())
-        for ((name, roadType) in data.roadTypesByName.entries) {
-            roadType.filter?.let {
-                try {
-                    TagFilterExpression(it)
-                } catch (e: ParseException) {
-                    throw Exception("Error parsing $name - $it", e)
-                }
-            }
-            roadType.fuzzyFilter?.let {
-                try {
-                    TagFilterExpression(it)
-                } catch (e: ParseException) {
-                    throw Exception("Error parsing $name - $it", e)
-                }
-            }
-        }
+        LegalDefaultSpeeds(data.roadTypesByName, data.speedLimitsByCountryCode)
     }
 }
 

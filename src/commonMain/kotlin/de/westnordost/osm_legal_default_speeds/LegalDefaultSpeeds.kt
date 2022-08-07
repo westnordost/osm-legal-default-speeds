@@ -1,5 +1,6 @@
 package de.westnordost.osm_legal_default_speeds
 
+import de.westnordost.osm_legal_default_speeds.tagfilter.ParseException
 import de.westnordost.osm_legal_default_speeds.tagfilter.TagFilterExpression
 import de.westnordost.osm_legal_default_speeds.tagfilter.withOptionalUnitToDoubleOrNull
 
@@ -22,15 +23,29 @@ class LegalDefaultSpeeds(
 ) {
 
     private val roadTypeFilters: Map<String, RoadTypeTagFilterExpressions> =
-        roadTypesByName.mapValues { (_, roadTypeFilter) ->
+        roadTypesByName.mapValues { (roadName, roadTypeFilter) ->
             /* let's parse the filters defined in strings right in the constructor, so it doesn't
                need to be done again and again (and if there is a syntax error, it becomes apparent
                immediately) */
-            RoadTypeTagFilterExpressions(
-                roadTypeFilter.filter?.let { TagFilterExpression(it) },
-                roadTypeFilter.fuzzyFilter?.let { TagFilterExpression(it) },
+            val filter = try {
+                roadTypeFilter.filter?.let { TagFilterExpression(it) }
+            } catch (e: ParseException) {
+                throw IllegalArgumentException("Invalid road type filter for \"$roadName\"", e)
+            }
+
+            val fuzzyFilter = try {
+                roadTypeFilter.fuzzyFilter?.let { TagFilterExpression(it) }
+            } catch (e: ParseException) {
+                throw IllegalArgumentException("Invalid road type fuzzyFilter for \"$roadName\"", e)
+            }
+
+            val relationFilter = try {
                 roadTypeFilter.relationFilter?.let { TagFilterExpression(it) }
-            )
+            } catch (e: ParseException) {
+                throw IllegalArgumentException("Invalid road type relationFilter for \"$roadName\"", e)
+            }
+
+            RoadTypeTagFilterExpressions(filter, fuzzyFilter, relationFilter)
         }
 
     /** The result of looking for the speed limits via [getSpeedLimits]. It includes the road type
@@ -205,7 +220,7 @@ private fun MutableMap<String,String>.limitSpeedsTo(key: String, value: String?)
 enum class Certitude {
     /** It is an exact match with the road type. I.e., the tag filter for the road type matched. */
     Exact,
-    /** A certain `maxspeed` is set, so the road type was inferred from that */
+    /** The road type was inferred from the `maxspeed` given in the input */
     FromMaxSpeed,
     /** It can be assumed with reasonable certainty that the match is of the given road type.
      * I.e., the fuzzy tag filter for the road type matched. */
