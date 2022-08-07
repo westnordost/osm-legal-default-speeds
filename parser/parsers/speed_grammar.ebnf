@@ -1,0 +1,74 @@
+start: _speed_defs
+
+_speed_defs: _speed_def
+           | _speed_def "," _speed_defs
+
+_speed_def: single_speed_def
+          | multilane_speed
+          | access_prohibited
+
+access_prohibited: "X"
+
+single_speed_def: _speed             -> normal_speed
+                | "advisory:" _speed -> advisory_speed
+                | "min:" _speed      -> min_speed
+
+multilane_speed: single_speed_def ("|" single_speed_def)+
+
+_speed: speed_value _restriction_def
+      | speed_value
+
+_restriction_def: "(" _restrictions ")"
+
+_restrictions: restriction
+             | restriction "," _restrictions
+
+restriction: weight                   -> weight_restriction
+           | RESTRICTION_CONDITIONAL  -> restriction_conditional
+           | NUMBER+ LENGTH_UNIT      -> length_restriction
+           | NUMBER+ "seats"          -> seat_restriction
+           | NUMBER+ "axles"          -> axle_restriction
+           | NUMBER+ "trailers"       -> trailers_restriction
+           | date_interval            -> date_interval
+
+weight: WEIGHT WEIGHT_UNIT                   -> weight_rating
+      | WEIGHT_QUALIFIER WEIGHT WEIGHT_UNIT  -> qualified_weight_pre
+      | WEIGHT WEIGHT_UNIT WEIGHT_QUALIFIER  -> qualified_weight_post
+
+date_interval: [month_span] [weekday_span] time_span
+             | [month_span] weekday_span
+             | month_span
+
+month_span: MONTH "-" MONTH
+
+weekday_span: WEEKDAY "-" WEEKDAY
+
+time_span: time "-" time
+
+time: TIME                       -> time_time
+    | EVENT                      -> time_event
+    | "(" event_with_offset ")"  -> event_with_offset
+
+event_with_offset: EVENT "-" TIME  -> neg_interval
+                 | EVENT "+" TIME  -> pos_interval
+
+speed_value: NUMBER+ "mph" -> mph_speed
+           | NUMBER+       -> kph_speed
+           | "walk"        -> walk_speed
+
+RESTRICTION_CONDITIONAL: "articulated" | "trailer" | "caravan" | "wet" | "empty"
+
+WEIGHT: /\d+([.]\d+)?/
+WEIGHT_QUALIFIER: "empty" | "capacity" | "trailer" | "current"
+WEIGHT_UNIT: "t" | "st" | "lt" | "lb"
+
+LENGTH_UNIT: "m" | "ft"
+
+TIME: /[0-9][0-9]:[0-9][0-9]/
+EVENT: "sunset" | "sunrise" | "dusk" | "dawn"
+WEEKDAY: "Mo" | "Tu" | "We" | "Th" | "Fr" | "Sa" | "So"
+MONTH: "Jan" | "Feb" | "Mar" | "Apr" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Nov" | "Dec"
+
+%import common.INT -> NUMBER
+%import common.WS
+%ignore WS

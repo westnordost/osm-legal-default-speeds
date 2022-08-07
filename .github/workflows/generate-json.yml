@@ -1,0 +1,25 @@
+name: Generate JSON
+on: workflow_dispatch
+jobs:
+  parse:
+    name: Generate JSON
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r parser/requirements.txt
+      - name: Parse information from wiki and generate JSON
+        run: |
+          python parser/main.py
+      - name: Upload JSON
+        uses: actions/upload-artifact@v3
+        with: 
+          name: legal_default_speeds.json
+          path: parser/legal_default_speeds.json
