@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.*
+import org.w3c.dom.url.URLSearchParams
 import kotlin.js.Date
 import kotlin.math.max
 
@@ -19,15 +20,20 @@ private val revisionText = document.getElementById("revisionText") as HTMLSpanEl
 
 private val scope = MainScope()
 private var speeds: LegalDefaultSpeeds? = null
+private val hashParams = URLSearchParams(window.location.hash)
 
 fun main() {
+
     resultTags.style.visibility = "none"
 
     countrySelect.oninput = {
-        window.localStorage.setItem("selectedCountryCode", countrySelect.value)
+        hashParams.set("cc", countrySelect.value)
+        window.location.hash = hashParams.toString()
         updateOutput()
     }
     tagsInput.oninput = {
+        hashParams.set("tags", tagsInput.value)
+        window.location.hash = hashParams.toString()
         tagsInput.rows = max(Regex("\n").findAll(tagsInput.value).count() + 1, 3)
         updateOutput()
     }
@@ -37,6 +43,7 @@ fun main() {
 
         speeds = LegalDefaultSpeeds(speedLimitsJson.roadTypesByName, speedLimitsJson.speedLimitsByCountryCode)
 
+        tagsInput.value = hashParams.get("tags") ?: ""
         initMetadataInfo(speedLimitsJson.meta)
         initializeCountrySelect(speedLimitsJson.speedLimitsByCountryCode.keys)
 
@@ -61,8 +68,8 @@ private fun initializeCountrySelect(countryCodes: Collection<String>) {
     for (countryCode in countryCodes.sortedBy { getCountryName(it) }) {
         countrySelect.appendChild(createCountryOption(countryCode))
     }
-    val selection = window.localStorage.getItem("selectedCountryCode")
-    countrySelect.value = selection ?: "IT"
+
+    countrySelect.value = hashParams.get("cc") ?: "IT"
 }
 
 private fun createCountryOption(countryCode: String): HTMLOptionElement {
