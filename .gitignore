@@ -1,3 +1,5 @@
 .idea
 .gradle
 /build
+/library/build
+/demo/build

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Legal Default Speed Limits</title>
+    <style>
+    body {
+        font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        margin: 0;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    h1 {
+        font-size: 1.6em;
+        margin-top: 0px;
+        border-bottom: 1px solid rgb(208, 215, 222);
+        padding-bottom: 8px;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid rgb(208, 215, 222);
+        margin: 32px 0;
+    }
+
+    #main {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgb(208, 215, 222);
+        border-radius: 6px;
+        padding: 16px 32px 16px 32px;
+        margin: 16px 0px 16px 0px;
+        gap: 8px;
+    }
+
+    .center {
+        margin: auto;
+        max-width: 860px;
+    }
+
+    .footer {
+        font-size: 12px;
+        text-align: right;
+        margin: 32px;
+    }
+
+    .withLabel {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    @media only screen and (max-width: 860px) {
+        #main {
+            border: 1px solid transparent;
+            padding-left: 4vw;
+            padding-right: 4vw;
+        }
+
+        .footer {
+            margin-left: 4vw;
+            margin-right: 4vw;
+        }
+    }
+
+    </style>
+    <script src="demo.js" defer></script>
+</head>
+<body>
+    <div class="center">
+        <div id="main">
+            <h1>Legal Default Speed Limits</h1>
+            <div class="withLabel">
+                <label for="countrySelect">Country / state:</label>
+                <select id="countrySelect"></select>
+            </div>
+            <div class="withLabel">
+                <label for="tagsInput">Input tags on road:</label>
+                <textarea id="tagsInput" autocomplete="off" autocorrect="off" rows="4" spellcheck="false" wrap="off"
+                          placeholder="e.g.&#10;highway=tertiary&#10;lanes=2&#10;..."></textarea>
+            </div>
+
+            <div id="arrow" style="font-size: 64px; text-align:center; line-height: 0.8em">🠋</div>
+
+            <div id="roadType" style="font-size: 22px;"></div>
+            <div id="matchType" style="font-style: italic"></div>
+            <textarea  id="resultTags" rows="3" readonly="readonly" wrap="off"></textarea>
+        </div>
+
+        <hr/>
+
+        <div class="footer">
+            Data from <a id="wikiUrl" href="https://wiki.openstreetmap.org/wiki/Default_speed_limits">Default speed limits</a> <span id="revisionText"></span><br/>
+            <a href="https://github.com/westnordost/osm-legal-default-speeds">Source Code</a>
+        </div>
+    </div>
+</body>
+</html>
