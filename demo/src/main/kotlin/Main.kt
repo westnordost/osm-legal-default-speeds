@@ -6,7 +6,6 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.*
-import org.w3c.dom.url.URLSearchParams
 import kotlin.js.Date
 import kotlin.math.max
 
@@ -20,20 +19,19 @@ private val revisionText = document.getElementById("revisionText") as HTMLSpanEl
 
 private val scope = MainScope()
 private var speeds: LegalDefaultSpeeds? = null
-private val hashParams = URLSearchParams(window.location.hash)
+private val hashParams = window.location.hashParams.toMutableMap()
 
 fun main() {
-
     resultTags.style.visibility = "none"
 
     countrySelect.oninput = {
-        hashParams.set("cc", countrySelect.value)
-        window.location.hash = hashParams.toString()
+        hashParams["cc"] = countrySelect.value
+        window.location.hashParams = hashParams
         updateOutput()
     }
     tagsInput.oninput = {
-        hashParams.set("tags", tagsInput.value)
-        window.location.hash = hashParams.toString()
+        hashParams["tags"] = tagsInput.value
+        window.location.hashParams = hashParams
         tagsInput.rows = max(Regex("\n").findAll(tagsInput.value).count() + 1, 3)
         updateOutput()
     }
@@ -69,7 +67,7 @@ private fun initializeCountrySelect(countryCodes: Collection<String>) {
         countrySelect.appendChild(createCountryOption(countryCode))
     }
 
-    countrySelect.value = hashParams.get("cc") ?: "IT"
+    countrySelect.value = hashParams["cc"] ?: "IT"
 }
 
 private fun createCountryOption(countryCode: String): HTMLOptionElement {
