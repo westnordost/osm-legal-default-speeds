@@ -16,13 +16,11 @@ private val matchType = document.getElementById("matchType") as HTMLDivElement
 private val resultTags = document.getElementById("resultTags") as HTMLTextAreaElement
 private val wikiUrl = document.getElementById("wikiUrl") as HTMLAnchorElement
 private val revisionText = document.getElementById("revisionText") as HTMLSpanElement
-private val arrow = document.getElementById("arrow") as HTMLDivElement
 
 private val scope = MainScope()
 private var speeds: LegalDefaultSpeeds? = null
 
 fun main() {
-    arrow.style.visibility = "none"
     resultTags.style.visibility = "none"
 
     countrySelect.oninput = {
@@ -89,7 +87,6 @@ private fun updateOutput() {
     val inputCountry = countrySelect.value
     val result = speeds.getSpeedLimits(inputCountry, inputTags)
 
-    arrow.style.visibility = "visible"
     if (result != null) {
         roadType.innerHTML = "<strong>Match</strong>: " + (result.roadTypeName ?: "None")
         resultTags.value = result.tags.toTagString()
