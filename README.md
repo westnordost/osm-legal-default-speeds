@@ -12,4 +12,4 @@ A version of the generated [`legal_default_speeds.json`](https://github.com/west
 
 ### Credits
 
-This project was started by @ianthetechie in 2019 and finally finished in 2022 by @westnordost as part of a [NLNet grant](https://nlnet.nl/project/OSM-SpeedLimits/).
+This project was started by [@ianthetechie](https://github.com/ianthetechie) in 2019 and finally finished in 2022 by [@westnordost](https://github.com/westnordost) as part of a [NLNet grant](https://nlnet.nl/project/OSM-SpeedLimits/).
