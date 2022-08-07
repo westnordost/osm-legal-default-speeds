@@ -13,13 +13,16 @@ signed.
 
 It uses the data from the [Default speed limits](https://wiki.openstreetmap.org/wiki/Default_speed_limits)
 page from the OpenStreetMap wiki as input. 
-Check out [osm-legal-default-speeds-parser](https://github.com/westnordost/osm-legal-default-speeds-parser)
-for a python script that generates a JSON from the data in the aforementioned wiki page.
+In the [`parser/` subdirectory](https://github.com/westnordost/osm-legal-default-speeds/tree/master/parser),
+there is a parser written in Python that generates a JSON from the data in the aforementioned wiki page.
+The data from this JSON can be consumed by the library (found in the `library/` subdirectory).
 
 ## Demo
 
 Check it out on
 **[westnordost.github.io/osm-legal-default-speeds](https://westnordost.github.io/osm-legal-default-speeds)**
+
+(Source code for the demo is in the [`demo/` subdirectory](https://github.com/westnordost/osm-legal-default-speeds/tree/master/demo))
 
 ## Copyright and License
 
