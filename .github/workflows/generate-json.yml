@@ -14,12 +14,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r parser/requirements.txt
       - name: Parse information from wiki and generate JSON
         run: |
-          python main.py
+          python parser/main.py
       - name: Upload JSON
         uses: actions/upload-artifact@v3
         with: 
           name: legal_default_speeds.json
-          path: legal_default_speeds.json
+          path: parser/legal_default_speeds.json
