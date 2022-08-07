@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2364826",
+    "revisionId": "2367677",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-08-03T14:28:02"
+    "timestamp": "2022-08-07T00:22:43"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -275,14 +275,14 @@
     },
     "Washington: State highway": {
       "filter": "ref~\"(US|WA).*\"",
-      "relationFilter": "type=route and route=road and network~\"US:(WA|US)(:.*)?"
+      "relationFilter": "type=route and route=road and network~\"US:(WA|US)(:.*)?\""
     },
     "Wisconsin: Rustic road": {
       "filter": "ref~R.*"
     },
     "Wyoming: State highway": {
       "filter": "ref~WYO?.*",
-      "relationFilter": "type=route and route=road and network~\"US:(WY|US)(:.*)?"
+      "relationFilter": "type=route and route=road and network~\"US:(WY|US)(:.*)?\""
     },
     "alley": {
       "filter": "highway=service and service=alley"
@@ -386,7 +386,7 @@
       "filter": "junction=roundabout"
     },
     "rural": {
-      "filter": "source:maxspeed~rural or maxspeed:type~rural or zone:maxspeed~rural or zone:traffic~rural or maxspeed~rural or HFCS~.*Rural.*",
+      "filter": "source:maxspeed~.*rural or maxspeed:type~.*rural or zone:maxspeed~.*rural or zone:traffic~.*rural or maxspeed~.*rural or HFCS~.*Rural.*",
       "fuzzyFilter": "lit=no or {has no sidewalk}"
     },
     "rural US interstate highway": {
@@ -480,7 +480,7 @@
       "filter": "surface~unpaved|ground|gravel|dirt|grass|compacted|sand|fine_gravel|earth|pebblestone|mud|clay|soil|rock or (!surface and tracktype and tracktype!=grade1)"
     },
     "urban": {
-      "filter": "source:maxspeed~urban or maxspeed:type~urban or zone:maxspeed~urban or zone:traffic~urban or maxspeed~urban or HFCS~.*Urban.*",
+      "filter": "source:maxspeed~.*urban or maxspeed:type~.*urban or zone:maxspeed~.*urban or zone:traffic~.*urban or maxspeed~.*urban or HFCS~.*Urban.*",
       "fuzzyFilter": "highway~living_street|residential or lit=yes or {has sidewalk}"
     },
     "urban US interstate highway": {
