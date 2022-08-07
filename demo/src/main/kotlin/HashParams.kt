@@ -13,8 +13,8 @@ get() = hash.substringAfter('#')
             val value = if (splits.size > 1) decodeURIComponent(splits[1]) else ""
             key to value
         }.toMap()
-set(value) {
-    hash = value.entries.mapNotNull {
+set(params) {
+    hash = params.entries.mapNotNull {
         val key = encodeURIComponent(it.key)
         val value = encodeURIComponent(it.value)
         if (key.isEmpty()) return@mapNotNull null
