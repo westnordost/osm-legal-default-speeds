@@ -16,6 +16,11 @@ page from the OpenStreetMap wiki as input.
 Check out [osm-legal-default-speeds-parser](https://github.com/westnordost/osm-legal-default-speeds-parser)
 for a python script that generates a JSON from the data in the aforementioned wiki page.
 
+## Demo
+
+Check it out on
+**[westnordost.github.io/osm-legal-default-speeds](https://westnordost.github.io/osm-legal-default-speeds)**
+
 ## Copyright and License
 
 © 2022 Tobias Zwick. This library is released under the terms of the [BSD 3-Clause License](https://raw.githubusercontent.com/westnordost/osm-legal-default-speeds/master/LICENSE.txt).
