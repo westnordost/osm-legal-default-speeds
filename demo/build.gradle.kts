@@ -14,6 +14,10 @@ dependencies {
 kotlin {
     js(IR) {
         binaries.executable()
-        browser()
+        browser {
+            distribution {
+                directory = File("$projectDir/distribution")
+            }
+        }
     }
 }
