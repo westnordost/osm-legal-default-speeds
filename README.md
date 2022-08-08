@@ -236,4 +236,6 @@ LegalDefaultSpeeds.Result(
 
 ## Credits
 
-This library was made possible with a [grant by NLNet Zero Discovery](https://nlnet.nl/project/OSM-SpeedLimits/).
+This library was made possible with a grant from [grant by NLNet Zero Discovery](https://nlnet.nl/project/OSM-SpeedLimits/).
+
+<a href="https://nlnet.nl/discovery/"><img src=".github/images/logo_nlnet.svg" height="100"/> <img src=".github/images/logo_ngi0.svg" height="100"/></a><br/>
