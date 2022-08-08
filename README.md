@@ -28,12 +28,11 @@ Check it out on
 
 © 2022 Tobias Zwick. This library is released under the terms of the [BSD 3-Clause License](https://raw.githubusercontent.com/westnordost/osm-legal-default-speeds/master/LICENSE.txt).
 
-<!--
 ## Installation
 
 Add [`de.westnordost:osm-legal-default-speeds:1.0`](https://mvnrepository.com/artifact/de.westnordost/osm-legal-default-speeds/1.0) 
 as a Maven dependency or download the jar from there.
--->
+
 ## Usage
 
 ### Parse Data

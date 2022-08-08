@@ -46,6 +46,7 @@ val javadocJar = tasks.register<Jar>("javadocJar") {
 publishing {
     publications {
         withType<MavenPublication> {
+            artifactId = "osm-legal-default-speeds"
             artifact(javadocJar)
             pom {
                 name.set("osm-legal-default-speeds")
@@ -78,7 +79,7 @@ publishing {
     repositories {
         maven {
             name = "oss"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
                 val ossrhUsername: String by project
                 val ossrhPassword: String by project
