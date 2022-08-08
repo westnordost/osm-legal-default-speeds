@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2367677",
+    "revisionId": "2368768",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-08-07T00:22:43"
+    "timestamp": "2022-08-08T18:57:59"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -386,7 +386,7 @@
       "filter": "junction=roundabout"
     },
     "rural": {
-      "filter": "source:maxspeed~.*rural or maxspeed:type~.*rural or zone:maxspeed~.*rural or zone:traffic~.*rural or maxspeed~.*rural or HFCS~.*Rural.*",
+      "filter": "source:maxspeed~.*rural or maxspeed:type~\".*(rural|nsl_single|nsl_dual)\" or zone:maxspeed~.*rural or zone:traffic~.*rural or maxspeed~.*rural or HFCS~.*Rural.*",
       "fuzzyFilter": "lit=no or {has no sidewalk}"
     },
     "rural US interstate highway": {
@@ -491,9 +491,6 @@
     },
     "urban business district": {
       "filter": "{urban} and {business district}"
-    },
-    "urban but not a motorroad or motorway": {
-      "filter": "{urban} and !{motorroad} and !{motorway}"
     },
     "urban dual carriageway": {
       "filter": "{urban} and {dual carriageway}"
@@ -619,7 +616,10 @@
       {
         "name": "urban dual carriageway",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "80",
+          "maxspeed:hgv": "80",
+          "maxspeed:school_bus": "80"
         }
       },
       {
@@ -746,7 +746,14 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "70",
+          "maxspeed:coach": "90",
+          "maxspeed:conditional": "70 @ (trailer)",
+          "maxspeed:hgv": "70",
+          "maxspeed:minibus": "90",
+          "maxspeed:motorcycle": "90",
+          "maxspeed:school_bus": "60"
         }
       },
       {
@@ -984,7 +991,11 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "70 @ (articulated)",
+          "maxspeed:conditional": "80 @ (trailer); 70 @ (maxweightrating>3.5)",
+          "maxspeed:hgv": "70"
         }
       },
       {
@@ -1314,7 +1325,13 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "70 @ (articulated)",
+          "maxspeed:conditional": "80 @ (trailer)",
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "70 @ (maxweightrating>7.5); 70 @ (trailer)",
+          "maxspeed:school_bus": "70"
         }
       },
       {
@@ -1714,7 +1731,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:hazmat:conditional": "50 @ (maxweightrating>12)"
         }
       },
       {
@@ -1927,7 +1945,13 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "100 @ (length>10); 100 @ (seats>=15); 80 @ (trailer); 80 @ (articulated)",
+          "maxspeed:conditional": "80 @ (trailer); 80 @ (maxweightrating>3.5)",
+          "maxspeed:hgv": "80",
+          "maxspeed:motorcycle:conditional": "60 @ (trailer)",
+          "maxspeed:school_bus": "80"
         }
       },
       {
@@ -2515,7 +2539,10 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:conditional": "80 @ (trailer)",
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "80 @ (trailer); 80 @ (articulated)"
         }
       },
       {
@@ -2571,13 +2598,19 @@
       },
       {
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "90",
+          "maxspeed:hgv": "85",
+          "maxspeed:hgv:conditional": "75 @ (maxweightrating>16)"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "90",
+          "maxspeed:hgv": "85",
+          "maxspeed:hgv:conditional": "75 @ (maxweightrating>16)"
         }
       },
       {
@@ -2616,8 +2649,10 @@
         "tags": {
           "maxspeed": "100",
           "maxspeed:bus": "90",
+          "maxspeed:coach": "100",
           "maxspeed:hgv": "100",
-          "maxspeed:hgv:conditional": "90 @ (maxweightrating>3.86)"
+          "maxspeed:hgv:conditional": "90 @ (maxweightrating>3.86)",
+          "maxspeed:school_bus": "90"
         }
       },
       {
@@ -2707,26 +2742,44 @@
     ],
     "CO": [
       {
+        "name": "residential district",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "name": "school zone",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "50"
         }
       },
       {
         "tags": {
-          "maxspeed": "80",
+          "maxspeed": "90",
           "maxspeed:bus": "80",
-          "maxspeed:goods": "80",
-          "maxspeed:school_bus": "80"
+          "maxspeed:goods": "80"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "80",
+          "maxspeed": "90",
           "maxspeed:bus": "80",
-          "maxspeed:goods": "80",
-          "maxspeed:school_bus": "80"
+          "maxspeed:goods": "80"
+        }
+      },
+      {
+        "name": "motorway",
+        "tags": {
+          "maxspeed": "120",
+          "maxspeed:bus": "80",
+          "maxspeed:goods": "80"
         }
       }
     ],
@@ -2794,13 +2847,17 @@
       {
         "name": "rural school zone",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "70 @ (trailer)"
         }
       },
       {
         "name": "rural unpaved road",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "70 @ (trailer)"
         }
       },
       {
@@ -2900,12 +2957,6 @@
         }
       },
       {
-        "name": "urban but not a motorroad or motorway",
-        "tags": {
-          "maxspeed": "50"
-        }
-      },
-      {
         "name": "urban motorroad",
         "tags": {
           "maxspeed": "80",
@@ -2917,6 +2968,12 @@
         "tags": {
           "maxspeed": "80",
           "minspeed": "65"
+        }
+      },
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "50"
         }
       },
       {
@@ -2938,6 +2995,7 @@
         "name": "rural motorroad with single carriageway",
         "tags": {
           "maxspeed": "90",
+          "maxspeed:bus": "90",
           "minspeed": "80"
         }
       },
@@ -3049,7 +3107,11 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
+          "maxspeed:conditional": "70 @ (trailer); 70 @ (maxweightrating>3.5)",
+          "maxspeed:hgv": "70"
         }
       },
       {
@@ -3177,7 +3239,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:truck_bus": "60"
         }
       },
       {
@@ -3287,8 +3350,11 @@
       {
         "tags": {
           "maxspeed": "90",
+          "maxspeed:bus": "80",
           "maxspeed:conditional": "80 @ (trailer); 80 @ (articulated)",
           "maxspeed:hazmat": "70",
+          "maxspeed:hgv": "80",
+          "maxspeed:motorhome:conditional": "80 @ (maxweightrating>3.5)",
           "maxspeed:school_bus": "80",
           "maxspeed:tricycle": "70"
         }
@@ -3338,7 +3404,13 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:coach": "100",
+          "maxspeed:conditional": "80 @ (trailer)",
+          "maxspeed:goods": "100",
+          "maxspeed:hgv": "80",
+          "maxspeed:motorhome": "100"
         }
       },
       {
@@ -3369,7 +3441,10 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "60",
+          "maxspeed:conditional": "60 @ (trailer); 50 @ (trailerweight>2.035)",
+          "maxspeed:goods:conditional": "60 @ (weight>2.035); 50 @ (weight>2.035 AND trailer); 60 @ (weight>2.035 AND trailerweight>2.035); 40 @ (weight>3.050 AND trailer); 60 @ (weight>3.050 AND trailerweight>1.525); 25 @ (trailers>=2)"
         }
       },
       {
@@ -3491,7 +3566,11 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
+          "maxspeed:hazmat": "70",
+          "maxspeed:hazmat:conditional": "60 @ (maxweightrating>12)",
+          "maxspeed:hgv": "70"
         }
       },
       {
@@ -3499,7 +3578,9 @@
           "maxspeed": "80",
           "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
           "maxspeed:conditional": "80 @ (wet); 60 @ (trailer AND maxweightrating>12); 60 @ (articulated AND maxweightrating>12)",
-          "maxspeed:hazmat:conditional": "60 @ (maxweightrating>12)"
+          "maxspeed:hazmat:conditional": "60 @ (maxweightrating>12)",
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (maxweightrating>12)"
         }
       },
       {
@@ -3508,7 +3589,9 @@
           "maxspeed": "80",
           "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
           "maxspeed:conditional": "80 @ (wet); 60 @ (trailer AND maxweightrating>12); 60 @ (articulated AND maxweightrating>12)",
-          "maxspeed:hazmat:conditional": "60 @ (maxweightrating>12)"
+          "maxspeed:hazmat:conditional": "60 @ (maxweightrating>12)",
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (maxweightrating>12)"
         }
       },
       {
@@ -3518,7 +3601,9 @@
           "maxspeed:bus": "90",
           "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
           "maxspeed:conditional": "80 @ (wet); 60 @ (trailer AND maxweightrating>12); 60 @ (articulated AND maxweightrating>12)",
-          "maxspeed:hazmat:conditional": "60 @ (maxweightrating>12)"
+          "maxspeed:hazmat:conditional": "60 @ (maxweightrating>12)",
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (maxweightrating>12)"
         }
       },
       {
@@ -3576,7 +3661,12 @@
       {
         "name": "United Kingdom: restricted road",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:bus": "50 mph",
+          "maxspeed:conditional": "50 mph @ (trailer); 20 mph @ (trailers>=2)",
+          "maxspeed:hgv": "50 mph",
+          "maxspeed:motorhome": "60 mph",
+          "maxspeed:motorhome:conditional": "50 mph @ (emptyweight>3.05)"
         }
       },
       {
@@ -3628,7 +3718,13 @@
       {
         "name": "United Kingdom: restricted road",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:bus": "50 mph",
+          "maxspeed:conditional": "50 mph @ (trailer); 20 mph @ (trailers>=2)",
+          "maxspeed:hgv": "50 mph",
+          "maxspeed:hgv:conditional": "40 mph @ (maxweightrating>7.5)",
+          "maxspeed:motorhome": "60 mph",
+          "maxspeed:motorhome:conditional": "50 mph @ (emptyweight>3.05)"
         }
       },
       {
@@ -3636,7 +3732,8 @@
           "maxspeed": "60 mph",
           "maxspeed:bus": "50 mph",
           "maxspeed:conditional": "50 mph @ (trailer); 20 mph @ (trailers>=2)",
-          "maxspeed:hgv": "50 mph; 40 mph",
+          "maxspeed:hgv": "50 mph",
+          "maxspeed:hgv:conditional": "40 mph @ (maxweightrating>7.5)",
           "maxspeed:motorhome": "60 mph",
           "maxspeed:motorhome:conditional": "50 mph @ (emptyweight>3.05)"
         }
@@ -3647,7 +3744,8 @@
           "maxspeed": "60 mph",
           "maxspeed:bus": "50 mph",
           "maxspeed:conditional": "50 mph @ (trailer); 20 mph @ (trailers>=2)",
-          "maxspeed:hgv": "50 mph; 40 mph",
+          "maxspeed:hgv": "50 mph",
+          "maxspeed:hgv:conditional": "40 mph @ (maxweightrating>7.5)",
           "maxspeed:motorhome": "60 mph",
           "maxspeed:motorhome:conditional": "50 mph @ (emptyweight>3.05)"
         }
@@ -3710,7 +3808,12 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "70",
+          "maxspeed:conditional": "70 @ (maxweightrating>3.5); 80 @ (trailer); 70 @ (trailerweight>0.75)",
+          "maxspeed:minibus": "80",
+          "maxspeed:motorcycle": "80",
+          "maxspeed:truck_bus": "60"
         }
       },
       {
@@ -4006,7 +4109,10 @@
     "HK": [
       {
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "70",
+          "maxspeed:hgv:conditional": "70 @ (maxweightrating>5.5)",
+          "maxspeed:minibus:conditional": "80 @ (seats>=19)"
         }
       },
       {
@@ -4108,6 +4214,8 @@
         "name": "urban",
         "tags": {
           "maxspeed": "50",
+          "maxspeed:bus": "70",
+          "maxspeed:hgv": "70",
           "maxspeed:tricycle": "40"
         }
       },
@@ -4136,7 +4244,8 @@
           "maxspeed": "110",
           "maxspeed:bus": "70",
           "maxspeed:conditional": "70 @ (maxweightrating>3.5); 70 @ (trailer)",
-          "maxspeed:hgv": "70"
+          "maxspeed:hgv": "70",
+          "minspeed": "60"
         }
       },
       {
@@ -4145,7 +4254,8 @@
           "maxspeed": "130",
           "maxspeed:bus": "100",
           "maxspeed:conditional": "80 @ (maxweightrating>3.5); 80 @ (trailer)",
-          "maxspeed:hgv": "80"
+          "maxspeed:hgv": "80",
+          "minspeed": "60"
         }
       }
     ],
@@ -4153,7 +4263,10 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:conditional": "80 @ (maxweightrating>3.5); 80 @ (trailer)",
+          "maxspeed:hgv": "80"
         }
       },
       {
@@ -4202,7 +4315,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:hgv:conditional": "80 @ (maxweightrating>12)"
         }
       },
       {
@@ -4246,7 +4360,14 @@
         "name": "urban",
         "tags": {
           "maxspeed": "30 mph",
-          "maxspeed:conditional": "20 mph @ (trailers>=2)"
+          "maxspeed:bus": "40 mph",
+          "maxspeed:conditional": "20 mph @ (trailers>=2); 40 mph @ (trailer); 40 mph @ (maxweightrating>32.52 AND articulated); 20 mph @ (trailers>=2)",
+          "maxspeed:goods": "60 mph",
+          "maxspeed:hgv": "50 mph",
+          "maxspeed:hgv:conditional": "40 mph @ (maxweightrating>7.5)",
+          "maxspeed:minibus": "50 mph",
+          "maxspeed:motorhome": "60 mph",
+          "maxspeed:motorhome:conditional": "50 mph @ (maxweightrating>3.5)"
         }
       },
       {
@@ -4452,7 +4573,11 @@
     "JP": [
       {
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "100",
+          "maxspeed:bus:conditional": "80 @ (maxweightrating>8)",
+          "maxspeed:hgv": "80",
+          "maxspeed:tricycle": "80"
         }
       },
       {
@@ -4470,7 +4595,12 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "65 @ (trailer)",
+          "maxspeed:conditional": "80 @ (articulated); 65 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "65 @ (trailer)"
         }
       },
       {
@@ -4561,7 +4691,8 @@
         "tags": {
           "maxspeed": "100",
           "maxspeed:hazmat": "70",
-          "maxspeed:hgv": "80"
+          "maxspeed:hgv": "80",
+          "maxspeed:tricycle": "70"
         }
       },
       {
@@ -4569,7 +4700,8 @@
         "tags": {
           "maxspeed": "100",
           "maxspeed:hazmat": "70",
-          "maxspeed:hgv": "80"
+          "maxspeed:hgv": "80",
+          "maxspeed:tricycle": "70"
         }
       }
     ],
@@ -4672,7 +4804,7 @@
         "name": "motorroad with 2 lanes in each direction",
         "tags": {
           "maxspeed": "100",
-          "maxspeed:hazmat": "80",
+          "maxspeed:hazmat": "90",
           "minspeed": "50"
         }
       },
@@ -4680,7 +4812,7 @@
         "name": "motorway with 2 lanes in each direction",
         "tags": {
           "maxspeed": "100",
-          "maxspeed:hazmat": "80",
+          "maxspeed:hazmat": "90",
           "minspeed": "50"
         }
       }
@@ -4695,7 +4827,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:truck_bus": "60"
         }
       },
       {
@@ -4796,7 +4929,9 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "100",
+          "maxspeed:hgv:conditional": "80 @ (maxweightrating>9)"
         }
       },
       {
@@ -4957,7 +5092,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:truck_bus": "60"
         }
       },
       {
@@ -5102,9 +5238,6 @@
         }
       },
       {
-        "tags": {}
-      },
-      {
         "tags": {
           "maxspeed": "90",
           "maxspeed:bus": "80",
@@ -5134,7 +5267,14 @@
       {
         "name": "rural school zone",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "70 @ (articulated)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "70 @ (trailer); 70 @ (maxweightrating>7.5)",
+          "maxspeed:hazmat": "60",
+          "maxspeed:school_bus": "70",
+          "maxspeed:truck_bus": "50"
         }
       },
       {
@@ -5335,18 +5475,27 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "90",
+          "maxspeed:bus:conditional": "80 @ (seats>=28); 80 @ (articulated)",
+          "maxspeed:goods:conditional": "80 @ (maxweightrating>9)"
         }
       },
       {
         "tags": {
-          "maxspeed": "80"
+          "maxspeed": "80",
+          "maxspeed:bus": "90",
+          "maxspeed:bus:conditional": "80 @ (seats>=28); 80 @ (articulated)",
+          "maxspeed:goods:conditional": "80 @ (maxweightrating>9)"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "80"
+          "maxspeed": "80",
+          "maxspeed:bus": "90",
+          "maxspeed:bus:conditional": "80 @ (seats>=28); 80 @ (articulated)",
+          "maxspeed:goods:conditional": "80 @ (maxweightrating>9)"
         }
       },
       {
@@ -5423,7 +5572,9 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "100",
+          "maxspeed:goods:conditional": "80 @ (maxweightrating>9)"
         }
       },
       {
@@ -5564,13 +5715,18 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:coach": "100",
+          "maxspeed:hgv": "80",
+          "maxspeed:motorhome:conditional": "80 @ (maxweightrating>3.5)"
         }
       },
       {
         "tags": {
           "maxspeed": "80",
           "maxspeed:bus": "80",
+          "maxspeed:coach": "100",
           "maxspeed:hgv": "80",
           "maxspeed:motorhome:conditional": "80 @ (maxweightrating>3.5)"
         }
@@ -5580,6 +5736,7 @@
         "tags": {
           "maxspeed": "80",
           "maxspeed:bus": "80",
+          "maxspeed:coach": "100",
           "maxspeed:hgv": "80",
           "maxspeed:motorhome:conditional": "80 @ (maxweightrating>3.5)"
         }
@@ -5625,7 +5782,11 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
+          "maxspeed:conditional": "80 @ (maxweightrating>7.5); 80 @ (trailer)",
+          "maxspeed:goods:conditional": "80 @ (maxweightrating>3.5)",
+          "maxspeed:hgv": "80"
         }
       },
       {
@@ -5633,7 +5794,8 @@
           "maxspeed": "80",
           "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
           "maxspeed:conditional": "80 @ (maxweightrating>7.5); 80 @ (trailer)",
-          "maxspeed:goods:conditional": "80 @ (maxweightrating>3.5)"
+          "maxspeed:goods:conditional": "80 @ (maxweightrating>3.5)",
+          "maxspeed:hgv": "80"
         }
       },
       {
@@ -5642,7 +5804,8 @@
           "maxspeed": "80",
           "maxspeed:bus:conditional": "80 @ (maxweightrating>3.5)",
           "maxspeed:conditional": "80 @ (maxweightrating>7.5); 80 @ (trailer)",
-          "maxspeed:goods:conditional": "80 @ (maxweightrating>3.5)"
+          "maxspeed:goods:conditional": "80 @ (maxweightrating>3.5)",
+          "maxspeed:hgv": "80"
         }
       },
       {
@@ -5653,6 +5816,7 @@
           "maxspeed:coach": "100",
           "maxspeed:conditional": "80 @ (maxweightrating>7.5); 80 @ (trailer)",
           "maxspeed:goods:conditional": "80 @ (maxweightrating>3.5)",
+          "maxspeed:hgv": "80",
           "minspeed": "40"
         }
       }
@@ -5958,6 +6122,11 @@
         "name": "urban unpaved road",
         "tags": {
           "maxspeed": "40",
+          "maxspeed:bus": "70",
+          "maxspeed:bus:conditional": "65 @ (seats>=15)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
+          "maxspeed:motorcycle": "70",
           "maxspeed:tricycle": "30"
         }
       },
@@ -5965,6 +6134,11 @@
         "name": "rural unpaved road",
         "tags": {
           "maxspeed": "50",
+          "maxspeed:bus": "70",
+          "maxspeed:bus:conditional": "65 @ (seats>=15)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
+          "maxspeed:motorcycle": "70",
           "maxspeed:tricycle": "30"
         }
       },
@@ -5972,7 +6146,12 @@
         "name": "urban road with 1 lane in each direction",
         "tags": {
           "maxspeed": "55",
+          "maxspeed:bus": "70",
+          "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
+          "maxspeed:motorcycle": "70",
           "maxspeed:tricycle": "30"
         }
       },
@@ -5983,6 +6162,8 @@
           "maxspeed:bus": "70",
           "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
           "maxspeed:motorcycle": "70",
           "maxspeed:tricycle": "30"
         }
@@ -5993,6 +6174,8 @@
           "maxspeed:bus": "70",
           "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
           "maxspeed:motorcycle": "70",
           "maxspeed:tricycle": "30"
         }
@@ -6004,6 +6187,8 @@
           "maxspeed:bus": "70",
           "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
           "maxspeed:motorcycle": "70",
           "maxspeed:tricycle": "30"
         }
@@ -6443,7 +6628,13 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "70 @ (articulated)",
+          "maxspeed:conditional": "80 @ (caravan)",
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "70 @ (maxweightrating>7.5); 70 @ (trailer)",
+          "maxspeed:school_bus": "70"
         }
       },
       {
@@ -6626,20 +6817,30 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus:conditional": "60 @ (articulated)",
+          "maxspeed:coach": "100",
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (articulated)"
         }
       },
       {
         "tags": {
           "maxspeed": "70",
-          "maxspeed:bus:conditional": "60 @ (articulated)"
+          "maxspeed:bus:conditional": "60 @ (articulated)",
+          "maxspeed:coach": "100",
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (articulated)"
         }
       },
       {
         "name": "rural",
         "tags": {
           "maxspeed": "70",
-          "maxspeed:bus:conditional": "60 @ (articulated)"
+          "maxspeed:bus:conditional": "60 @ (articulated)",
+          "maxspeed:coach": "100",
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (articulated)"
         }
       },
       {
@@ -6699,6 +6900,11 @@
         "name": "urban",
         "tags": {
           "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "70 @ (maxweightrating>3.5 AND trailer); 70 @ (articulated)",
+          "maxspeed:conditional": "80 @ (maxweightrating>3.5); 80 @ (caravan); 70 @ (maxweightrating>3.5 AND trailer)",
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "70 @ (trailer)",
           "maxspeed:truck_bus": "50"
         }
       },
@@ -6775,7 +6981,10 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "90",
+          "maxspeed:conditional": "90 @ (maxweightrating>3.5); 90 @ (trailer)",
+          "maxspeed:hgv": "90"
         }
       },
       {
@@ -6849,26 +7058,6 @@
           "maxspeed:hgv": "85",
           "maxspeed:hgv:conditional": "75 @ (maxweightrating>10); 65 @ (maxweightrating>16); 50 @ (maxweightrating>22)",
           "maxspeed:motorcycle": "100"
-        }
-      }
-    ],
-    "SO": [
-      {
-        "name": "urban",
-        "tags": {
-          "maxspeed": "40",
-          "maxspeed:hazmat": "30"
-        }
-      },
-      {
-        "tags": {
-          "maxspeed:hazmat": "60"
-        }
-      },
-      {
-        "name": "rural",
-        "tags": {
-          "maxspeed:hazmat": "60"
         }
       }
     ],
@@ -7361,7 +7550,10 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "60",
+          "maxspeed:conditional": "60 @ (trailer)",
+          "maxspeed:goods": "60"
         }
       },
       {
@@ -7439,24 +7631,28 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:hazmat": "55 mph"
         }
       },
       {
         "tags": {
-          "maxspeed": "45 mph"
+          "maxspeed": "45 mph",
+          "maxspeed:hazmat": "55 mph"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "45 mph"
+          "maxspeed": "45 mph",
+          "maxspeed:hazmat": "55 mph"
         }
       },
       {
         "name": "rural road without asphalt or concrete surface",
         "tags": {
-          "maxspeed": "35 mph"
+          "maxspeed": "35 mph",
+          "maxspeed:hazmat": "55 mph"
         }
       },
       {
@@ -7485,7 +7681,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:hgv:conditional": "50 mph @ (weightcapacity>1.5 st); 30 mph @ (maxweightrating>64000 lb)"
         }
       },
       {
@@ -7551,25 +7748,45 @@
       {
         "name": "school zone",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:bus:conditional": "55 mph @ (articulated)",
+          "maxspeed:hazmat": "55 mph",
+          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
+          "maxspeed:school_bus": "55 mph",
+          "maxspeed:truck_bus": "55 mph"
         }
       },
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:bus:conditional": "55 mph @ (articulated)",
+          "maxspeed:hazmat": "55 mph",
+          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
+          "maxspeed:school_bus": "55 mph",
+          "maxspeed:truck_bus": "55 mph"
         }
       },
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:bus:conditional": "55 mph @ (articulated)",
+          "maxspeed:hazmat": "55 mph",
+          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
+          "maxspeed:school_bus": "55 mph",
+          "maxspeed:truck_bus": "55 mph"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:bus:conditional": "55 mph @ (articulated)",
+          "maxspeed:hazmat": "55 mph",
+          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
+          "maxspeed:school_bus": "55 mph",
+          "maxspeed:truck_bus": "55 mph"
         }
       },
       {
@@ -7805,13 +8022,15 @@
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:school_bus": "40 mph"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:school_bus": "40 mph"
         }
       },
       {
@@ -7830,7 +8049,8 @@
       {
         "name": "rural unpaved road",
         "tags": {
-          "maxspeed": "35 mph"
+          "maxspeed": "35 mph",
+          "maxspeed:school_bus": "40 mph"
         }
       },
       {
@@ -8008,7 +8228,9 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:conditional": "55 mph @ (length>85 ft)",
+          "maxspeed:school_bus": "40 mph"
         }
       },
       {
@@ -8049,7 +8271,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:conditional": "55 mph @ (caravan)"
         }
       },
       {
@@ -8250,7 +8473,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:school_bus": "45 mph"
         }
       },
       {
@@ -8270,42 +8494,56 @@
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (maxweightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (maxweightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
         "name": "public park",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (maxweightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (maxweightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
         "tags": {
-          "maxspeed": "55 mph"
+          "maxspeed": "55 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (maxweightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "55 mph"
+          "maxspeed": "55 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (maxweightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
         "name": "unpaved road",
         "tags": {
-          "maxspeed": "55 mph"
+          "maxspeed": "55 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (maxweightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
@@ -8440,7 +8678,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:hgv": "65 mph"
         }
       },
       {
@@ -8461,7 +8700,8 @@
       {
         "name": "urban US interstate highway",
         "tags": {
-          "maxspeed": "65 mph"
+          "maxspeed": "65 mph",
+          "maxspeed:hgv": "65 mph"
         }
       },
       {
@@ -8550,19 +8790,22 @@
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "20 mph"
+          "maxspeed": "20 mph",
+          "maxspeed:conditional": "50 mph @ (caravan)"
         }
       },
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:conditional": "50 mph @ (caravan)"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:conditional": "50 mph @ (caravan)"
         }
       },
       {
@@ -8632,19 +8875,22 @@
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:conditional": "45 mph @ (caravan)"
         }
       },
       {
         "name": "urban residential district",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:conditional": "45 mph @ (caravan)"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "35 mph"
+          "maxspeed": "35 mph",
+          "maxspeed:conditional": "45 mph @ (caravan)"
         }
       },
       {
@@ -8892,7 +9138,8 @@
       {
         "name": "public park",
         "tags": {
-          "maxspeed": "35 mph"
+          "maxspeed": "35 mph",
+          "maxspeed:school_bus": "55 mph"
         }
       },
       {
@@ -8919,19 +9166,28 @@
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "20 mph"
+          "maxspeed": "20 mph",
+          "maxspeed:hgv:conditional": "55 mph @ (maxweightrating>8000 lb AND articulated); 55 mph @ (maxweightrating>10000 lb)",
+          "maxspeed:school_bus": "55 mph",
+          "maxspeed:truck_bus": "55 mph"
         }
       },
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:hgv:conditional": "55 mph @ (maxweightrating>8000 lb AND articulated); 55 mph @ (maxweightrating>10000 lb)",
+          "maxspeed:school_bus": "55 mph",
+          "maxspeed:truck_bus": "55 mph"
         }
       },
       {
         "name": "public park",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:hgv:conditional": "55 mph @ (maxweightrating>8000 lb AND articulated); 55 mph @ (maxweightrating>10000 lb)",
+          "maxspeed:school_bus": "55 mph",
+          "maxspeed:truck_bus": "55 mph"
         }
       },
       {
@@ -9035,7 +9291,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:conditional": "45 mph @ (caravan)"
         }
       },
       {
@@ -9068,7 +9325,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:conditional": "45 mph @ (caravan)"
         }
       },
       {
@@ -9136,7 +9394,8 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph"
+          "maxspeed": "30 mph",
+          "maxspeed:school_bus": "50 mph"
         }
       },
       {
@@ -9195,19 +9454,22 @@
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:school_bus": "45 mph"
         }
       },
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "25 mph"
+          "maxspeed": "25 mph",
+          "maxspeed:school_bus": "45 mph"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "35 mph"
+          "maxspeed": "35 mph",
+          "maxspeed:school_bus": "45 mph"
         }
       },
       {
@@ -9226,13 +9488,15 @@
       {
         "name": "rural unpaved road",
         "tags": {
-          "maxspeed": "35 mph"
+          "maxspeed": "35 mph",
+          "maxspeed:school_bus": "45 mph"
         }
       },
       {
         "name": "Virginia: Rustic road",
         "tags": {
-          "maxspeed": "35 mph"
+          "maxspeed": "35 mph",
+          "maxspeed:school_bus": "45 mph"
         }
       },
       {
@@ -9697,7 +9961,13 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:conditional": "80 @ (caravan)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "70 @ (trailer); 70 @ (maxweightrating>7.5)",
+          "maxspeed:hazmat": "70",
+          "maxspeed:school_bus": "70"
         }
       },
       {
@@ -9726,7 +9996,12 @@
       {
         "name": "rural school zone",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:bus": "80",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "70 @ (trailer); 70 @ (maxweightrating>7.5)",
+          "maxspeed:hazmat": "70",
+          "maxspeed:school_bus": "70"
         }
       },
       {
@@ -9773,7 +10048,9 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "100",
+          "maxspeed:hgv:conditional": "80 @ (maxweightrating>9)"
         }
       },
       {
@@ -9824,6 +10101,14 @@
     ]
   },
   "warnings": [
+    "Transnistria: Unknown country / subdivision",
+    "Transnistria: Unknown country / subdivision",
+    "Transnistria: Unknown country / subdivision",
+    "Transnistria: Unknown country / subdivision",
+    "Transnistria: Unknown country / subdivision",
+    "Somaliland: Unknown country / subdivision",
+    "Somaliland: Unknown country / subdivision",
+    "Somaliland: Unknown country / subdivision",
     "CA-NS: Unable to map 'urban public park'",
     "MN: Unable to map 'long road'",
     "NP: Unable to map 'hilly road'",
