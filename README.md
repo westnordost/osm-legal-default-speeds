@@ -38,7 +38,7 @@ as a Maven dependency or download the jar from there.
 
 ### Parse Data
 
-You need to parse the [`legal_default_speeds.json`](https://github.com/westnordost/osm-legal-default-speeds-parser)
+You need to parse the [`legal_default_speeds.json`](https://github.com/westnordost/osm-legal-default-speeds/blob/master/demo/distribution/legal_default_speeds.json) (see [`parser/` subdirectory](https://github.com/westnordost/osm-legal-default-speeds/tree/master/parser))
 with the JSON library of your choice and feed its data into the constructor.
 
 <details>
