@@ -34,9 +34,21 @@ internal class LegalDefaultSpeedsTest {
     )
 
     @Test fun fails_on_syntax_exception_in_filter() {
-        assertFailsWith(ParseException::class) {
+        assertFailsWith(IllegalArgumentException::class) {
             LegalDefaultSpeeds(
                 mapOf("urban" to filters("and and")),
+                mapOf("FR" to listOf(road("urban", mapOf("maxspeed" to "50"))))
+            )
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            LegalDefaultSpeeds(
+                mapOf("urban" to filters(relationFilter = "and and")),
+                mapOf("FR" to listOf(road("urban", mapOf("maxspeed" to "50"))))
+            )
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            LegalDefaultSpeeds(
+                mapOf("urban" to filters(fuzzyFilter = "and and")),
                 mapOf("FR" to listOf(road("urban", mapOf("maxspeed" to "50"))))
             )
         }
@@ -353,6 +365,32 @@ internal class LegalDefaultSpeedsTest {
                     "maxspeed:hgv" to "80"
                 ))))
             ).getSpeedLimits("AB", mapOf("maxspeed" to "80", "maxspeed:hgv" to "50"))!!.tags
+        )
+    }
+
+    @Test fun removes_tags_already_present_in_input_tags() {
+        assertEquals(
+            mapOf("maxspeed:hgv" to "80"),
+            LegalDefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "100",
+                    "maxspeed:hgv" to "80",
+                    "maxspeed:mofa" to "50"
+                ))))
+            ).getSpeedLimits("AB", mapOf("maxspeed" to "100", "maxspeed:mofa" to "50"))!!.tags
+        )
+    }
+
+    @Test fun replaces_maxspeed_type_tag_in_maxspeed_tag() {
+        assertEquals(
+            mapOf("maxspeed" to "100"),
+            LegalDefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "100"
+                ))))
+            ).getSpeedLimits("AB", mapOf("maxspeed" to "RO:urban"))!!.tags
         )
     }
 }
