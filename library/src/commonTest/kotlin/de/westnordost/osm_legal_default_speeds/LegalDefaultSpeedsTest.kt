@@ -1,6 +1,5 @@
 package de.westnordost.osm_legal_default_speeds
 
-import de.westnordost.osm_legal_default_speeds.tagfilter.ParseException
 import de.westnordost.osm_legal_default_speeds.Certitude.*
 import kotlin.test.*
 
@@ -287,6 +286,19 @@ internal class LegalDefaultSpeedsTest {
                 mapOf("AB" to listOf(road(tags = mapOf(
                     "maxspeed" to "20 mph",
                     "maxspeed:conditional" to "40 mph @ (something); 30 mph @ (something else)"
+                ))))
+            ).getSpeedLimits("AB", mapOf())!!.tags
+        )
+    }
+
+    @Test fun removes_conditionals_of_subtags_with_higher_speeds_than_default() {
+        assertEquals(
+            mapOf("maxspeed" to "60", "maxspeed:hgv:conditional" to "50 @ (something else)"),
+            LegalDefaultSpeeds(
+                mapOf(),
+                mapOf("AB" to listOf(road(tags = mapOf(
+                    "maxspeed" to "60",
+                    "maxspeed:hgv:conditional" to "80 @ (something); 50 @ (something else)"
                 ))))
             ).getSpeedLimits("AB", mapOf())!!.tags
         )
