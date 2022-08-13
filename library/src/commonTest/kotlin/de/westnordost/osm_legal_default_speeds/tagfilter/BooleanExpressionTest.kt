@@ -62,6 +62,17 @@ internal class BooleanExpressionTest {
         assertFalse(evalExpression("A*B") { it == "B" })
     }
 
+    @Test fun list_placeholders() {
+        assertEquals(listOf("A","B"), getPlaceholders("A+B"))
+        assertEquals(listOf("A","B","C"), getPlaceholders("A+B+C"))
+        assertEquals(listOf("A","B","A","C"), getPlaceholders("A*(B+A)*C"))
+    }
+
+    private fun getPlaceholders(input: String): List<String> {
+        val expr = TestBooleanExpressionParser.parse(input) as Chain
+        return expr.getPlaceholders().toList()
+    }
+
     private fun evalExpression(input: String, evaluate: (String) -> Boolean = { false }): Boolean {
         val expr = TestBooleanExpressionParser.parse(input)
         return expr!!.matches("1", evaluate)

@@ -9,4 +9,10 @@ class TagFilterExpression internal constructor(
 
     fun matches(tags: Map<String, String>, evaluate: (name: String) -> Boolean): Boolean =
         filters.matches(tags, evaluate)
+
+    internal fun getPlaceholders(): Sequence<String> = when (filters) {
+        is Chain -> filters.getPlaceholders()
+        is Placeholder -> sequenceOf(filters.value)
+        else -> sequenceOf()
+    }
 }

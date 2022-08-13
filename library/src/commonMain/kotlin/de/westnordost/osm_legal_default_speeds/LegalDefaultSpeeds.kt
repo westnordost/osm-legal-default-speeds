@@ -21,32 +21,66 @@ class LegalDefaultSpeeds(
     roadTypesByName: Map<String, RoadTypeFilter>,
     private val speedLimitsByCountryCode: Map<String, List<RoadType>>
 ) {
-
-    private val roadTypeFilters: Map<String, RoadTypeTagFilterExpressions> =
-        roadTypesByName.mapValues { (roadName, roadTypeFilter) ->
-            /* let's parse the filters defined in strings right in the constructor, so it doesn't
-               need to be done again and again (and if there is a syntax error, it becomes apparent
-               immediately) */
-            val filter = try {
-                roadTypeFilter.filter?.let { TagFilterExpression(it) }
-            } catch (e: ParseException) {
-                throw IllegalArgumentException("Invalid road type filter for \"$roadName\"", e)
-            }
-
-            val fuzzyFilter = try {
-                roadTypeFilter.fuzzyFilter?.let { TagFilterExpression(it) }
-            } catch (e: ParseException) {
-                throw IllegalArgumentException("Invalid road type fuzzyFilter for \"$roadName\"", e)
-            }
-
-            val relationFilter = try {
-                roadTypeFilter.relationFilter?.let { TagFilterExpression(it) }
-            } catch (e: ParseException) {
-                throw IllegalArgumentException("Invalid road type relationFilter for \"$roadName\"", e)
-            }
-
-            RoadTypeTagFilterExpressions(filter, fuzzyFilter, relationFilter)
+    private val roadTypeFilters: Map<String, RoadTypeTagFilterExpressions> = roadTypesByName.mapValues { (roadName, roadTypeFilter) ->
+        /* let's parse the filters defined in strings right in the constructor, so it doesn't
+           need to be done again and again (and if there is a syntax error, it becomes apparent
+           immediately) */
+        val filter = try {
+            roadTypeFilter.filter?.let { TagFilterExpression(it) }
+        } catch (e: ParseException) {
+            throw IllegalArgumentException("Invalid road type filter for \"$roadName\"", e)
         }
+
+        val fuzzyFilter = try {
+            roadTypeFilter.fuzzyFilter?.let { TagFilterExpression(it) }
+        } catch (e: ParseException) {
+            throw IllegalArgumentException("Invalid road type fuzzyFilter for \"$roadName\"", e)
+        }
+
+        val relationFilter = try {
+            roadTypeFilter.relationFilter?.let { TagFilterExpression(it) }
+        } catch (e: ParseException) {
+            throw IllegalArgumentException("Invalid road type relationFilter for \"$roadName\"", e)
+        }
+
+        RoadTypeTagFilterExpressions(filter, fuzzyFilter, relationFilter)
+    }
+
+    init {
+        checkForCircularPlaceholders()
+    }
+
+    private fun checkForCircularPlaceholders() {
+        // map of e.g. "rural paved road" -> setOf("rural", "paved road") etc.
+        val placeholdersByRoadName: Map<String, Set<String>> =
+            roadTypeFilters.entries.associate { (roadName, roadTypeFilter) ->
+                roadName to sequence {
+                    roadTypeFilter.filter?.getPlaceholders()?.let { yieldAll(it) }
+                    roadTypeFilter.fuzzyFilter?.getPlaceholders()?.let { yieldAll(it) }
+                    roadTypeFilter.relationFilter?.getPlaceholders()?.let { yieldAll(it) }
+                }.toSet()
+            }
+
+        for ((roadName, placeholders) in placeholdersByRoadName) {
+            val collectedPlaceholders = placeholders.toMutableSet()
+
+            var placeholdersToExpand = placeholders
+            while (placeholdersToExpand.isNotEmpty()) {
+                val expandedPlaceholders = HashSet<String>()
+                for (placeholder in placeholdersToExpand) {
+                    val referredPlaceholders = placeholdersByRoadName[placeholder] ?: emptyList()
+                    expandedPlaceholders.addAll(referredPlaceholders)
+                }
+                expandedPlaceholders.removeAll(collectedPlaceholders)
+                collectedPlaceholders.addAll(expandedPlaceholders)
+                placeholdersToExpand = expandedPlaceholders
+            }
+
+            if (roadName in collectedPlaceholders) {
+                throw IllegalArgumentException("A road type filter for \"$roadName\" contains circular placeholders")
+            }
+        }
+    }
 
     /** The result of looking for the speed limits via [getSpeedLimits]. It includes the road type
      *  name, the `maxspeed` tags that road type is assumed to have implicitly and a [Certitude].

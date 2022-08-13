@@ -405,6 +405,35 @@ internal class LegalDefaultSpeedsTest {
             ).getSpeedLimits("AB", mapOf("maxspeed" to "RO:urban"))!!.tags
         )
     }
+
+    @Test fun fails_for_obvious_circular_placeholder() {
+        assertFails { LegalDefaultSpeeds(
+            mapOf("rural" to filters("{rural}")),
+            mapOf()
+        ) }
+    }
+
+    @Test fun fails_for_circular_placeholder() {
+        assertFails { LegalDefaultSpeeds(
+            mapOf(
+                "urban" to filters("{lit}"),
+                "lit" to filters("{urban}"),
+            ),
+            mapOf()
+        ) }
+    }
+
+    @Test fun fails_for_deeply_nested_circular_placeholder() {
+        assertFails { LegalDefaultSpeeds(
+            mapOf(
+                "urban" to filters("{lit}", "{sidewalk}"),
+                "lit" to filters("lit=yes"),
+                "sidewalk" to filters("sidewalk=yes", "{something else}"),
+                "something else" to filters("{urban}"),
+            ),
+            mapOf()
+        ) }
+    }
 }
 
 internal data class RoadTypeFilterImpl(

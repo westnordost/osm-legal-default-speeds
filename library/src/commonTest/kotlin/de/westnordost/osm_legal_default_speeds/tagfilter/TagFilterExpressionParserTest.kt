@@ -401,6 +401,12 @@ internal class TagFilterExpressionParserTest {
         matches(mapOfKeys("a"), "{placeholder} and a") { it == "placeholder" }
         notMatches(mapOfKeys(), "{placeholder} and a") { it == "placeholder" }
     }
+
+    @Test fun list_placeholders() {
+        assertEquals(listOf(), TagFilterExpression("a").getPlaceholders().toList())
+        assertEquals(listOf("a"), TagFilterExpression("{a}").getPlaceholders().toList())
+        assertEquals(listOf("a", "b"), TagFilterExpression("{a} and {b}").getPlaceholders().toList())
+    }
 }
 
 private fun mapOfKeys(vararg key: String) =
