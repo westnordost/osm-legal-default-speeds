@@ -447,7 +447,7 @@
       "filter": "{rural} and {road with asphalt or concrete surface}"
     },
     "rural road without asphalt or concrete surface": {
-      "filter": "{rural} and {rural road without asphalt or concrete surface}"
+      "filter": "{rural} and {road without asphalt or concrete surface}"
     },
     "rural school zone": {
       "filter": "{rural} and {school zone}"
