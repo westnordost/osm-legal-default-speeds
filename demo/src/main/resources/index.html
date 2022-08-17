@@ -27,6 +27,11 @@
         margin: 32px 0;
     }
 
+    ul li {
+        margin-bottom: 4px;
+        margin-top: 4px;
+    }
+
     #main {
         display: flex;
         flex-direction: column;
@@ -81,7 +86,7 @@
             <div class="withLabel">
                 <label for="tagsInput">Input tags on road:</label>
                 <textarea id="tagsInput" autocomplete="off" autocorrect="off" rows="4" spellcheck="false" wrap="off"
-                          placeholder="e.g.&#10;highway=tertiary&#10;lanes=2&#10;..."></textarea>
+                          placeholder="e.g.&#10;highway=motorway&#10;..."></textarea>
             </div>
 
             <svg id="arrow" style="align-self: center" width="64" height="64" viewBox="0 0 8 8">
@@ -92,6 +97,19 @@
             <div id="matchType" style="font-style: italic"></div>
             <textarea  id="resultTags" rows="3" readonly="readonly" wrap="off"></textarea>
         </div>
+
+        <details>
+            <summary>Examples</summary>
+            <ul>
+                <li><a href="#cc=CZ&tags=maxspeed%3Atype%3DCZ%3Aurban%0Ahighway%3Dmotorway">🇨🇿 Czechia: Urban motorway</a></li>
+                <li><a href="#cc=FR&tags=source%3Amaxspeed%3DFR%3Arural%0Alanes%3D4">🇫🇷 France: Rural road with 2 or more lanes in each direction</a></li>
+                <li><a href="#cc=DE&tags=bicycle_road%3Dyes">🇩🇪 Germany: Cycle street</a></li>
+                <li><a href="#cc=PH&tags=designation%3Dbarangay_road">🇵🇭 Phillippines: Barangay road</a></li>
+                <li><a href="#cc=ES&tags=surface%3Ddirt">🇪🇸 Spain: Unpaved road</a></li>
+                <li><a href="#cc=TH&tags=frontage_road%3Dyes">🇹🇭 Thailand: ทํางขนําน</a></li>
+                <li><a href="#cc=US-NE&tags=ref%3DNE%201">🇺🇸 Nebraska: State highway</a></li>
+            </ul>
+        </details>
 
         <hr/>
 

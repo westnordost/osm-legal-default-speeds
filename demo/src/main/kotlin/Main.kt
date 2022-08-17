@@ -6,6 +6,7 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.*
+import org.w3c.dom.events.InputEvent
 import kotlin.js.Date
 import kotlin.math.max
 
@@ -19,34 +20,53 @@ private val revisionText = document.getElementById("revisionText") as HTMLSpanEl
 
 private val scope = MainScope()
 private var speeds: LegalDefaultSpeeds? = null
-private val hashParams = window.location.hashParams.toMutableMap()
+private var hashParams
+    get() = window.location.hashParams
+    set(value) { window.location.hashParams = value }
 
 fun main() {
     resultTags.style.visibility = "none"
+    tagsInput.value = hashParams["tags"] ?: ""
 
-    countrySelect.oninput = {
-        hashParams["cc"] = countrySelect.value
-        window.location.hashParams = hashParams
-        updateOutput()
-    }
-    tagsInput.oninput = {
-        hashParams["tags"] = tagsInput.value
-        window.location.hashParams = hashParams
-        tagsInput.rows = max(Regex("\n").findAll(tagsInput.value).count() + 1, 3)
-        updateOutput()
-    }
+    window.onhashchange = ::applyFromHash
+    countrySelect.oninput = ::applyFromInput
+    tagsInput.oninput = ::applyFromInput
 
     scope.launch {
         val speedLimitsJson = fetchSpeedLimitsJson()
 
         speeds = LegalDefaultSpeeds(speedLimitsJson.roadTypesByName, speedLimitsJson.speedLimitsByCountryCode)
 
-        tagsInput.value = hashParams.get("tags") ?: ""
         initMetadataInfo(speedLimitsJson.meta)
         initializeCountrySelect(speedLimitsJson.speedLimitsByCountryCode.keys)
-
-        updateOutput()
+        applyFromHash(null)
     }
+}
+
+private fun applyFromHash(event: HashChangeEvent?) {
+    countrySelect.oninput = null
+    tagsInput.oninput = null
+
+    tagsInput.value = hashParams["tags"] ?: ""
+    countrySelect.value = hashParams["cc"] ?: "IT"
+
+    countrySelect.oninput = ::applyFromInput
+    tagsInput.oninput = ::applyFromInput
+
+    updateOutput()
+}
+
+private fun applyFromInput(event: InputEvent?) {
+    window.onhashchange = null
+
+    hashParams = hashParams.toMutableMap().also {
+        it["tags"] = tagsInput.value
+        it["cc"] = countrySelect.value
+    }
+
+    window.onhashchange = ::applyFromHash
+
+    updateOutput()
 }
 
 private suspend fun fetchSpeedLimitsJson(): SpeedLimitsJson {
@@ -66,8 +86,6 @@ private fun initializeCountrySelect(countryCodes: Collection<String>) {
     for (countryCode in countryCodes.sortedBy { getCountryName(it) }) {
         countrySelect.appendChild(createCountryOption(countryCode))
     }
-
-    countrySelect.value = hashParams["cc"] ?: "IT"
 }
 
 private fun createCountryOption(countryCode: String): HTMLOptionElement {
@@ -87,6 +105,8 @@ private val Certitude.description: String get() = when(this) {
 }
 
 private fun updateOutput() {
+    tagsInput.rows = max(Regex("\n").findAll(tagsInput.value).count() + 1, 3)
+
     val speeds = speeds ?: return
     val inputTags = tagsInput.value.toTags()
     val inputCountry = countrySelect.value

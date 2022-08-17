@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2368768",
+    "revisionId": "2371321",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-08-08T18:57:59"
+    "timestamp": "2022-08-13T12:29:43"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -386,7 +386,7 @@
       "filter": "junction=roundabout"
     },
     "rural": {
-      "filter": "source:maxspeed~.*rural or maxspeed:type~\".*(rural|nsl_single|nsl_dual)\" or zone:maxspeed~.*rural or zone:traffic~.*rural or maxspeed~.*rural or HFCS~.*Rural.*",
+      "filter": "source:maxspeed~.*rural or maxspeed:type~\".*(rural|nsl_single|nsl_dual)\" or zone:maxspeed~.*rural or zone:traffic~.*rural or maxspeed~.*rural or HFCS~.*Rural.* or rural=yes",
       "fuzzyFilter": "lit=no or {has no sidewalk}"
     },
     "rural US interstate highway": {
@@ -480,7 +480,7 @@
       "filter": "surface~unpaved|ground|gravel|dirt|grass|compacted|sand|fine_gravel|earth|pebblestone|mud|clay|soil|rock or (!surface and tracktype and tracktype!=grade1)"
     },
     "urban": {
-      "filter": "source:maxspeed~.*urban or maxspeed:type~.*urban or zone:maxspeed~.*urban or zone:traffic~.*urban or maxspeed~.*urban or HFCS~.*Urban.*",
+      "filter": "source:maxspeed~.*urban or maxspeed:type~.*urban or zone:maxspeed~.*urban or zone:traffic~.*urban or maxspeed~.*urban or HFCS~.*Urban.* or rural=no",
       "fuzzyFilter": "highway~living_street|residential or lit=yes or {has sidewalk}"
     },
     "urban US interstate highway": {
