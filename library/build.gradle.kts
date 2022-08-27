@@ -46,7 +46,7 @@ val javadocJar = tasks.register<Jar>("javadocJar") {
 publishing {
     publications {
         withType<MavenPublication> {
-            artifactId = "osm-legal-default-speeds"
+            artifactId = "osm-legal-default-speeds-$name"
             artifact(javadocJar)
             pom {
                 name.set("osm-legal-default-speeds")
