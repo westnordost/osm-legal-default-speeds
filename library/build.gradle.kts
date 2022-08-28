@@ -46,7 +46,7 @@ val javadocJar = tasks.register<Jar>("javadocJar") {
 publishing {
     publications {
         withType<MavenPublication> {
-            artifactId = "osm-legal-default-speeds-$name"
+            artifactId = rootProject.name + if (name != "kotlinMultiplatform") "-$name" else ""
             artifact(javadocJar)
             pom {
                 name.set("osm-legal-default-speeds")
