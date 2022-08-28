@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2
+
+Fix (Java) maven publication (#3), by @easbar
+
 ## 1.1
 
 - Fix: Implementation for [Speed limits by vehicle type, 2. Always the lowest speed is the applicable one](https://wiki.openstreetmap.org/wiki/Default_speed_limits#Speed_limits_by_vehicle_type) was incomplete - not all `maxspeed` tags with higher speed were removed
