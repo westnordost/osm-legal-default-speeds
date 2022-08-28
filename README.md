@@ -30,7 +30,7 @@ Check it out on
 
 ## Installation
 
-Add [`de.westnordost:osm-legal-default-speeds:1.1`](https://mvnrepository.com/artifact/de.westnordost/osm-legal-default-speeds/1.1) 
+Add [`de.westnordost:osm-legal-default-speeds:1.2`](https://mvnrepository.com/artifact/de.westnordost/osm-legal-default-speeds/1.2) 
 as a Maven dependency or download the jar from there.
 
 ## Usage
