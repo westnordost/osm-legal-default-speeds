@@ -24,6 +24,10 @@ Check it out on
 
 (Source code for the demo is in the [`demo/` subdirectory](https://github.com/westnordost/osm-legal-default-speeds/tree/master/demo))
 
+## Presentation
+
+I [presented this projects at the StateOfTheMap 2022 in Florence](https://2022.stateofthemap.org/sessions/YWH3XD/) ([YouTube](https://www.youtube.com/watch?v=FH98z24PQGs)). The 30 Min Video provides a good overview about the goals and workings of this tool.
+
 ## Copyright and License
 
 © 2022 Tobias Zwick. This library is released under the terms of the [BSD 3-Clause License](https://raw.githubusercontent.com/westnordost/osm-legal-default-speeds/master/LICENSE.txt).
