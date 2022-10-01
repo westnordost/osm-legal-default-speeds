@@ -26,7 +26,9 @@ Check it out on
 
 ## Presentation
 
-I [presented this projects at the StateOfTheMap 2022 in Florence](https://2022.stateofthemap.org/sessions/YWH3XD/) ([YouTube](https://www.youtube.com/watch?v=FH98z24PQGs)). The 30 Min Video provides a good overview about the goals and workings of this tool.
+<a href="https://media.ccc.de/v/sotm2022-18524-inferring-default-speed-limits"><img src=".github/images/video_preview.jpg"/></a>
+
+This 30 min video I presented at the [State of the Map 2022](https://2022.stateofthemap.org/sessions/YWH3XD/) provides a good overview about the goals and workings of this project. (<a href="https://github.com/westnordost/osm-legal-default-speeds/raw/master/.github/images/slides.pdf">slides of the talk</a>)
 
 ## Copyright and License
 
