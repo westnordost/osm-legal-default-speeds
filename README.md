@@ -24,6 +24,12 @@ Check it out on
 
 (Source code for the demo is in the [`demo/` subdirectory](https://github.com/westnordost/osm-legal-default-speeds/tree/master/demo))
 
+## Presentation
+
+<a href="https://media.ccc.de/v/sotm2022-18524-inferring-default-speed-limits"><img src=".github/images/video_preview.jpg"/></a>
+
+This 30 min video I presented at the [State of the Map 2022](https://2022.stateofthemap.org/sessions/YWH3XD/) provides a good overview about the goals and workings of this project. (<a href="https://github.com/westnordost/osm-legal-default-speeds/raw/master/.github/images/slides.pdf">slides of the talk</a>)
+
 ## Copyright and License
 
 © 2022 Tobias Zwick. This library is released under the terms of the [BSD 3-Clause License](https://raw.githubusercontent.com/westnordost/osm-legal-default-speeds/master/LICENSE.txt).
