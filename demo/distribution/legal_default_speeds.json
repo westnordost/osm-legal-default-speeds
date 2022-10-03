@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2371321",
+    "revisionId": "2413111",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-08-13T12:29:43"
+    "timestamp": "2022-10-03T12:39:47"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -80,6 +80,9 @@
     },
     "Egypt: \"\u0627\u0644\u0637\u0631\u0642 \u0627\u0644\u0635\u062d\u0631\u0627\u0648\u064a\u0629\"": {
       "fuzzyFilter": "{rural} and highway~trunk|trunk_link|motorway|motorway_link"
+    },
+    "Flanders:Jaagpad": {
+      "filter": "designation=towpath"
     },
     "Guatemala: Arteria principal": {
       "filter": "{urban} and ((!{oneway} and lanes>=3 and width>=10.5) or ({oneway} and lanes>=2 and width>=7))",
@@ -236,6 +239,9 @@
     },
     "Singapore: silver zone": {
       "filter": "hazard=elderly or silver_zone=yes or hazard=silver_zone"
+    },
+    "Spain: Traves\u00eda": {
+      "fuzzyFilter": "{urban} and ref"
     },
     "Tennessee: Rural state road with 2 or more lanes in each direction": {
       "filter": "{Tennessee: State route} and {rural} and {road with 2 or more lanes in each direction}"
@@ -401,9 +407,6 @@
     "rural dual carriageway with 2 or more lanes in each direction": {
       "filter": "{rural} and {dual carriageway with 2 or more lanes in each direction}"
     },
-    "rural dual carriageway with 2 or more lanes in each direction except motorways": {
-      "filter": "{rural} and {dual carriageway with 2 or more lanes in each direction} and highway!=motorway"
-    },
     "rural expressway": {
       "filter": "{rural} and {expressway}"
     },
@@ -427,9 +430,6 @@
     },
     "rural residential district": {
       "filter": "{rural} and {residential district}"
-    },
-    "rural road with 1 lane in each direction": {
-      "filter": "{rural} and {road with 1 lane in each direction}"
     },
     "rural road with 2 lanes in each direction": {
       "filter": "{rural} and {road with 2 lanes in each direction}"
@@ -498,9 +498,6 @@
     "urban dual carriageway with 2 or more lanes in each direction": {
       "filter": "{urban} and {dual carriageway with 2 or more lanes in each direction}"
     },
-    "urban dual carriageway with 2 or more lanes in each direction except motorways": {
-      "filter": "{urban} and {dual carriageway with 2 or more lanes in each direction} and highway!=motorway"
-    },
     "urban expressway": {
       "filter": "{urban} and {expressway}"
     },
@@ -524,9 +521,6 @@
     },
     "urban road which is not numbered": {
       "filter": "{urban} and !{numbered road}"
-    },
-    "urban road with 1 lane in each direction": {
-      "filter": "{urban} and {road with 1 lane in each direction}"
     },
     "urban road with 2 lanes in each direction": {
       "filter": "{urban} and {road with 2 lanes in each direction}"
@@ -1513,6 +1507,12 @@
           "maxspeed:coach": "100",
           "maxspeed:conditional": "90 @ (maxweightrating>3.5)"
         }
+      },
+      {
+        "name": "Flanders:Jaagpad",
+        "tags": {
+          "maxspeed": "30"
+        }
       }
     ],
     "BE-WAL": [
@@ -2358,9 +2358,6 @@
         }
       },
       {
-        "tags": {}
-      },
-      {
         "name": "school zone",
         "tags": {
           "maxspeed": "90",
@@ -2593,33 +2590,26 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60"
+          "maxspeed": "60",
+          "maxspeed:bus": "50",
+          "maxspeed:hgv": "50"
         }
       },
       {
         "tags": {
-          "maxspeed": "60",
+          "maxspeed": "110",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "85",
-          "maxspeed:hgv:conditional": "75 @ (maxweightrating>16)"
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "70 @ (maxweightrating>16)"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "60",
-          "maxspeed:bus": "90",
-          "maxspeed:hgv": "85",
-          "maxspeed:hgv:conditional": "75 @ (maxweightrating>16)"
-        }
-      },
-      {
-        "name": "rural road with asphalt or concrete surface",
-        "tags": {
           "maxspeed": "110",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "85",
-          "maxspeed:hgv:conditional": "75 @ (maxweightrating>16)"
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "70 @ (maxweightrating>16)"
         }
       },
       {
@@ -2627,8 +2617,8 @@
         "tags": {
           "maxspeed": "120",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "85",
-          "maxspeed:hgv:conditional": "75 @ (maxweightrating>16)"
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "70 @ (maxweightrating>16)"
         }
       }
     ],
@@ -3325,9 +3315,12 @@
         }
       },
       {
-        "name": "urban road with 1 lane in each direction",
+        "name": "urban motorway",
         "tags": {
-          "maxspeed": "30"
+          "maxspeed": "80",
+          "maxspeed:hazmat": "70",
+          "maxspeed:school_bus": "70",
+          "minspeed": "60"
         }
       },
       {
@@ -3338,13 +3331,17 @@
         }
       },
       {
-        "name": "urban motorway",
+        "name": "Spain: Traves\u00eda",
         "tags": {
-          "maxspeed": "80",
-          "maxspeed:hazmat": "70",
-          "maxspeed:school_bus": "70",
-          "maxspeed:tricycle": "70",
-          "minspeed": "60"
+          "maxspeed": "50",
+          "maxspeed:hazmat": "40"
+        }
+      },
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "30",
+          "maxspeed:tricycle": "70"
         }
       },
       {
@@ -5759,7 +5756,7 @@
           "maxspeed": "130",
           "maxspeed:bus": "80",
           "maxspeed:coach": "100",
-          "maxspeed:conditional": "100 @ (09:00-19:00); 90 @ (trailer); 80 @ (maxweightrating>3.5 AND trailer)",
+          "maxspeed:conditional": "100 @ (06:00-19:00); 90 @ (trailer); 80 @ (maxweightrating>3.5 AND trailer)",
           "maxspeed:hgv": "80",
           "maxspeed:motorhome:conditional": "80 @ (maxweightrating>3.5)",
           "minspeed": "60"
@@ -5816,8 +5813,7 @@
           "maxspeed:coach": "100",
           "maxspeed:conditional": "80 @ (maxweightrating>7.5); 80 @ (trailer)",
           "maxspeed:goods:conditional": "80 @ (maxweightrating>3.5)",
-          "maxspeed:hgv": "80",
-          "minspeed": "40"
+          "maxspeed:hgv": "80"
         }
       }
     ],
@@ -6131,59 +6127,22 @@
         }
       },
       {
-        "name": "rural unpaved road",
+        "name": "urban motorway",
         "tags": {
-          "maxspeed": "50",
-          "maxspeed:bus": "70",
-          "maxspeed:bus:conditional": "65 @ (seats>=15)",
-          "maxspeed:goods": "80",
-          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
-          "maxspeed:motorcycle": "70",
-          "maxspeed:tricycle": "30"
-        }
-      },
-      {
-        "name": "urban road with 1 lane in each direction",
-        "tags": {
-          "maxspeed": "55",
+          "maxspeed": "110",
           "maxspeed:bus": "70",
           "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
           "maxspeed:goods": "80",
           "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
           "maxspeed:motorcycle": "70",
-          "maxspeed:tricycle": "30"
+          "minspeed": "50"
         }
       },
       {
-        "name": "urban road with 2 lanes in each direction",
+        "name": "urban road with 4 or more lanes in each direction",
         "tags": {
-          "maxspeed": "70",
-          "maxspeed:bus": "70",
-          "maxspeed:bus:conditional": "65 @ (seats>=15)",
-          "maxspeed:conditional": "50 @ (trailer)",
-          "maxspeed:goods": "80",
-          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
-          "maxspeed:motorcycle": "70",
-          "maxspeed:tricycle": "30"
-        }
-      },
-      {
-        "tags": {
-          "maxspeed": "70",
-          "maxspeed:bus": "70",
-          "maxspeed:bus:conditional": "65 @ (seats>=15)",
-          "maxspeed:conditional": "50 @ (trailer)",
-          "maxspeed:goods": "80",
-          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
-          "maxspeed:motorcycle": "70",
-          "maxspeed:tricycle": "30"
-        }
-      },
-      {
-        "name": "rural road with 1 lane in each direction",
-        "tags": {
-          "maxspeed": "70",
+          "maxspeed": "90",
           "maxspeed:bus": "70",
           "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
@@ -6207,9 +6166,9 @@
         }
       },
       {
-        "name": "rural road with 2 lanes in each direction",
+        "name": "urban road with 2 lanes in each direction",
         "tags": {
-          "maxspeed": "80",
+          "maxspeed": "70",
           "maxspeed:bus": "70",
           "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
@@ -6220,9 +6179,59 @@
         }
       },
       {
-        "name": "urban road with 4 or more lanes in each direction",
+        "name": "urban",
         "tags": {
-          "maxspeed": "90",
+          "maxspeed": "55",
+          "maxspeed:bus": "70",
+          "maxspeed:bus:conditional": "65 @ (seats>=15)",
+          "maxspeed:conditional": "50 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
+          "maxspeed:motorcycle": "70",
+          "maxspeed:tricycle": "30"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "70",
+          "maxspeed:bus": "70",
+          "maxspeed:bus:conditional": "65 @ (seats>=15)",
+          "maxspeed:conditional": "50 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
+          "maxspeed:motorcycle": "70",
+          "maxspeed:tricycle": "30"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "70",
+          "maxspeed:bus": "70",
+          "maxspeed:bus:conditional": "65 @ (seats>=15)",
+          "maxspeed:conditional": "50 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
+          "maxspeed:motorcycle": "70",
+          "maxspeed:tricycle": "30"
+        }
+      },
+      {
+        "name": "rural unpaved road",
+        "tags": {
+          "maxspeed": "50",
+          "maxspeed:bus": "70",
+          "maxspeed:bus:conditional": "65 @ (seats>=15)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
+          "maxspeed:motorcycle": "70",
+          "maxspeed:tricycle": "30"
+        }
+      },
+      {
+        "name": "rural road with 2 lanes in each direction",
+        "tags": {
+          "maxspeed": "80",
           "maxspeed:bus": "70",
           "maxspeed:bus:conditional": "65 @ (seats>=15)",
           "maxspeed:conditional": "50 @ (trailer)",
@@ -6256,19 +6265,6 @@
           "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
           "maxspeed:motorcycle": "70",
           "maxspeed:tricycle": "30"
-        }
-      },
-      {
-        "name": "urban motorway",
-        "tags": {
-          "maxspeed": "110",
-          "maxspeed:bus": "70",
-          "maxspeed:bus:conditional": "65 @ (seats>=15)",
-          "maxspeed:conditional": "50 @ (trailer)",
-          "maxspeed:goods": "80",
-          "maxspeed:goods:conditional": "50 @ (maxweightrating>2.268); 25 @ (trailer); 25 @ (maxweightrating>10.2)",
-          "maxspeed:motorcycle": "70",
-          "minspeed": "50"
         }
       },
       {
@@ -9855,7 +9851,7 @@
         }
       },
       {
-        "name": "urban dual carriageway with 2 or more lanes in each direction except motorways",
+        "name": "urban dual carriageway with 2 or more lanes in each direction",
         "tags": {
           "maxspeed": "60"
         }
@@ -9912,7 +9908,7 @@
         }
       },
       {
-        "name": "rural dual carriageway with 2 or more lanes in each direction except motorways",
+        "name": "rural dual carriageway with 2 or more lanes in each direction",
         "tags": {
           "maxspeed": "90",
           "maxspeed:bus": "70",
