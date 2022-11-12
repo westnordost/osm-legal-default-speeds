@@ -25,6 +25,10 @@ private val subdivisionNames = mapOf(
     "BE-VLG" to "Flemish Region",
     "BE-WAL" to "Walloon Region",
 
+    "BQ-BO" to "Bonaire",
+    "BQ-SA" to "Saba",
+    "BQ-SE" to "Sint Eustatius",
+    
     "CA-AB" to "Alberta",
     "CA-BC" to "British Columbia",
     "CA-MB" to "Manitoba",
