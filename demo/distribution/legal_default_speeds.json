@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2413111",
+    "revisionId": "2462654",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2022-10-03T12:39:47"
+    "timestamp": "2023-01-12T01:08:01"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -392,7 +392,7 @@
       "filter": "junction=roundabout"
     },
     "rural": {
-      "filter": "source:maxspeed~.*rural or maxspeed:type~\".*(rural|nsl_single|nsl_dual)\" or zone:maxspeed~.*rural or zone:traffic~.*rural or maxspeed~.*rural or HFCS~.*Rural.* or rural=yes",
+      "filter": "source:maxspeed~.*(rural|motorway|motorroad) or maxspeed:type~\".*(rural|motorway|motorroad|nsl_single|nsl_dual)\" or zone:maxspeed~.*(rural|motorway|motorroad) or zone:traffic~.*(rural|motorway|motorroad) or maxspeed~.*(rural|motorway|motorroad) or HFCS~.*Rural.* or rural=yes",
       "fuzzyFilter": "lit=no or {has no sidewalk}"
     },
     "rural US interstate highway": {
@@ -1246,6 +1246,25 @@
           "maxspeed": "110",
           "maxspeed:bus:conditional": "100 @ (maxweightrating>5)",
           "maxspeed:conditional": "100 @ (maxweightrating>12); 100 @ (trailer)"
+        }
+      }
+    ],
+    "AW": [
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "50"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "80"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "80"
         }
       }
     ],
@@ -2918,6 +2937,32 @@
         }
       }
     ],
+    "CW": [
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "40"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "60"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "60"
+        }
+      },
+      {
+        "name": "motorroad",
+        "tags": {
+          "maxspeed": "80",
+          "minspeed": "40"
+        }
+      }
+    ],
     "CY": [
       {
         "name": "urban",
@@ -3053,21 +3098,29 @@
         }
       },
       {
-        "name": "motorroad with dual carriageway",
+        "name": "rural dual carriageway",
         "tags": {
           "maxspeed:advisory": "130",
           "maxspeed:bus": "80",
-          "maxspeed:bus:conditional": "60 @ (trailer)",
-          "maxspeed:coach": "100",
-          "maxspeed:coach:conditional": "60 @ (trailer)",
-          "maxspeed:conditional": "80 @ (trailer); 80 @ (maxweightrating>3.5)",
+          "maxspeed:bus:conditional": "60 @ (maxweightrating>7.5); 60 @ (trailer)",
+          "maxspeed:conditional": "80 @ (trailer); 80 @ (maxweightrating>3.5); 60 @ (maxweightrating>7.5)",
           "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "60 @ (trailers>=2)",
-          "maxspeed:motorcycle:advisory": "130",
-          "maxspeed:motorcycle:conditional": "60 @ (trailer)",
-          "maxspeed:motorhome:advisory": "130",
-          "maxspeed:motorhome:conditional": "80 @ (trailer)",
-          "minspeed": "60"
+          "maxspeed:hgv:conditional": "60 @ (maxweightrating>7.5)",
+          "maxspeed:motorhome": "80",
+          "maxspeed:motorhome:conditional": "60 @ (maxweightrating>7.5)"
+        }
+      },
+      {
+        "name": "rural road with 2 or more lanes in each direction",
+        "tags": {
+          "maxspeed:advisory": "130",
+          "maxspeed:bus": "80",
+          "maxspeed:bus:conditional": "60 @ (maxweightrating>7.5); 60 @ (trailer)",
+          "maxspeed:conditional": "80 @ (trailer); 80 @ (maxweightrating>3.5); 60 @ (maxweightrating>7.5)",
+          "maxspeed:hgv": "80",
+          "maxspeed:hgv:conditional": "60 @ (maxweightrating>7.5)",
+          "maxspeed:motorhome": "80",
+          "maxspeed:motorhome:conditional": "60 @ (maxweightrating>7.5)"
         }
       },
       {
@@ -3092,7 +3145,15 @@
     "DK": [
       {
         "name": "living street",
-        "tags": {}
+        "tags": {
+          "maxspeed": "15"
+        }
+      },
+      {
+        "name": "cycle street",
+        "tags": {
+          "maxspeed": "30"
+        }
       },
       {
         "name": "urban",
@@ -5739,7 +5800,7 @@
         }
       },
       {
-        "name": "motorroad",
+        "name": "rural motorroad",
         "tags": {
           "maxspeed": "100",
           "maxspeed:bus": "80",
@@ -5751,15 +5812,72 @@
         }
       },
       {
-        "name": "motorway",
+        "name": "rural motorway",
         "tags": {
           "maxspeed": "130",
           "maxspeed:bus": "80",
           "maxspeed:coach": "100",
-          "maxspeed:conditional": "100 @ (06:00-19:00); 90 @ (trailer); 80 @ (maxweightrating>3.5 AND trailer)",
+          "maxspeed:conditional": "90 @ (trailer); 80 @ (maxweightrating>3.5 AND trailer)",
           "maxspeed:hgv": "80",
           "maxspeed:motorhome:conditional": "80 @ (maxweightrating>3.5)",
           "minspeed": "60"
+        }
+      }
+    ],
+    "NL-BQ1": [
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "40"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "60"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "60"
+        }
+      }
+    ],
+    "NL-BQ2": [
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "20"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "40"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "40"
+        }
+      }
+    ],
+    "NL-BQ3": [
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "50"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "50"
         }
       }
     ],
@@ -10105,6 +10223,9 @@
     "Somaliland: Unknown country / subdivision",
     "Somaliland: Unknown country / subdivision",
     "Somaliland: Unknown country / subdivision",
+    "Sint Maarten: Unknown country / subdivision",
+    "Sint Maarten: Unknown country / subdivision",
+    "Sint Maarten: Unknown country / subdivision",
     "CA-NS: Unable to map 'urban public park'",
     "MN: Unable to map 'long road'",
     "NP: Unable to map 'hilly road'",
