@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2462654",
+    "revisionId": "2462780",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2023-01-12T01:08:01"
+    "timestamp": "2023-01-12T01:15:43"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -392,7 +392,7 @@
       "filter": "junction=roundabout"
     },
     "rural": {
-      "filter": "source:maxspeed~.*(rural|motorway|motorroad) or maxspeed:type~\".*(rural|motorway|motorroad|nsl_single|nsl_dual)\" or zone:maxspeed~.*(rural|motorway|motorroad) or zone:traffic~.*(rural|motorway|motorroad) or maxspeed~.*(rural|motorway|motorroad) or HFCS~.*Rural.* or rural=yes",
+      "filter": "source:maxspeed~\".*(rural|motorway|motorroad)\" or maxspeed:type~\".*(rural|motorway|motorroad|nsl_single|nsl_dual)\" or zone:maxspeed~\".*(rural|motorway|motorroad)\" or zone:traffic~\".*(rural|motorway|motorroad)\" or maxspeed~\".*(rural|motorway|motorroad)\" or HFCS~.*Rural.* or rural=yes",
       "fuzzyFilter": "lit=no or {has no sidewalk}"
     },
     "rural US interstate highway": {
