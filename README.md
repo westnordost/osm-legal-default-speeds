@@ -34,6 +34,8 @@ This 30 min video I presented at the [State of the Map 2022](https://2022.stateo
 
 © 2022 Tobias Zwick. This library is released under the terms of the [BSD 3-Clause License](https://raw.githubusercontent.com/westnordost/osm-legal-default-speeds/master/LICENSE.txt).
 
+Note that the data used is published in the OpenStreetMap Wiki, whose content is available under the [Creative Commons Attribution-ShareAlike 2.0](https://wiki.openstreetmap.org/wiki/Wiki_content_license) license.
+
 ## Installation
 
 Add [`de.westnordost:osm-legal-default-speeds:1.2`](https://mvnrepository.com/artifact/de.westnordost/osm-legal-default-speeds/1.2) 
