@@ -29,8 +29,8 @@ from parsers.parse_utils import validate_road_types_in_speed_table
         ("40 mph (12 seats)", {"maxspeed:conditional": "40 mph @ (seats>=12)"}),
         ("40 mph (2 trailers)", {"maxspeed:conditional": "40 mph @ (trailers>=2)"}),
         
-        ("40 mph (2t)", {"maxspeed:conditional": "40 mph @ (maxweightrating>2)"}),
-        ("40 mph (2.5t)", {"maxspeed:conditional": "40 mph @ (maxweightrating>2.5)"}),
+        ("40 mph (2t)", {"maxspeed:conditional": "40 mph @ (weightrating>2)"}),
+        ("40 mph (2.5t)", {"maxspeed:conditional": "40 mph @ (weightrating>2.5)"}),
         
         ("40 (current 2t)", {"maxspeed:conditional": "40 @ (weight>2)"}),
         ("40 (2t current)", {"maxspeed:conditional": "40 @ (weight>2)"}),
@@ -39,9 +39,9 @@ from parsers.parse_utils import validate_road_types_in_speed_table
         ("40 (capacity 2t)", {"maxspeed:conditional": "40 @ (weightcapacity>2)"}),
         ("40 (2t capacity)", {"maxspeed:conditional": "40 @ (weightcapacity>2)"}),
         
-        ("40 mph (2000lb)", {"maxspeed:conditional": "40 mph @ (maxweightrating>2000 lb)"}),
-        ("40 mph (2st)", {"maxspeed:conditional": "40 mph @ (maxweightrating>2 st)"}),
-        ("40 mph (2.5st)", {"maxspeed:conditional": "40 mph @ (maxweightrating>2.5 st)"}),
+        ("40 mph (2000lb)", {"maxspeed:conditional": "40 mph @ (weightrating>2000 lb)"}),
+        ("40 mph (2st)", {"maxspeed:conditional": "40 mph @ (weightrating>2 st)"}),
+        ("40 mph (2.5st)", {"maxspeed:conditional": "40 mph @ (weightrating>2.5 st)"}),
 
         ("40 mph (current 2st)", {"maxspeed:conditional": "40 mph @ (weight>2 st)"}),
         ("40 mph (2st current)", {"maxspeed:conditional": "40 mph @ (weight>2 st)"}),
@@ -56,18 +56,18 @@ from parsers.parse_utils import validate_road_types_in_speed_table
         # Speed + Conditionals
         (
             "60mph, 40 mph (2t)",
-            {"maxspeed": "60 mph", "maxspeed:conditional": "40 mph @ (maxweightrating>2)"},
+            {"maxspeed": "60 mph", "maxspeed:conditional": "40 mph @ (weightrating>2)"},
         ),
 
         # Restrictions on conditionals
         (
             "40 mph (2t, articulated)",
-            {"maxspeed:conditional": "40 mph @ (maxweightrating>2 AND articulated)"},
+            {"maxspeed:conditional": "40 mph @ (weightrating>2 AND articulated)"},
         ),
         # Multiple restrictions
         (
             "60mph, 40 mph (2t), 20mph (6 axles)",
-            {"maxspeed": "60 mph", "maxspeed:conditional": "40 mph @ (maxweightrating>2); 20 mph @ (axles>=6)"},
+            {"maxspeed": "60 mph", "maxspeed:conditional": "40 mph @ (weightrating>2); 20 mph @ (axles>=6)"},
         ),
 
         # Time intervals

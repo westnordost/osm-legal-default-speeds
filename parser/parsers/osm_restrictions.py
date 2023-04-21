@@ -40,7 +40,7 @@ def osm_speed_visitor(t):
     elif t.data == "weight_restriction":
         return osm_speed_visitor(t.children[0])
     elif t.data == "weight_rating":
-        return f"maxweightrating>{t.children[0]}{osm_weight_unit(t.children[1])}"
+        return f"weightrating>{t.children[0]}{osm_weight_unit(t.children[1])}"
     elif t.data == "qualified_weight_pre":
         return f"{osm_weight_qualifier(t.children[0])}>{t.children[1]}{osm_weight_unit(t.children[2])}"
     elif t.data == "qualified_weight_post":
