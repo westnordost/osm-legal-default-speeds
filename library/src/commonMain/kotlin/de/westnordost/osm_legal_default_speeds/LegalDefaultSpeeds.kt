@@ -225,28 +225,30 @@ private val Map.Entry<String, String>.isImplicitMaxSpeed get() =
 private fun MutableMap<String,String>.limitSpeedsTo(key: String, maxspeed: Double?) {
     if (maxspeed != null) {
         val iter = entries.iterator()
-        val conditionalRegex = Regex("$key:.*conditional")
         while (iter.hasNext()) {
             val entry = iter.next()
-            /* search & remove through conditionals strings. E.g. if maxspeed=60, turn
-               maxspeed:hgv:conditional=80 @ (trailer); 40 @ (weight>30t) into
-               maxspeed:hgv:conditional=40 @ (weight>30t) or delete if no conditionals are left
-               after removing those that are higher */
-            if (entry.key.matches(conditionalRegex)) {
-                val conditionals = entry.value.split("; ").toMutableList()
-                conditionals.removeAll {
-                    val speed = it.split(" @ ")[0].withOptionalUnitToDoubleOrNull() ?: return@removeAll false
-                    speed >= maxspeed
+            val idx1 = entry.key.indexOf("$key:")
+            if (idx1 == 0) {
+                val idx2 = entry.key.indexOf(":conditional")
+                if (idx2 > 0) {
+                    /* search & remove through conditionals strings. E.g. if maxspeed=60, turn
+                       maxspeed:hgv:conditional=80 @ (trailer); 40 @ (weight>30t) into
+                       maxspeed:hgv:conditional=40 @ (weight>30t) or delete if no conditionals are left
+                       after removing those that are higher */
+                    val conditionals = entry.value.split("; ").toMutableList()
+                    conditionals.removeAll {
+                        val speed = it.split(" @ ")[0].withOptionalUnitToDoubleOrNull() ?: return@removeAll false
+                        speed >= maxspeed
+                    }
+                    val newConditional = conditionals.joinToString("; ")
+                    if (newConditional.isEmpty()) {
+                        iter.remove()
+                    } else {
+                        entry.setValue(newConditional)
+                    }
                 }
-                val newConditional = conditionals.joinToString("; ")
-                if (newConditional.isEmpty()) {
-                    iter.remove()
-                } else {
-                    entry.setValue(newConditional)
-                }
-            }
-            /* remove higher speeds. E.g. if maxspeed=60, remove maxspeed:hgv=80 */
-            else if(entry.key.startsWith("$key:")) {
+
+                /* remove higher speeds. E.g. if maxspeed=60, remove maxspeed:hgv=80 */
                 val speed = entry.value.withOptionalUnitToDoubleOrNull()
                 if (speed != null && speed >= maxspeed) {
                     iter.remove()
@@ -255,10 +257,11 @@ private fun MutableMap<String,String>.limitSpeedsTo(key: String, maxspeed: Doubl
         }
     }
     /* recurse down. The same should be done for e.g. maxspeed:hgv:conditional if maxspeed:hgv
-    *  already has a lower speed limit etc. */
-    val r = Regex("$key:[a-z_]+")
-    val subkeys = keys.filter { r.matches(it) }
-    for (subkey in subkeys) {
+    *  already has a lower speed limit etc. but copy before as keys will be modified */
+    var copiedKeys = keys.toMutableSet()
+    for (subkey in copiedKeys) {
+        val index = subkey.indexOf("$key:")
+        if (index < 0) continue
         val subMaxspeed = this[subkey]?.withOptionalUnitToDoubleOrNull()
         limitSpeedsTo(subkey, listOfNotNull(maxspeed, subMaxspeed).minOrNull())
     }
