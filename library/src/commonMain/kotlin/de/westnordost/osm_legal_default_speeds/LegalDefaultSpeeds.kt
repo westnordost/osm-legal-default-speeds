@@ -255,11 +255,9 @@ private fun MutableMap<String,String>.limitSpeedsTo(key: String, maxspeed: Doubl
         }
     }
     /* recurse down. The same should be done for e.g. maxspeed:hgv:conditional if maxspeed:hgv
-    *  already has a lower speed limit etc. but copy before as keys will be modified */
-    var copiedKeys = keys.toMutableSet()
-    for (subkey in copiedKeys) {
-        val index = subkey.indexOf("$key:")
-        if (index < 0) continue
+    *  already has a lower speed limit etc. */
+    val subkeys = keys.filter { it.startsWith("$key:") }
+    for (subkey in subkeys) {
         val subMaxspeed = this[subkey]?.withOptionalUnitToDoubleOrNull()
         limitSpeedsTo(subkey, listOfNotNull(maxspeed, subMaxspeed).minOrNull())
     }
