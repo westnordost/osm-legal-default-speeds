@@ -228,7 +228,7 @@ private fun MutableMap<String,String>.limitSpeedsTo(key: String, maxspeed: Doubl
         while (iter.hasNext()) {
             val entry = iter.next()
             if (entry.key.startsWith("$key:")) {
-                if (entry.key.endsWith(":conditional") {
+                if (entry.key.endsWith(":conditional")) {
                     /* search & remove through conditionals strings. E.g. if maxspeed=60, turn
                        maxspeed:hgv:conditional=80 @ (trailer); 40 @ (weight>30t) into
                        maxspeed:hgv:conditional=40 @ (weight>30t) or delete if no conditionals are left
