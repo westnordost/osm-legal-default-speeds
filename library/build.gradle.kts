@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("maven-publish")
     id("signing")
-    id("org.jetbrains.dokka") version "1.7.10"
+    id("org.jetbrains.dokka") version "1.8.10"
 }
 
 kotlin {
@@ -15,7 +15,7 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(BOTH) {
+    js(IR) {
         browser()
     }
     val hostOs = System.getProperty("os.name")
