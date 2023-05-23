@@ -233,12 +233,14 @@ private fun MutableMap<String,String>.limitSpeedsTo(key: String, maxspeed: Doubl
                        maxspeed:hgv:conditional=80 @ (trailer); 40 @ (weight>30t) into
                        maxspeed:hgv:conditional=40 @ (weight>30t) or delete if no conditionals are left
                        after removing those that are higher */
-                    val conditionals = entry.value.split("; ").toMutableList()
-                    conditionals.removeAll {
-                        val speed = it.split(" @ ")[0].withOptionalUnitToDoubleOrNull() ?: return@removeAll false
-                        speed >= maxspeed
-                    }
-                    val newConditional = conditionals.joinToString("; ")
+                    val newConditional = entry.value
+                        .split("; ")
+                        .asSequence()
+                        .filter {
+                            val speed = it.split(" @ ")[0].withOptionalUnitToDoubleOrNull() ?: return@filter true
+                            speed < maxspeed
+                        }
+                        .joinToString("; ")
                     if (newConditional.isEmpty()) {
                         iter.remove()
                     } else {
