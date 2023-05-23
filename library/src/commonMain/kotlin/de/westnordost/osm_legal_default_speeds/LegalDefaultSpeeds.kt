@@ -21,6 +21,7 @@ class LegalDefaultSpeeds(
     roadTypesByName: Map<String, RoadTypeFilter>,
     private val speedLimitsByCountryCode: Map<String, List<RoadType>>
 ) {
+    var limitOtherSpeeds: Boolean = true
     private val roadTypeFilters: Map<String, RoadTypeTagFilterExpressions> = roadTypesByName.mapValues { (roadName, roadTypeFilter) ->
         /* let's parse the filters defined in strings right in the constructor, so it doesn't
            need to be done again and again (and if there is a syntax error, it becomes apparent
@@ -207,15 +208,16 @@ class LegalDefaultSpeeds(
         }
         return null
     }
-}
 
-private fun createResultTags(tags: Map<String, String>, roadTypeTags: Map<String, String>): Map<String, String> {
-    val result = roadTypeTags.toMutableMap()
-    result.putAll(tags.filter { !it.isImplicitMaxSpeed })
-    val maxspeed = result["maxspeed"]?.withOptionalUnitToDoubleOrNull()
-    result.limitSpeedsTo("maxspeed", maxspeed)
-    tags.entries.forEach { if (!it.isImplicitMaxSpeed) result.remove(it.key) }
-    return result
+    private fun createResultTags(tags: Map<String, String>, roadTypeTags: Map<String, String>): Map<String, String> {
+        if (!limitOtherSpeeds) return roadTypeTags
+        val result = roadTypeTags.toMutableMap()
+        result.putAll(tags.filter { !it.isImplicitMaxSpeed })
+        val maxspeed = result["maxspeed"]?.withOptionalUnitToDoubleOrNull()
+        result.limitSpeedsTo("maxspeed", maxspeed)
+        tags.entries.forEach { if (!it.isImplicitMaxSpeed) result.remove(it.key) }
+        return result
+    }
 }
 
 // stuff like maxspeed=RO:urban from the input tags should not overwrite explicit speed limits from output tags
