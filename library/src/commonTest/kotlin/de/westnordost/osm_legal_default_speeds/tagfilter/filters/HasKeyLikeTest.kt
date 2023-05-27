@@ -17,4 +17,8 @@ internal class HasKeyLikeTest {
     @Test fun toStringMethod() {
         assertEquals("~n.[ms]e", key.toString())
     }
+
+    @Test fun relevantKey() {
+        assertEquals(RelevantKeyRegex(RegexOrSet.from("n.[ms]e")), key.relevantKey)
+    }
 }

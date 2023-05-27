@@ -35,4 +35,9 @@ internal class HasTagLikeTest {
     @Test fun toStringMethod() {
         assertEquals("~.ame ~ y.s", HasTagLike(".ame", "y.s").toString())
     }
+
+    @Test fun relevantKey() {
+        val f = HasTagLike("shop", "cheese|greengrocer")
+        assertEquals(RelevantKeyRegex(RegexOrSet.from("shop")), f.relevantKey)
+    }
 }

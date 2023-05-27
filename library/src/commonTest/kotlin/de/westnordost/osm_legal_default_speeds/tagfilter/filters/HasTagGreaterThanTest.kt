@@ -16,4 +16,8 @@ internal class HasTagGreaterThanTest {
     @Test fun toStringMethod() {
         assertEquals("width > 3.5", c.toString())
     }
+
+    @Test fun relevantKey() {
+        assertEquals(RelevantKeyString("width"), c.relevantKey)
+    }
 }

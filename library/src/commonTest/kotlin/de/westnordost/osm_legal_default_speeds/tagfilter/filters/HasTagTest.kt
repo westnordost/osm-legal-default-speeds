@@ -15,4 +15,8 @@ internal class HasTagTest {
     @Test fun toStringMethod() {
         assertEquals("highway = residential", c.toString())
     }
+
+    @Test fun relevantKey() {
+        assertEquals(RelevantKeyString("highway"), c.relevantKey)
+    }
 }
