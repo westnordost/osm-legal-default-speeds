@@ -42,6 +42,6 @@ internal class HasTagValueLikeTest {
 
     @Test fun relevantKey() {
         val f = HasTagValueLike("highway", "residential|unclassified")
-        assertEquals(RelevantKeyString("highway"), f.relevantKey)
+        assertEquals("highway", f.relevantKey.key)
     }
 }

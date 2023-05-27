@@ -19,6 +19,7 @@ internal class HasKeyLikeTest {
     }
 
     @Test fun relevantKey() {
-        assertEquals(RelevantKeyRegex(RegexOrSet.from("n.[ms]e")), key.relevantKey)
+        val key = HasKeyLike("n.[ms]e")
+        assertEquals("n.[ms]e", (key.relevantKey.regex as RealRegex).regex.toString())
     }
 }

@@ -17,6 +17,6 @@ internal class HasKeyTest {
     }
 
     @Test fun relevantKey() {
-        assertEquals(RelevantKeyString("name"), key.relevantKey)
+        assertEquals("name", key.relevantKey.key)
     }
 }

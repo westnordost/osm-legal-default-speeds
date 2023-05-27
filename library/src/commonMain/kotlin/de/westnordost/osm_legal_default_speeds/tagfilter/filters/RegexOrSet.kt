@@ -18,10 +18,10 @@ internal sealed class RegexOrSet {
     }
 }
 
-internal class RealRegex(private val regex: Regex) : RegexOrSet() {
+internal data class RealRegex(internal val regex: Regex) : RegexOrSet() {
     override fun matches(string: String) = regex.matches(string)
 }
 
-internal class SetRegex(private val set: Set<String>) : RegexOrSet() {
+internal data class SetRegex(internal val set: Set<String>) : RegexOrSet() {
     override fun matches(string: String) = set.contains(string)
 }

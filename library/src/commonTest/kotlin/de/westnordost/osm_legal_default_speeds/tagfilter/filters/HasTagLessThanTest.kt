@@ -18,6 +18,6 @@ internal class HasTagLessThanTest {
     }
 
     @Test fun relevantKey() {
-        assertEquals(RelevantKeyString("width"), c.relevantKey)
+        assertEquals("width", c.relevantKey.key)
     }
 }
