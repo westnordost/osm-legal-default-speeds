@@ -68,6 +68,19 @@ internal class BooleanExpressionTest {
         assertEquals(listOf("A","B","A","C"), getPlaceholders("A*(B+A)*C"))
     }
 
+    @Test fun list_items() {
+        assertEquals(listOf("1"), getItems("1"))
+        assertEquals(listOf("1","2"), getItems("1+2"))
+        assertEquals(listOf("1","2"), getItems("1*2"))
+        assertEquals(listOf("1","2","3"), getItems("1*(2+3)"))
+        assertEquals(listOf("1","2","3"), getItems("(1*2)+3"))
+    }
+
+    private fun getItems(input: String): List<String> {
+        val expr = TestBooleanExpressionParser.parse(input) as Chain
+        return expr.getItems().map { it.toString() }.toList()
+    }
+
     private fun getPlaceholders(input: String): List<String> {
         val expr = TestBooleanExpressionParser.parse(input) as Chain
         return expr.getPlaceholders().toList()
