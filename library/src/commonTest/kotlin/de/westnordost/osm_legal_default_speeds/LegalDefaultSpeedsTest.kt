@@ -16,9 +16,12 @@ internal class LegalDefaultSpeedsTest {
             "motorway" to filters("highway=motorway"),
             "state road" to filters(null, null, "type=route and ref~ZA.*"), // only relation filter
             "rural state road" to filters("{rural} and {state road}"),
+            "road in construction" to filters("~construction|proposed~yes"),
+            "imaginary road" to filters("~imagination:.*"),
         ),
         mapOf(
             "ZA" to listOf(
+                road("road in construction", mapOf("maxspeed" to "0")),
                 road("living street", mapOf("maxspeed" to "10")),
                 road("alley", mapOf("maxspeed" to "5")),
                 road("urban state road", mapOf("maxspeed" to "60")),
@@ -28,6 +31,7 @@ internal class LegalDefaultSpeedsTest {
                 road("dual carriageway", mapOf("maxspeed" to "110")),
                 road("rural state road", mapOf("maxspeed" to "115")),
                 road("motorway", mapOf("maxspeed" to "120")),
+                road("imaginary road", mapOf("maxspeed" to "999")),
             )
         )
     )
@@ -433,6 +437,37 @@ internal class LegalDefaultSpeedsTest {
             ),
             mapOf()
         ) }
+    }
+
+
+    @Test fun retain_empty_tags() {
+        val tags = mutableMapOf<String, String>()
+        za.retainOnlyRelevantTags(tags)
+        assertTrue(tags.isEmpty())
+    }
+
+    @Test fun retains_relevant_tags() {
+        val tags = mapOf(
+            "highway" to "residential",      // used in filter
+            "sidewalk" to "yes",             // used in fuzzy filter
+            "ref" to "123",                  // used in relation filter
+            "proposed" to "maybe",           // used as set regex in filter
+            "imagination:1" to "rainbow",    // used as real regex in filter
+        )
+        val tags2 = tags.toMutableMap()
+        za.retainOnlyRelevantTags(tags2)
+        assertEquals(tags, tags2)
+    }
+
+    @Test fun does_not_retain_irrelevant_tags() {
+        val tags = mutableMapOf(
+            "opening_hours" to "8-12",   // not used in any filter
+            "urban" to "yes",            // that's just the name of a placeholder
+            "{urban}" to "yes",          // or that...
+            "not:imagination" to "yes",  // does not match the imagination:.* regex
+        )
+        za.retainOnlyRelevantTags(tags)
+        assertTrue(tags.isEmpty())
     }
 }
 
