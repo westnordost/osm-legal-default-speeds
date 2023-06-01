@@ -15,4 +15,8 @@ internal class NotHasTagTest {
     @Test fun toStringMethod() {
         assertEquals("highway != residential", c.toString())
     }
+
+    @Test fun relevantKey() {
+        assertEquals("highway", c.relevantKey.key)
+    }
 }

@@ -15,4 +15,8 @@ internal class HasKeyTest {
     @Test fun toStringMethod() {
         assertEquals("name", key.toString())
     }
+
+    @Test fun relevantKey() {
+        assertEquals("name", key.relevantKey.key)
+    }
 }

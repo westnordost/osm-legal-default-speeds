@@ -87,6 +87,16 @@ internal abstract class Chain<I : Matcher<T>, T> : BooleanExpression<I, T>() {
             }
         }
     }
+
+    fun getItems(): Sequence<I> = sequence {
+        for (node in nodes) {
+            if (node is Chain) {
+                yieldAll(node.getItems())
+            } else if (node is Leaf) {
+                yield(node.value)
+            }
+        }
+    }
 }
 
 internal class Placeholder<I : Matcher<T>, T>(val value: String) : BooleanExpression<I, T>() {

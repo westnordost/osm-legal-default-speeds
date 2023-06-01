@@ -15,4 +15,8 @@ internal class NotHasKeyTest {
     @Test fun toStringMethod() {
         assertEquals("!name", c.toString())
     }
+
+    @Test fun relevantKey() {
+        assertEquals("name",  c.relevantKey.key)
+    }
 }

@@ -22,4 +22,9 @@ internal class NotHasTagValueLikeTest {
     @Test fun toStringMethod() {
         assertEquals("highway !~ .*", NotHasTagValueLike("highway", ".*").toString())
     }
+
+    @Test fun relevantKey() {
+        val f = NotHasTagValueLike("highway", ".*")
+        assertEquals("highway", f.relevantKey.key)
+    }
 }

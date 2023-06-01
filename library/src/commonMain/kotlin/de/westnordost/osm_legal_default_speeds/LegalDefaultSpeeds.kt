@@ -2,6 +2,11 @@ package de.westnordost.osm_legal_default_speeds
 
 import de.westnordost.osm_legal_default_speeds.tagfilter.ParseException
 import de.westnordost.osm_legal_default_speeds.tagfilter.TagFilterExpression
+import de.westnordost.osm_legal_default_speeds.tagfilter.filters.RealRegex
+import de.westnordost.osm_legal_default_speeds.tagfilter.filters.RelevantKey
+import de.westnordost.osm_legal_default_speeds.tagfilter.filters.RelevantKeyRegex
+import de.westnordost.osm_legal_default_speeds.tagfilter.filters.RelevantKeyString
+import de.westnordost.osm_legal_default_speeds.tagfilter.filters.SetRegex
 import de.westnordost.osm_legal_default_speeds.tagfilter.withOptionalUnitToDoubleOrNull
 
 interface RoadType {
@@ -46,8 +51,12 @@ class LegalDefaultSpeeds(
         RoadTypeTagFilterExpressions(filter, fuzzyFilter, relationFilter)
     }
 
+    private val relevantKeyStrings = HashSet<String>()
+    private val relevantKeyRegexes = ArrayList<Regex>()
+
     init {
         checkForCircularPlaceholders()
+        calculateRelevantKeys()
     }
 
     private fun checkForCircularPlaceholders() {
@@ -78,6 +87,27 @@ class LegalDefaultSpeeds(
 
             if (roadName in collectedPlaceholders) {
                 throw IllegalArgumentException("A road type filter for \"$roadName\" contains circular placeholders")
+            }
+        }
+    }
+
+    private fun calculateRelevantKeys() {
+        val relevantKeys = HashSet<RelevantKey>()
+        for (expr in roadTypeFilters.values) {
+            expr.filter?.getRelevantKeys()?.let { relevantKeys.addAll(it) }
+            expr.fuzzyFilter?.getRelevantKeys()?.let { relevantKeys.addAll(it) }
+            expr.relationFilter?.getRelevantKeys()?.let { relevantKeys.addAll(it) }
+        }
+        for (relevantKey in relevantKeys) {
+            when (relevantKey) {
+                is RelevantKeyRegex -> {
+                    val regexOrSet = relevantKey.regex
+                    when (regexOrSet) {
+                        is RealRegex -> relevantKeyRegexes.add(regexOrSet.regex)
+                        is SetRegex -> relevantKeyStrings.addAll(regexOrSet.set)
+                    }
+                }
+                is RelevantKeyString -> relevantKeyStrings.add(relevantKey.key)
             }
         }
     }
@@ -207,6 +237,14 @@ class LegalDefaultSpeeds(
         }
         return null
     }
+
+    /** Returns whether the given tag key is relevant for getting the speed limits.
+     *  This can be used to reduce the tags set on roads to only the relevant ones, which makes
+     *  the queries faster and makes it easier to cache it.
+     *
+     *  @param key the tag key */
+    fun isRelevantTagKey(key: String): Boolean =
+        key in relevantKeyStrings || relevantKeyRegexes.any { it.matches(key) }
 }
 
 private fun createResultTags(tags: Map<String, String>, roadTypeTags: Map<String, String>): Map<String, String> {

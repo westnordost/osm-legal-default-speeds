@@ -18,4 +18,9 @@ internal class NotHasKeyLikeTest {
     @Test fun toStringMethod() {
         assertEquals("!~n.[ms]e", NotHasKeyLike("n.[ms]e").toString())
     }
+
+    @Test fun relevantKey() {
+        val key = NotHasKeyLike("n.[ms]e")
+        assertEquals("n.[ms]e", (key.relevantKey.regex as RealRegex).toString())
+    }
 }

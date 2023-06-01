@@ -1,8 +1,8 @@
 package de.westnordost.osm_legal_default_speeds.tagfilter
 
 internal object TestBooleanExpressionParser {
-    fun parse(input: String): BooleanExpression<Matcher<String>, String>? {
-        val builder = BooleanExpressionBuilder<Matcher<String>, String>()
+    fun parse(input: String): BooleanExpression<TestBooleanExpressionValue, String>? {
+        val builder = BooleanExpressionBuilder<TestBooleanExpressionValue, String>()
         val reader = StringWithCursor(input)
         while (!reader.isAtEnd()) {
             val match = reader.nextMatchesAndAdvance(Regex("(!?)([A-Z])"))
