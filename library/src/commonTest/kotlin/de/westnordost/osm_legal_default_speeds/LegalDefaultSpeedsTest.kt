@@ -439,14 +439,7 @@ internal class LegalDefaultSpeedsTest {
         ) }
     }
 
-
-    @Test fun retain_empty_tags() {
-        val tags = mutableMapOf<String, String>()
-        za.retainOnlyRelevantTags(tags)
-        assertTrue(tags.isEmpty())
-    }
-
-    @Test fun retains_relevant_tags() {
+    @Test fun relevant_tags() {
         val tags = mapOf(
             "highway" to "residential",      // used in filter
             "sidewalk" to "yes",             // used in fuzzy filter
@@ -454,20 +447,21 @@ internal class LegalDefaultSpeedsTest {
             "proposed" to "maybe",           // used as set regex in filter
             "imagination:1" to "rainbow",    // used as real regex in filter
         )
-        val tags2 = tags.toMutableMap()
-        za.retainOnlyRelevantTags(tags2)
-        assertEquals(tags, tags2)
+        for (key in tags.keys) {
+            assertTrue(za.isRelevantTagKey(key))
+        }
     }
 
-    @Test fun does_not_retain_irrelevant_tags() {
+    @Test fun non_relevant_tags() {
         val tags = mutableMapOf(
             "opening_hours" to "8-12",   // not used in any filter
             "urban" to "yes",            // that's just the name of a placeholder
             "{urban}" to "yes",          // or that...
             "not:imagination" to "yes",  // does not match the imagination:.* regex
         )
-        za.retainOnlyRelevantTags(tags)
-        assertTrue(tags.isEmpty())
+        for (key in tags.keys) {
+            assertFalse(za.isRelevantTagKey(key))
+        }
     }
 }
 
