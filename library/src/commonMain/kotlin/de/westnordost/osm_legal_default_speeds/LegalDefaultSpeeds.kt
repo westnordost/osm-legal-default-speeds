@@ -238,15 +238,13 @@ class LegalDefaultSpeeds(
         return null
     }
 
-    /** Retain only those tags in the given input tags that are potentially relevant for
-     *  getting the speed limits.
+    /** Returns whether the given tag key is relevant for getting the speed limits.
+     *  This can be used to reduce the tags set on roads to only the relevant ones, which makes
+     *  the queries faster and makes it easier to cache it.
      *
-     *  @param tags the mutable map of tags to remove all tags that are not relevant from */
-    fun retainOnlyRelevantTags(tags: MutableMap<String, String>) {
-        tags.keys.retainAll { key ->
-            key in relevantKeyStrings || relevantKeyRegexes.any { it.matches(key) }
-        }
-    }
+     *  @param key the tag key */
+    fun isRelevantTagKey(key: String): Boolean =
+        key in relevantKeyStrings || relevantKeyRegexes.any { it.matches(key) }
 }
 
 private fun createResultTags(tags: Map<String, String>, roadTypeTags: Map<String, String>): Map<String, String> {
