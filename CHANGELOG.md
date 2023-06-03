@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3
+
+- Performance improvements (#7, #8, ...), thanks @karussel ()
+- Add method to determine if a particular tag is relevant for default speed limits (#12)
+
 ## 1.2
 
 Fix (Java) maven publication (#3), by @easbar
