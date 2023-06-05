@@ -38,7 +38,7 @@ Note that the data used is published in the OpenStreetMap Wiki, whose content is
 
 ## Installation
 
-Add [`de.westnordost:osm-legal-default-speeds:1.2`](https://mvnrepository.com/artifact/de.westnordost/osm-legal-default-speeds/1.2) 
+Add [`de.westnordost:osm-legal-default-speeds:1.3`](https://mvnrepository.com/artifact/de.westnordost/osm-legal-default-speeds/1.3) 
 as a Maven dependency or download the jar from there.
 
 ## Usage
