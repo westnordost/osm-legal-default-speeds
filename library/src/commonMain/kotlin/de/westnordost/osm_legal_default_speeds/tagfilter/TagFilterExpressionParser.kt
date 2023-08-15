@@ -33,6 +33,7 @@ import kotlin.math.min
  *  | `shop and name`                | has both a tag with key `shop` and one with key `name`                        |
  *  | `shop or craft`                | has either a tag with key `shop` or one with key `craft`                      |
  *  | `shop and (ref or name)`       | has a tag with key `shop` and either a tag with key `ref` or `name`           |
+ *  | `shop and !(ref or name)`      | hat a tag with key `shop` but not either a tag with key `ref` or `name`       |
  *
  *  ### Equivalent expressions
  *  | expression                     | equivalent expression                                    |
@@ -41,7 +42,8 @@ import kotlin.math.min
  *  | `!shop or shop != boat`        | `shop != boat`                                           |
  *  | `shop = car or shop = boat`    | `shop ~ car|boat`                                        |
  *  | `craft or shop and name`       | `craft or (shop and name)` (`and` has higher precedence) |
- *  | `!(amenity and craft)`         | **<error>** (negation of expression not supported)       |
+ *  | `!(amenity and craft)`         | `!amenity or !craft`                                     |
+ *  | `!(amenity or craft)`          | `!amenity and !craft`                                    |
  *  */
 
 private const val OR = "or"
@@ -81,6 +83,7 @@ private val OPERATORS = linkedSetOf(
 private val ESCAPED_QUOTE_REGEX = Regex("\\\\(['\"])")
 private val WHITESPACE_REGEX = Regex("\\s")
 private val WHITESPACES_REGEX = Regex("\\s*")
+private val NOT_WITH_WHITESPACE_AND_OPENING_BRACE = Regex("!\\s*\\(")
 
 internal fun StringWithCursor.parseTags(): BooleanExpression<TagFilter, Map<String, String>> {
     val builder = BooleanExpressionBuilder<TagFilter, Map<String, String>>()
@@ -92,6 +95,13 @@ internal fun StringWithCursor.parseTags(): BooleanExpression<TagFilter, Map<Stri
             throw ParseException("Expected a whitespace or bracket before the tag", cursorPos)
         }
         first = false
+
+        if (nextMatches(NOT_WITH_WHITESPACE_AND_OPENING_BRACE) != null) {
+            advanceBy(NOT.length)
+            builder.addNot()
+            // continue is required, as !( could be nested
+            continue
+        }
 
         if (nextIsAndAdvance(NOT + PLACEHOLDER_START)) {
             builder.addNotPlaceholder(parsePlaceholder())
@@ -105,7 +115,7 @@ internal fun StringWithCursor.parseTags(): BooleanExpression<TagFilter, Map<Stri
 
         if (isAtEnd()) break
 
-        // same as with the opening bracket, only that if the string is over, its okay
+        // same as with the opening bracket, only that if the string is over, it's okay
         if (!separated) {
             throw ParseException("Expected a whitespace or bracket after the tag", cursorPos)
         }

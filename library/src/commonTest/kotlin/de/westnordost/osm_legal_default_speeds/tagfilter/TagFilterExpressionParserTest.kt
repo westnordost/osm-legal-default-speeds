@@ -388,6 +388,78 @@ internal class TagFilterExpressionParserTest {
         notMatches(mapOfKeys("b", "c"), expr)
     }
 
+    @Test fun not_with_leaf() {
+        val expr = "!(a)"
+        matches(mapOfKeys("b"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("a", "b"), expr)
+    }
+
+    @Test fun not_without_braces() {
+        val expr = "ways with !highway = residential or access = yes"
+        shouldFail(expr)
+    }
+
+    @Test fun not_and_with_space() {
+        val expr = "! (a and b)"
+        matches(mapOfKeys("a"), expr)
+        matches(mapOfKeys("b"), expr)
+        matches(mapOfKeys("b", "c"), expr)
+        matches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("a", "b", "c"), expr)
+    }
+
+    @Test fun not_and() {
+        val expr = "!(a and b)"
+        matches(mapOfKeys("a"), expr)
+        matches(mapOfKeys("b"), expr)
+        matches(mapOfKeys("b", "c"), expr)
+        matches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("a", "b", "c"), expr)
+    }
+
+    @Test fun not_or() {
+        val expr = "!(a or b)"
+        matches(mapOfKeys("c"), expr)
+        matches(mapOfKeys("c", "d", "e"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("b"), expr)
+        notMatches(mapOfKeys("b", "c"), expr)
+        notMatches(mapOfKeys("a", "c"), expr)
+        notMatches(mapOfKeys("a", "b", "c"), expr)
+    }
+
+    @Test fun nested_not() {
+        val expr = "!(!(a))" // equals the expression "a"
+        matches(mapOfKeys("a"), expr)
+        matches(mapOfKeys("a", "b"), expr)
+        notMatches(mapOfKeys("b"), expr)
+    }
+
+    @Test fun nested_not_with_or() {
+        val expr = "!(!(a and b) or c)" // equals a and b and !(c)
+        matches(mapOfKeys("a", "b"), expr)
+        matches(mapOfKeys("a", "b", "d"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("b", "c"), expr)
+        notMatches(mapOfKeys("a", "b", "c"), expr)
+        notMatches(mapOfKeys("a", "b", "c", "d"), expr)
+    }
+
+    @Test fun nested_not_with_or_and_switched_operands() {
+        val expr = "!(c or !(a and b))" // equals a and b and !(c)
+        matches(mapOfKeys("a", "b"), expr)
+        matches(mapOfKeys("a", "b", "d"), expr)
+        notMatches(mapOfKeys("a"), expr)
+        notMatches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("b", "c"), expr)
+        notMatches(mapOfKeys("a", "b", "c"), expr)
+        notMatches(mapOfKeys("a", "b", "c", "d"), expr)
+    }
+
+
+
     @Test fun fail_on_placeholder_not_closed() {
         shouldFail("{my placeholder")
     }

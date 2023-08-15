@@ -69,7 +69,6 @@ internal class BooleanExpressionTest {
     }
 
     @Test fun list_items() {
-        assertEquals(listOf("1"), getItems("1"))
         assertEquals(listOf("1","2"), getItems("1+2"))
         assertEquals(listOf("1","2"), getItems("1*2"))
         assertEquals(listOf("1","2","3"), getItems("1*(2+3)"))

@@ -45,6 +45,12 @@ internal class BooleanExpressionBuilder<I : Matcher<T>, T> {
             node = node.parent!!
         }
         node = node.parent!!
+
+        if (node is Not)
+        {
+            node = node.parent!!
+        }
+
         node.flatten()
     }
 
@@ -92,6 +98,12 @@ internal class BooleanExpressionBuilder<I : Matcher<T>, T> {
             anyOf.addChild(last)
             node = anyOf
         }
+    }
+
+    fun addNot() {
+        val not = Not<I, T>()
+        node.addChild(not)
+        node = not
     }
 }
 
