@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2507093",
+    "revisionId": "2607051",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2023-04-21T20:30:17"
+    "timestamp": "2023-10-21T00:42:00"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -230,6 +230,9 @@
     "Philippines: Through street": {
       "filter": "{urban} and (ref or designation~provincial_road|national_tertiary_road|national_secondary_road|national_primary_road)"
     },
+    "Quebec: Autoroute": {
+      "filter": "(ref >= 1 and ref <= 99) or (ref >= 400 and ref <= 999)"
+    },
     "Romania: drumurile expres sau pe cele na\u021bionale europene": {
       "filter": "ref~DN.*",
       "relationFilter": "type=route and route=road and network=RO:DN"
@@ -270,7 +273,8 @@
       "filter": "{US interstate highway} and ((lanes>=2 and {oneway}) or (lanes>=4 and !{oneway}))"
     },
     "United Kingdom: restricted road": {
-      "filter": "lit=yes or maxspeed:type=GB:nsl_restricted"
+      "filter": "lit=yes or maxspeed:type=GB:nsl_restricted",
+      "fuzzyFilter": "{urban} and (!lit or lit!=no) and !maxspeed:type"
     },
     "Virginia: Rustic road": {
       "filter": "ref~R.*"
@@ -300,7 +304,8 @@
       "filter": "bicycle_road=yes or cyclestreet=yes"
     },
     "dual carriageway": {
-      "filter": "{oneway} and dual_carriageway!=no"
+      "filter": "dual_carriageway=yes or maxspeed:type~\".*nsl_dual\"",
+      "fuzzyFilter": "oneway~yes|-1 and junction!~roundabout|circular and dual_carriageway!=no"
     },
     "dual carriageway in residential district": {
       "filter": "{dual carriageway} and {residential district}"
@@ -431,6 +436,9 @@
     "rural residential district": {
       "filter": "{rural} and {residential district}"
     },
+    "rural road with 1 lane in each direction": {
+      "filter": "{rural} and {road with 1 lane in each direction}"
+    },
     "rural road with 2 lanes in each direction": {
       "filter": "{rural} and {road with 2 lanes in each direction}"
     },
@@ -453,7 +461,7 @@
       "filter": "{rural} and {school zone}"
     },
     "rural single carriageway": {
-      "filter": "{rural} and !{oneway}"
+      "filter": "{rural} and {single carriageway}"
     },
     "rural single carriageway with 2 or more lanes in each direction": {
       "filter": "{rural} and {single carriageway} and lanes>=4"
@@ -468,7 +476,8 @@
       "filter": "highway=service"
     },
     "single carriageway": {
-      "filter": "!{oneway} or dual_carriageway=no"
+      "filter": "dual_carriageway=no or maxspeed:type~\".*nsl_single\"",
+      "fuzzyFilter": "oneway!~yes|-1 or junction~roundabout|circular or dual_carriageway=no"
     },
     "single carriageway in residential district": {
       "filter": "{single carriageway} and {residential district}"
@@ -1917,6 +1926,25 @@
       },
       {
         "tags": {
+          "maxspeed": "45 mph"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "45 mph"
+        }
+      }
+    ],
+    "BS-NP": [
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "25 mph"
+        }
+      },
+      {
+        "tags": {
           "maxspeed": "30 mph"
         }
       },
@@ -2401,7 +2429,7 @@
         }
       },
       {
-        "name": "motorway",
+        "name": "Quebec: Autoroute",
         "tags": {
           "maxspeed": "100",
           "minspeed": "60"
@@ -2609,7 +2637,7 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60",
+          "maxspeed": "70",
           "maxspeed:bus": "50",
           "maxspeed:hgv": "50"
         }
@@ -2618,8 +2646,8 @@
         "tags": {
           "maxspeed": "110",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (weightrating>16)"
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (weightrating>16)"
         }
       },
       {
@@ -2627,8 +2655,8 @@
         "tags": {
           "maxspeed": "110",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (weightrating>16)"
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (weightrating>16)"
         }
       },
       {
@@ -2636,8 +2664,8 @@
         "tags": {
           "maxspeed": "120",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (weightrating>16)"
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (weightrating>16)"
         }
       }
     ],
@@ -4176,6 +4204,12 @@
     ],
     "HR": [
       {
+        "name": "living street",
+        "tags": {
+          "maxspeed": "walk"
+        }
+      },
+      {
         "name": "urban",
         "tags": {
           "maxspeed": "50"
@@ -4305,6 +4339,40 @@
           "maxspeed:bus": "100",
           "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)",
           "maxspeed:hgv": "80",
+          "minspeed": "60"
+        }
+      }
+    ],
+    "ID": [
+      {
+        "tags": {
+          "maxspeed": "80",
+          "minspeed": "40"
+        }
+      },
+      {
+        "name": "residential district",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "50"
+        }
+      },
+      {
+        "name": "urban motorway",
+        "tags": {
+          "maxspeed": "80",
+          "minspeed": "60"
+        }
+      },
+      {
+        "name": "rural motorway",
+        "tags": {
+          "maxspeed": "100",
           "minspeed": "60"
         }
       }
@@ -5561,27 +5629,64 @@
     ],
     "MX": [
       {
-        "name": "urban",
+        "name": "Mexico: zonas y entornos escolares en v\u00edas secundarias y calles terciarias",
+        "tags": {
+          "maxspeed": "20"
+        }
+      },
+      {
+        "name": "Mexico: zones where schools, hospitals, nursing homes and orphanages are located",
+        "tags": {
+          "maxspeed": "20"
+        }
+      },
+      {
+        "name": "Mexico: y hasta 30 km/h en zonas y entornos escolares en v\u00edas primarias y carreteras",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "name": "Mexico: calles secundarias y calles terciarias",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "name": "Mexico: avenidas primarias sin acceso controlado",
+        "tags": {
+          "maxspeed": "50"
+        }
+      },
+      {
+        "name": "Mexico: carriles centrales de avenidas de acceso controlado",
+        "tags": {
+          "maxspeed": "80"
+        }
+      },
+      {
+        "name": "State roads within urban areas",
         "tags": {
           "maxspeed": "50"
         }
       },
       {
         "tags": {
-          "maxspeed": "100",
-          "maxspeed:bus": "95",
-          "maxspeed:bus:conditional": "80 @ (sunset-sunrise)",
-          "maxspeed:conditional": "90 @ (sunset-sunrise)",
-          "maxspeed:goods:conditional": "80 @ (axles>=3); 70 @ (axles>=3 AND sunset-sunrise)"
+          "maxspeed": "80"
         }
       },
       {
-        "name": "rural",
+        "name": "rural: State roads outside urban areas",
         "tags": {
-          "maxspeed": "100",
+          "maxspeed": "80"
+        }
+      },
+      {
+        "name": "motorway",
+        "tags": {
+          "maxspeed": "115",
           "maxspeed:bus": "95",
           "maxspeed:bus:conditional": "80 @ (sunset-sunrise)",
-          "maxspeed:conditional": "90 @ (sunset-sunrise)",
           "maxspeed:goods:conditional": "80 @ (axles>=3); 70 @ (axles>=3 AND sunset-sunrise)"
         }
       }
@@ -7854,80 +7959,49 @@
       {
         "name": "school zone",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "tags": {
           "maxspeed": "55 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:conditional": "55 mph @ (trailer)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed:conditional": "55 mph @ (trailer)"
         }
       },
       {
         "name": "rural",
         "tags": {
           "maxspeed": "55 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:conditional": "55 mph @ (trailer)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed:conditional": "55 mph @ (trailer)"
         }
       },
       {
-        "name": "rural road with 2 or more lanes in each direction",
+        "name": "rural road with 1 lane in each direction",
         "tags": {
           "maxspeed": "65 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
+          "maxspeed:bus:conditional": "55 mph @ (articulated); 55 mph @ (agricultural)",
           "maxspeed:conditional": "55 mph @ (trailer)",
           "maxspeed:hazmat": "55 mph",
           "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed:school_bus": "55 mph"
         }
       }
     ],
@@ -8028,7 +8102,8 @@
       },
       {
         "tags": {
-          "maxspeed": "20 mph"
+          "maxspeed": "20 mph",
+          "maxspeed:horse": "8 mph"
         }
       }
     ],
@@ -10220,6 +10295,14 @@
     "Sint Maarten: Unknown country / subdivision",
     "CA-NS: Unable to map 'urban public park'",
     "MN: Unable to map 'long road'",
+    "MX: Unable to map 'Mexico: zonas y entornos escolares en v\u00edas secundarias y calles terciarias'",
+    "MX: Unable to map 'Mexico: zones where schools, hospitals, nursing homes and orphanages are located'",
+    "MX: Unable to map 'Mexico: y hasta 30 km/h en zonas y entornos escolares en v\u00edas primarias y carreteras'",
+    "MX: Unable to map 'Mexico: calles secundarias y calles terciarias'",
+    "MX: Unable to map 'Mexico: avenidas primarias sin acceso controlado'",
+    "MX: Unable to map 'Mexico: carriles centrales de avenidas de acceso controlado'",
+    "MX: Unable to map 'State roads within urban areas'",
+    "MX: Unable to map 'rural: State roads outside urban areas'",
     "NP: Unable to map 'hilly road'",
     "PG: Unable to map 'village'",
     "US-CO: Unable to map 'rural winding mountain road'",
