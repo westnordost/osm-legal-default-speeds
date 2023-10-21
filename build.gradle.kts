@@ -7,7 +7,7 @@ plugins {
 allprojects {
 
     group = "de.westnordost"
-    version = "1.3"
+    version = "1.4"
 
     repositories {
         mavenCentral()
