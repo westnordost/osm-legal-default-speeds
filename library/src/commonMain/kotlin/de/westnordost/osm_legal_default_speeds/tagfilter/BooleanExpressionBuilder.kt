@@ -50,8 +50,6 @@ internal class BooleanExpressionBuilder<I : Matcher<T>, T> {
         {
             node = node.parent!!
         }
-
-        node.flatten()
     }
 
     fun addValue(i: I) {

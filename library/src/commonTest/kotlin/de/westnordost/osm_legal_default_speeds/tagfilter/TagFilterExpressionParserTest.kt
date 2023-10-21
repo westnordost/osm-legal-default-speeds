@@ -458,7 +458,16 @@ internal class TagFilterExpressionParserTest {
         notMatches(mapOfKeys("a", "b", "c", "d"), expr)
     }
 
-
+    @Test fun brackets_are_not_dissolved_illegally() {
+        val expr = "a or (b or c) and !d"
+        matches(mapOfKeys("a"), expr)
+        matches(mapOfKeys("a", "d"), expr)
+        matches(mapOfKeys("b"), expr)
+        matches(mapOfKeys("c"), expr)
+        notMatches(mapOfKeys("c", "d"), expr)
+        notMatches(mapOfKeys("b", "d"), expr)
+        matches(mapOfKeys("a", "c", "d"), expr)
+    }
 
     @Test fun fail_on_placeholder_not_closed() {
         shouldFail("{my placeholder")
