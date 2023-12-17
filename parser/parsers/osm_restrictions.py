@@ -53,6 +53,8 @@ def osm_speed_visitor(t):
         return f"axles>={t.children[0]}"
     elif t.data == "trailers_restriction":
         return f"trailers>={t.children[0]}"
+    elif t.data == "wheel_restriction":
+        return f"wheels>={t.children[0]}"
     elif t.data in {"restriction_conditional", "time_time", "time_event"}:
         return t.children[0]
     elif t.data == "date_interval":

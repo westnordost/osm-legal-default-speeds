@@ -26,9 +26,10 @@ _restrictions: restriction
 restriction: weight                   -> weight_restriction
            | RESTRICTION_CONDITIONAL  -> restriction_conditional
            | NUMBER+ LENGTH_UNIT      -> length_restriction
-           | NUMBER+ "seats"          -> seat_restriction
-           | NUMBER+ "axles"          -> axle_restriction
-           | NUMBER+ "trailers"       -> trailers_restriction
+           | NUMBER+ " seats"         -> seat_restriction
+           | NUMBER+ " axles"         -> axle_restriction
+           | NUMBER+ " trailers"      -> trailers_restriction
+           | NUMBER+ " wheels"        -> wheel_restriction
            | date_interval            -> date_interval
 
 weight: WEIGHT WEIGHT_UNIT                   -> weight_rating
