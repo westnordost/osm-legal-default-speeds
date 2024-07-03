@@ -186,6 +186,7 @@ country_codes = {
     "Palestine": "PS",
     "Pitcairn Islands": "PN",
     "Russia": "RU",
+    "Turkey": "TR",
     "United Kingdom:Scotland": "GB-SCT"
 }
 
