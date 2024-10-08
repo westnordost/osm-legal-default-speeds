@@ -81,6 +81,8 @@ from parsers.parse_utils import validate_road_types_in_speed_table
         ("40 (Sep-Jun Mo-Fr 08:00-16:00)", {"maxspeed:conditional": "40 @ (Sep-Jun Mo-Fr 08:00-16:00)"}),
         ("40 (08:00-16:00)", {"maxspeed:conditional": "40 @ (08:00-16:00)"}),
         ("40 (Mo-Fr)", {"maxspeed:conditional": "40 @ (Mo-Fr)"}),
+        ("30 (Mo-Fr 08:00-17:00; PH,SH off)", {"maxspeed:conditional": "30 @ (Mo-Fr 08:00-17:00; PH,SH off)"}),
+        ("30 (Oct-May Sa,Su)", {"maxspeed:conditional": "30 @ (Oct-May Sa,Su)"}),
         
         # Advisory speed
         ("advisory: 130", {"maxspeed:advisory": "130"}),

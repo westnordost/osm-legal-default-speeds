@@ -32,7 +32,7 @@ if __name__ == "__main__":
     result["meta"] = {
         "source": WIKI_URL + WIKI_PAGE,
         "revisionId": str(parsed["revid"]),
-        "timestamp": datetime.datetime.utcnow().replace(microsecond=0).isoformat(),
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat(),
         "license": "Creative Commons Attribution-ShareAlike 2.0 license",
         "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
     }
