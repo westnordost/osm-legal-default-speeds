@@ -39,11 +39,13 @@ weight: WEIGHT WEIGHT_UNIT                   -> weight_rating
 date_intervals: date_interval
              | date_interval ";" date_intervals
 
-date_interval: [month_span] [weekday_span] time_span
-             | [month_span] weekday_span
-             | month_span
+date_interval: [month_span] [weekday_span] time_span [off]
+             | [month_span] weekday_span [off]
+             | month_span [off]
 
 month_span: MONTH "-" MONTH
+
+off: OFF -> off
 
 weekday_span: WEEKDAY "-" WEEKDAY
             | weekday_list -> weekday_list
@@ -52,7 +54,6 @@ weekday_span: WEEKDAY "-" WEEKDAY
 weekday_list: weekday_span "," weekday_span
 
 time_span: time "-" time
-            | "off" -> off
 
 time: TIME                       -> time_time
     | EVENT                      -> time_event
@@ -77,6 +78,7 @@ TIME: /[0-9][0-9]:[0-9][0-9]/
 EVENT: "sunset" | "sunrise" | "dusk" | "dawn"
 WEEKDAY: "Mo" | "Tu" | "We" | "Th" | "Fr" | "Sa" | "Su" | "PH" | "SH"
 MONTH: "Jan" | "Feb" | "Mar" | "Apr" | "May" | "Jun" | "Jul" | "Aug" | "Sep" | "Oct" | "Nov" | "Dec"
+OFF: "off"
 
 %import common.INT -> NUMBER
 %import common.WS
