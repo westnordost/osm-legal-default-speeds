@@ -3,7 +3,6 @@ import de.westnordost.osm_legal_default_speeds.LegalDefaultSpeeds
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.*
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.*
 import org.w3c.dom.events.InputEvent

@@ -2,9 +2,9 @@
   "meta": {
     "license": "Creative Commons Attribution-ShareAlike 2.0 license",
     "licenseUrl": "https://wiki.openstreetmap.org/wiki/Wiki_content_license",
-    "revisionId": "2507093",
+    "revisionId": "2951812",
     "source": "https://wiki.openstreetmap.org/wiki/Default_speed_limits",
-    "timestamp": "2023-04-21T20:30:17"
+    "timestamp": "2026-02-04T12:09:41+00:00"
   },
   "roadTypesByName": {
     "Alabama: rural highway": {
@@ -48,16 +48,25 @@
       "filter": "ref~\"RN(IE)?.*\"",
       "relationFilter": "type=route and route=road and name~\"RN(IE)?.*\""
     },
-    "Brasil: Via arterial": {
-      "fuzzyFilter": "{urban} and highway~primary|primary_link and {has shoulder}"
+    "Brasil: Estrada rural": {
+      "fuzzyFilter": "{rural} and {unpaved road}"
     },
-    "Brasil: Via coletora": {
-      "fuzzyFilter": "{urban} and highway~secondary|secondary_link|tertiary|tertiary_link"
+    "Brasil: Rodovia rural de pista dupla": {
+      "fuzzyFilter": "{rural} and !{unpaved road} and {dual carriageway}"
     },
-    "Brasil: Via de tr\u00e2nsito r\u00e1pido": {
-      "fuzzyFilter": "{urban} and (highway~primary|primary_link and {has shoulder} or highway~trunk|motorway)"
+    "Brasil: Rodovia rural de pista simples": {
+      "fuzzyFilter": "{rural} and !{unpaved road} and {single carriageway}"
     },
-    "Brasil: Via local": {
+    "Brasil: Via urbana arterial": {
+      "fuzzyFilter": "{urban} and highway~trunk|trunk_link|primary|primary_link|secondary|secondary_link"
+    },
+    "Brasil: Via urbana coletora": {
+      "fuzzyFilter": "{urban} and highway~tertiary|tertiary_link"
+    },
+    "Brasil: Via urbana de tr\u00e2nsito r\u00e1pido": {
+      "fuzzyFilter": "{urban} and (highway~motorway|motorway_link)"
+    },
+    "Brasil: Via urbana local": {
       "fuzzyFilter": "{urban} and highway~service|residential|unclassified"
     },
     "California: alley": {
@@ -129,8 +138,20 @@
     "Iowa: suburban district": {
       "filter": "{urban} and !{school zone} and !{residential district} and !{business district}"
     },
+    "Ireland: Local road": {
+      "filter": "ref~L.* or (highway~tertiary|unclassified and (!ref or ref~L.*))"
+    },
+    "Ireland: National primary road": {
+      "filter": "ref~N[1-9] or ref~N[1234][0-9] or (highway~trunk|trunk_link and (!ref or ref~N.*))"
+    },
     "Ireland: National road": {
       "filter": "ref~N.* or (highway~trunk|trunk_link|primary|primary_link and (!ref or ref~N.*))"
+    },
+    "Ireland: National secondary road": {
+      "filter": "ref~N[56789][0-9] or (highway~primary|primary_link and (!ref or ref~N.*))"
+    },
+    "Ireland: Regional road": {
+      "filter": "ref~R.* or (highway~secondary|secondary_link and (!ref or ref~R.*))"
     },
     "Italy: Autostrada": {
       "filter": "{motorway}"
@@ -165,6 +186,27 @@
     },
     "Mauritius: M road": {
       "filter": "ref~M.*"
+    },
+    "Mexico: avenida primaria sin acceso controlado": {
+      "filter": "highway~primary|primary_link and expressway!=yes"
+    },
+    "Mexico: calle secundaria o calle terciaria": {
+      "filter": "highway~secondary|secondary_link|tertiary|tertiary_link|unclassified"
+    },
+    "Mexico: carretera o autopista de jurisdicci\u00f3n federal": {
+      "filter": "ref~MEX.*"
+    },
+    "Mexico: carril central de una avenida de acceso controlado": {
+      "filter": "highway~primary|primary_link and expressway=yes"
+    },
+    "Mexico: zona de hospital, asilo, albergue o casa hogar": {
+      "filter": "highway~living_street|service|pedestrian|residential"
+    },
+    "Mexico: zona o entorno escolar": {
+      "filter": "{school zone}"
+    },
+    "Mexico: zona o entorno escolar en una v\u00eda secundaria o calle terciaria": {
+      "filter": "{Mexico: calle secundaria o calle terciaria} and {school zone}"
     },
     "Nebraska: State expressway or super-two highway": {
       "filter": "{expressway} and {Nebraska: State highway}"
@@ -215,20 +257,17 @@
       "filter": "designation=barangay_road or designation=barangay",
       "fuzzyFilter": "{rural} and highway~unclassified|track"
     },
-    "Philippines: National primary road": {
-      "filter": "designation=national_primary_road or ref~[0-9][0-9]?"
-    },
-    "Philippines: National secondary road": {
-      "filter": "designation=national_secondary_road or ref~[0-9][0-9][0-9]"
-    },
-    "Philippines: National tertiary road": {
-      "filter": "designation=national_tertiary_road"
+    "Philippines: National road": {
+      "filter": "ref~[1-9][0-9]? or ref~[1-9][0-9][0-9] or  designation~national_tertiary_road|national_secondary_road|national_primary_road"
     },
     "Philippines: Provincial road": {
       "filter": "designation=provincial_road"
     },
     "Philippines: Through street": {
       "filter": "{urban} and (ref or designation~provincial_road|national_tertiary_road|national_secondary_road|national_primary_road)"
+    },
+    "Quebec: Autoroute": {
+      "filter": "(ref >= 1 and ref <= 99) or (ref >= 400 and ref <= 999)"
     },
     "Romania: drumurile expres sau pe cele na\u021bionale europene": {
       "filter": "ref~DN.*",
@@ -270,7 +309,8 @@
       "filter": "{US interstate highway} and ((lanes>=2 and {oneway}) or (lanes>=4 and !{oneway}))"
     },
     "United Kingdom: restricted road": {
-      "filter": "lit=yes or maxspeed:type=GB:nsl_restricted"
+      "filter": "lit=yes or maxspeed:type=GB:nsl_restricted",
+      "fuzzyFilter": "{urban} and (!lit or lit!=no) and !maxspeed:type"
     },
     "Virginia: Rustic road": {
       "filter": "ref~R.*"
@@ -300,7 +340,8 @@
       "filter": "bicycle_road=yes or cyclestreet=yes"
     },
     "dual carriageway": {
-      "filter": "{oneway} and dual_carriageway!=no"
+      "filter": "dual_carriageway=yes or maxspeed:type~\".*nsl_dual\"",
+      "fuzzyFilter": "oneway~yes|-1 and junction!~roundabout|circular and dual_carriageway!=no"
     },
     "dual carriageway in residential district": {
       "filter": "{dual carriageway} and {residential district}"
@@ -310,6 +351,9 @@
     },
     "expressway": {
       "filter": "expressway=yes"
+    },
+    "footway": {
+      "filter": "highway=footway"
     },
     "frontage road": {
       "filter": "frontage_road=yes or side_road=yes"
@@ -362,6 +406,9 @@
     },
     "playground zone": {
       "filter": "hazard=children or playground_zone=yes or hazard=playground_zone or restriction=playground_zone or maxspeed:variable=playground_zone"
+    },
+    "public park": {
+      "filter": "abutters=park"
     },
     "residential district": {
       "filter": "abutters=residential",
@@ -431,6 +478,9 @@
     "rural residential district": {
       "filter": "{rural} and {residential district}"
     },
+    "rural road with 1 lane in each direction": {
+      "filter": "{rural} and {road with 1 lane in each direction}"
+    },
     "rural road with 2 lanes in each direction": {
       "filter": "{rural} and {road with 2 lanes in each direction}"
     },
@@ -453,7 +503,7 @@
       "filter": "{rural} and {school zone}"
     },
     "rural single carriageway": {
-      "filter": "{rural} and !{oneway}"
+      "filter": "{rural} and {single carriageway}"
     },
     "rural single carriageway with 2 or more lanes in each direction": {
       "filter": "{rural} and {single carriageway} and lanes>=4"
@@ -468,10 +518,14 @@
       "filter": "highway=service"
     },
     "single carriageway": {
-      "filter": "!{oneway} or dual_carriageway=no"
+      "filter": "dual_carriageway=no or maxspeed:type~\".*nsl_single\"",
+      "fuzzyFilter": "oneway!~yes|-1 or junction~roundabout|circular or dual_carriageway=no"
     },
     "single carriageway in residential district": {
       "filter": "{single carriageway} and {residential district}"
+    },
+    "trailer park": {
+      "filter": "abutters=trailer_park"
     },
     "trunk": {
       "filter": "highway~trunk|trunk_link"
@@ -515,6 +569,9 @@
     },
     "urban playground zone": {
       "filter": "{urban} and {playground zone}"
+    },
+    "urban public park": {
+      "filter": "{urban} and {public park}"
     },
     "urban residential district": {
       "filter": "{urban} and {residential district}"
@@ -1852,25 +1909,25 @@
     ],
     "BR": [
       {
-        "name": "Brasil: Via local",
+        "name": "Brasil: Via urbana local",
         "tags": {
           "maxspeed": "30"
         }
       },
       {
-        "name": "Brasil: Via coletora",
+        "name": "Brasil: Via urbana coletora",
         "tags": {
           "maxspeed": "40"
         }
       },
       {
-        "name": "Brasil: Via arterial",
+        "name": "Brasil: Via urbana arterial",
         "tags": {
           "maxspeed": "60"
         }
       },
       {
-        "name": "Brasil: Via de tr\u00e2nsito r\u00e1pido",
+        "name": "Brasil: Via urbana de tr\u00e2nsito r\u00e1pido",
         "tags": {
           "maxspeed": "80"
         }
@@ -1886,7 +1943,7 @@
         }
       },
       {
-        "name": "rural single carriageway",
+        "name": "Brasil: Rodovia rural de pista simples",
         "tags": {
           "maxspeed": "100",
           "maxspeed:bus": "90",
@@ -1897,7 +1954,7 @@
         }
       },
       {
-        "name": "rural dual carriageway",
+        "name": "Brasil: Rodovia rural de pista dupla",
         "tags": {
           "maxspeed": "110",
           "maxspeed:bus": "90",
@@ -1906,9 +1963,34 @@
           "maxspeed:motorcycle": "110",
           "maxspeed:motorhome": "90"
         }
+      },
+      {
+        "name": "Brasil: Estrada rural",
+        "tags": {
+          "maxspeed": "60"
+        }
       }
     ],
     "BS": [
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "25 mph"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "45 mph"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "45 mph"
+        }
+      }
+    ],
+    "BS-NP": [
       {
         "name": "urban",
         "tags": {
@@ -2099,14 +2181,14 @@
         "name": "playground zone",
         "tags": {
           "maxspeed": "50",
-          "maxspeed:conditional": "30 @ (08:00-17:00)"
+          "maxspeed:conditional": "30 @ (dawn-dusk)"
         }
       },
       {
         "name": "school zone",
         "tags": {
           "maxspeed": "50",
-          "maxspeed:conditional": "30 @ (08:00-17:00)"
+          "maxspeed:conditional": "30 @ (Mo-Fr 08:00-17:00; PH,SH off)"
         }
       },
       {
@@ -2401,7 +2483,7 @@
         }
       },
       {
-        "name": "motorway",
+        "name": "Quebec: Autoroute",
         "tags": {
           "maxspeed": "100",
           "minspeed": "60"
@@ -2609,7 +2691,7 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "60",
+          "maxspeed": "70",
           "maxspeed:bus": "50",
           "maxspeed:hgv": "50"
         }
@@ -2618,8 +2700,8 @@
         "tags": {
           "maxspeed": "110",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (weightrating>16)"
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (weightrating>16)"
         }
       },
       {
@@ -2627,8 +2709,8 @@
         "tags": {
           "maxspeed": "110",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (weightrating>16)"
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (weightrating>16)"
         }
       },
       {
@@ -2636,8 +2718,8 @@
         "tags": {
           "maxspeed": "120",
           "maxspeed:bus": "90",
-          "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (weightrating>16)"
+          "maxspeed:hgv": "90",
+          "maxspeed:hgv:conditional": "80 @ (weightrating>16)"
         }
       }
     ],
@@ -2967,8 +3049,32 @@
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "30 mph",
-          "maxspeed:hazmat": "40"
+          "maxspeed": "50",
+          "maxspeed:hazmat": "40",
+          "maxspeed:hgv": "50"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "80",
+          "maxspeed:hazmat": "40",
+          "maxspeed:hgv": "64"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "80",
+          "maxspeed:hazmat": "40",
+          "maxspeed:hgv": "64"
+        }
+      },
+      {
+        "name": "motorway",
+        "tags": {
+          "maxspeed": "100",
+          "maxspeed:hazmat": "40",
+          "maxspeed:hgv": "80"
         }
       }
     ],
@@ -3056,6 +3162,18 @@
     "DE": [
       {
         "name": "living street",
+        "tags": {
+          "maxspeed": "walk"
+        }
+      },
+      {
+        "name": "pedestrian zone",
+        "tags": {
+          "maxspeed": "walk"
+        }
+      },
+      {
+        "name": "footway",
         "tags": {
           "maxspeed": "walk"
         }
@@ -3465,33 +3583,36 @@
           "maxspeed": "50",
           "maxspeed:bus": "80",
           "maxspeed:coach": "100",
-          "maxspeed:conditional": "80 @ (trailer)",
-          "maxspeed:goods": "100",
+          "maxspeed:coach:conditional": "80 @ (trailer)",
+          "maxspeed:conditional": "100 @ (trailer); 80 @ (trailerweight>0.75)",
           "maxspeed:hgv": "80",
-          "maxspeed:motorhome": "100"
+          "maxspeed:motorcycle:conditional": "100 @ (trailer)",
+          "maxspeed:motorhome:conditional": "80 @ (weightrating>3.5)"
         }
       },
       {
         "tags": {
-          "maxspeed": "100",
+          "maxspeed": "80",
           "maxspeed:bus": "80",
           "maxspeed:coach": "100",
-          "maxspeed:conditional": "80 @ (trailer)",
-          "maxspeed:goods": "100",
+          "maxspeed:coach:conditional": "80 @ (trailer)",
+          "maxspeed:conditional": "100 @ (trailer); 80 @ (trailerweight>0.75)",
           "maxspeed:hgv": "80",
-          "maxspeed:motorhome": "100"
+          "maxspeed:motorcycle:conditional": "100 @ (trailer)",
+          "maxspeed:motorhome:conditional": "80 @ (weightrating>3.5)"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "100",
+          "maxspeed": "80",
           "maxspeed:bus": "80",
           "maxspeed:coach": "100",
-          "maxspeed:conditional": "80 @ (trailer)",
-          "maxspeed:goods": "100",
+          "maxspeed:coach:conditional": "80 @ (trailer)",
+          "maxspeed:conditional": "100 @ (trailer); 80 @ (trailerweight>0.75)",
           "maxspeed:hgv": "80",
-          "maxspeed:motorhome": "100"
+          "maxspeed:motorcycle:conditional": "100 @ (trailer)",
+          "maxspeed:motorhome:conditional": "80 @ (weightrating>3.5)"
         }
       }
     ],
@@ -3984,9 +4105,22 @@
     ],
     "GR": [
       {
+        "name": "pedestrian zone",
+        "tags": {
+          "maxspeed": "walk"
+        }
+      },
+      {
+        "name": "living street",
+        "tags": {
+          "maxspeed": "20"
+        }
+      },
+      {
         "name": "urban",
         "tags": {
-          "maxspeed": "50"
+          "maxspeed": "50",
+          "maxspeed:truck_bus": "40"
         }
       },
       {
@@ -3994,8 +4128,13 @@
           "maxspeed": "90",
           "maxspeed:bus": "80",
           "maxspeed:conditional": "80 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "70 @ (trailer)",
           "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (articulated); 70 @ (trailer)"
+          "maxspeed:hgv:conditional": "70 @ (articulated); 70 @ (trailer)",
+          "maxspeed:motorcycle": "90",
+          "maxspeed:school_bus": "60",
+          "maxspeed:truck_bus": "50"
         }
       },
       {
@@ -4004,8 +4143,13 @@
           "maxspeed": "90",
           "maxspeed:bus": "80",
           "maxspeed:conditional": "80 @ (trailer)",
+          "maxspeed:goods": "80",
+          "maxspeed:goods:conditional": "70 @ (trailer)",
           "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (articulated); 70 @ (trailer)"
+          "maxspeed:hgv:conditional": "70 @ (articulated); 70 @ (trailer)",
+          "maxspeed:motorcycle": "90",
+          "maxspeed:school_bus": "60",
+          "maxspeed:truck_bus": "50"
         }
       },
       {
@@ -4013,9 +4157,15 @@
         "tags": {
           "maxspeed": "110",
           "maxspeed:bus": "90",
-          "maxspeed:conditional": "90 @ (trailer)",
+          "maxspeed:bus:conditional": "80 @ (trailer)",
+          "maxspeed:conditional": "90 @ (trailer); 80 @ (trailerweight>0.75)",
+          "maxspeed:goods": "90",
+          "maxspeed:goods:conditional": "85 @ (trailer); 80 @ (trailerweight>0.75)",
           "maxspeed:hgv": "80",
-          "maxspeed:hgv:conditional": "70 @ (articulated); 70 @ (trailer)"
+          "maxspeed:hgv:conditional": "70 @ (articulated); 70 @ (trailer)",
+          "maxspeed:motorcycle": "110",
+          "maxspeed:school_bus": "80",
+          "maxspeed:truck_bus": "50"
         }
       },
       {
@@ -4023,9 +4173,15 @@
         "tags": {
           "maxspeed": "130",
           "maxspeed:bus": "100",
-          "maxspeed:conditional": "80 @ (trailer)",
+          "maxspeed:bus:conditional": "80 @ (trailer)",
+          "maxspeed:conditional": "100 @ (trailer); 90 @ (trailerweight>0.75)",
+          "maxspeed:goods": "100",
+          "maxspeed:goods:conditional": "85 @ (trailer); 80 @ (trailerweight>0.75)",
           "maxspeed:hgv": "85",
-          "maxspeed:hgv:conditional": "80 @ (articulated); 80 @ (trailer)"
+          "maxspeed:hgv:conditional": "80 @ (articulated); 80 @ (trailer)",
+          "maxspeed:motorcycle": "130",
+          "maxspeed:school_bus": "80",
+          "maxspeed:truck_bus": "50"
         }
       }
     ],
@@ -4168,13 +4324,19 @@
       {
         "tags": {
           "maxspeed": "50",
-          "maxspeed:bus": "80",
-          "maxspeed:bus:conditional": "70 @ (seats>=19)",
-          "maxspeed:hgv:conditional": "70 @ (weightrating>5.5)"
+          "maxspeed:bus": "70",
+          "maxspeed:hgv:conditional": "70 @ (weightrating>5.5)",
+          "maxspeed:minibus": "80"
         }
       }
     ],
     "HR": [
+      {
+        "name": "living street",
+        "tags": {
+          "maxspeed": "walk"
+        }
+      },
       {
         "name": "urban",
         "tags": {
@@ -4305,6 +4467,45 @@
           "maxspeed:bus": "100",
           "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)",
           "maxspeed:hgv": "80",
+          "minspeed": "60"
+        }
+      }
+    ],
+    "ID": [
+      {
+        "name": "residential district",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "name": "urban",
+        "tags": {
+          "maxspeed": "50"
+        }
+      },
+      {
+        "tags": {
+          "maxspeed": "80"
+        }
+      },
+      {
+        "name": "rural",
+        "tags": {
+          "maxspeed": "80"
+        }
+      },
+      {
+        "name": "urban motorway",
+        "tags": {
+          "maxspeed": "80",
+          "minspeed": "60"
+        }
+      },
+      {
+        "name": "rural motorway",
+        "tags": {
+          "maxspeed": "100",
           "minspeed": "60"
         }
       }
@@ -5401,6 +5602,7 @@
         "tags": {
           "maxspeed": "80",
           "maxspeed:conditional": "60 @ (trailer)",
+          "maxspeed:motorcycle": "60",
           "maxspeed:school_bus": "50"
         }
       },
@@ -5409,14 +5611,16 @@
         "tags": {
           "maxspeed": "80",
           "maxspeed:conditional": "60 @ (trailer)",
+          "maxspeed:motorcycle": "60",
           "maxspeed:school_bus": "50"
         }
       },
       {
-        "name": "long road",
+        "name": "Mongolia: \u0442\u0443\u0443\u0448 \u0437\u0430\u043c\u0434",
         "tags": {
           "maxspeed": "100",
           "maxspeed:conditional": "80 @ (trailer)",
+          "maxspeed:motorcycle": "80",
           "maxspeed:school_bus": "50"
         }
       }
@@ -5561,6 +5765,42 @@
     ],
     "MX": [
       {
+        "name": "Mexico: zona de hospital, asilo, albergue o casa hogar",
+        "tags": {
+          "maxspeed": "20"
+        }
+      },
+      {
+        "name": "Mexico: zona o entorno escolar en una v\u00eda secundaria o calle terciaria",
+        "tags": {
+          "maxspeed": "20"
+        }
+      },
+      {
+        "name": "Mexico: zona o entorno escolar",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "name": "Mexico: calle secundaria o calle terciaria",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
+        "name": "Mexico: avenida primaria sin acceso controlado",
+        "tags": {
+          "maxspeed": "50"
+        }
+      },
+      {
+        "name": "Mexico: carril central de una avenida de acceso controlado",
+        "tags": {
+          "maxspeed": "80"
+        }
+      },
+      {
         "name": "urban",
         "tags": {
           "maxspeed": "50"
@@ -5568,21 +5808,22 @@
       },
       {
         "tags": {
-          "maxspeed": "100",
-          "maxspeed:bus": "95",
-          "maxspeed:bus:conditional": "80 @ (sunset-sunrise)",
-          "maxspeed:conditional": "90 @ (sunset-sunrise)",
-          "maxspeed:goods:conditional": "80 @ (axles>=3); 70 @ (axles>=3 AND sunset-sunrise)"
+          "maxspeed": "80"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "100",
-          "maxspeed:bus": "95",
-          "maxspeed:bus:conditional": "80 @ (sunset-sunrise)",
-          "maxspeed:conditional": "90 @ (sunset-sunrise)",
-          "maxspeed:goods:conditional": "80 @ (axles>=3); 70 @ (axles>=3 AND sunset-sunrise)"
+          "maxspeed": "80"
+        }
+      },
+      {
+        "name": "Mexico: carretera o autopista de jurisdicci\u00f3n federal",
+        "tags": {
+          "maxspeed": "110",
+          "maxspeed:bus": "110",
+          "maxspeed:bus:conditional": "95 @ (seats>=30); 95 @ (wheels>=6)",
+          "maxspeed:goods": "80"
         }
       }
     ],
@@ -6196,30 +6437,19 @@
         }
       },
       {
-        "name": "Philippines: National tertiary road",
-        "tags": {
-          "maxspeed": "60",
-          "maxspeed:bus": "50",
-          "maxspeed:hgv": "50",
-          "maxspeed:tricycle": "50"
-        }
-      },
-      {
-        "name": "Philippines: National secondary road",
-        "tags": {
-          "maxspeed": "70",
-          "maxspeed:bus": "50",
-          "maxspeed:hgv": "50",
-          "maxspeed:tricycle": "50"
-        }
-      },
-      {
-        "name": "Philippines: National primary road",
+        "name": "Philippines: National road",
         "tags": {
           "maxspeed": "80",
           "maxspeed:bus": "50",
           "maxspeed:hgv": "50",
           "maxspeed:tricycle": "50"
+        }
+      },
+      {
+        "name": "motorway",
+        "tags": {
+          "maxspeed": "100",
+          "minspeed": "60"
         }
       }
     ],
@@ -6450,8 +6680,7 @@
           "maxspeed": "140",
           "maxspeed:bus": "80",
           "maxspeed:coach": "100",
-          "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)",
-          "minspeed": "40"
+          "maxspeed:conditional": "80 @ (weightrating>3.5); 80 @ (trailer)"
         }
       }
     ],
@@ -7085,38 +7314,35 @@
         }
       },
       {
+        "name": "cycle street",
+        "tags": {
+          "maxspeed": "30"
+        }
+      },
+      {
         "name": "urban",
         "tags": {
-          "maxspeed": "50",
-          "maxspeed:bus": "90",
-          "maxspeed:conditional": "90 @ (weightrating>3.5); 90 @ (trailer)",
-          "maxspeed:hgv": "90"
+          "maxspeed": "50"
         }
       },
       {
         "tags": {
-          "maxspeed": "90",
-          "maxspeed:bus": "90",
-          "maxspeed:conditional": "90 @ (weightrating>3.5); 90 @ (trailer)",
-          "maxspeed:hgv": "90"
+          "maxspeed": "90"
         }
       },
       {
         "name": "rural",
         "tags": {
-          "maxspeed": "90",
-          "maxspeed:bus": "90",
-          "maxspeed:conditional": "90 @ (weightrating>3.5); 90 @ (trailer)",
-          "maxspeed:hgv": "90"
+          "maxspeed": "90"
         }
       },
       {
         "name": "motorroad",
         "tags": {
           "maxspeed": "130",
-          "maxspeed:bus": "100",
-          "maxspeed:conditional": "100 @ (weightrating>3.5); 90 @ (trailer)",
-          "maxspeed:hgv": "100",
+          "maxspeed:bus:conditional": "10090 @ (trailerweight>0.75)",
+          "maxspeed:conditional": "90 @ (trailerweight>0.75)",
+          "maxspeed:hgv": "90",
           "minspeed": "80"
         }
       },
@@ -7124,9 +7350,9 @@
         "name": "motorway",
         "tags": {
           "maxspeed": "130",
-          "maxspeed:bus": "100",
-          "maxspeed:conditional": "100 @ (weightrating>3.5); 90 @ (trailer)",
-          "maxspeed:hgv": "100",
+          "maxspeed:bus:conditional": "10090 @ (trailerweight>0.75)",
+          "maxspeed:conditional": "90 @ (trailerweight>0.75)",
+          "maxspeed:hgv": "90",
           "minspeed": "80"
         }
       }
@@ -7854,80 +8080,49 @@
       {
         "name": "school zone",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "name": "residential district",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "name": "business district",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "name": "urban",
         "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed": "25 mph"
         }
       },
       {
         "tags": {
           "maxspeed": "55 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:conditional": "55 mph @ (trailer)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed:conditional": "55 mph @ (trailer)"
         }
       },
       {
         "name": "rural",
         "tags": {
           "maxspeed": "55 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
-          "maxspeed:conditional": "55 mph @ (trailer)",
-          "maxspeed:hazmat": "55 mph",
-          "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed:conditional": "55 mph @ (trailer)"
         }
       },
       {
-        "name": "rural road with 2 or more lanes in each direction",
+        "name": "rural road with 1 lane in each direction",
         "tags": {
           "maxspeed": "65 mph",
-          "maxspeed:bus:conditional": "55 mph @ (articulated)",
+          "maxspeed:bus:conditional": "55 mph @ (articulated); 55 mph @ (agricultural)",
           "maxspeed:conditional": "55 mph @ (trailer)",
           "maxspeed:hazmat": "55 mph",
           "maxspeed:hgv:conditional": "55 mph @ (articulated)",
-          "maxspeed:school_bus": "55 mph",
-          "maxspeed:truck_bus": "55 mph"
+          "maxspeed:school_bus": "55 mph"
         }
       }
     ],
@@ -8028,7 +8223,8 @@
       },
       {
         "tags": {
-          "maxspeed": "20 mph"
+          "maxspeed": "20 mph",
+          "maxspeed:horse": "8 mph"
         }
       }
     ],
@@ -8594,7 +8790,9 @@
       {
         "name": "trailer park",
         "tags": {
-          "maxspeed": "15 mph"
+          "maxspeed": "15 mph",
+          "maxspeed:hgv:conditional": "65 mph @ (weightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
+          "maxspeed:school_bus": "65 mph"
         }
       },
       {
@@ -8622,30 +8820,6 @@
         }
       },
       {
-        "name": "urban",
-        "tags": {
-          "maxspeed": "25 mph",
-          "maxspeed:hgv:conditional": "65 mph @ (weightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
-          "maxspeed:school_bus": "65 mph"
-        }
-      },
-      {
-        "tags": {
-          "maxspeed": "55 mph",
-          "maxspeed:hgv:conditional": "65 mph @ (weightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
-          "maxspeed:school_bus": "65 mph"
-        }
-      },
-      {
-        "name": "rural",
-        "tags": {
-          "maxspeed": "55 mph",
-          "maxspeed:hgv:conditional": "65 mph @ (weightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
-          "maxspeed:school_bus": "65 mph"
-        }
-      },
-      {
-        "name": "unpaved road",
         "tags": {
           "maxspeed": "55 mph",
           "maxspeed:hgv:conditional": "65 mph @ (weightrating>10000 lb); 65 mph @ (trailer); 65 mph @ (articulated)",
@@ -10207,6 +10381,10 @@
     ]
   },
   "warnings": [
+    "the Turkish Republic of Northern Cyprus: Unknown country / subdivision",
+    "the Turkish Republic of Northern Cyprus: Unknown country / subdivision",
+    "the Turkish Republic of Northern Cyprus: Unknown country / subdivision",
+    "the Turkish Republic of Northern Cyprus: Unknown country / subdivision",
     "Transnistria: Unknown country / subdivision",
     "Transnistria: Unknown country / subdivision",
     "Transnistria: Unknown country / subdivision",
@@ -10218,24 +10396,16 @@
     "Sint Maarten: Unknown country / subdivision",
     "Sint Maarten: Unknown country / subdivision",
     "Sint Maarten: Unknown country / subdivision",
-    "CA-NS: Unable to map 'urban public park'",
-    "MN: Unable to map 'long road'",
+    "MN: Unable to map 'Mongolia: \u0442\u0443\u0443\u0448 \u0437\u0430\u043c\u0434'",
     "NP: Unable to map 'hilly road'",
     "PG: Unable to map 'village'",
     "US-CO: Unable to map 'rural winding mountain road'",
     "US-CO: Unable to map 'rural open mountain road'",
-    "US-IA: Unable to map 'public park'",
     "US-IA: Unable to map 'Iowa: Institutional road'",
-    "US-MI: Unable to map 'trailer park'",
-    "US-MI: Unable to map 'public park'",
-    "US-ND: Unable to map 'public park'",
     "US-NJ: Unable to map 'suburban business district'",
     "US-NJ: Unable to map 'suburban residential district'",
     "US-OH: Unable to map 'urban expressway without traffic lights'",
-    "US-OH: Unable to map 'public park'",
     "US-OH: Unable to map 'rural expressway without traffic lights'",
-    "US-OK: Unable to map 'public park'",
-    "US-OR: Unable to map 'public park'",
     "US-WI: Unable to map 'Wisconsin: semiurban or outlying district'"
   ]
 }
