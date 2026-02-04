@@ -22,4 +22,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with: 
           name: legal_default_speeds.json
-          path: parser/legal_default_speeds.json
+          path: legal_default_speeds.json
